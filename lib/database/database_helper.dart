@@ -19,6 +19,8 @@ class DatabaseHelper {
 
   Future<Database> _initDatabase() async {
     String path = join(await getDatabasesPath(), 'cocktails.db');
+    // For development, deleting the database ensures onCreate is called on every launch
+    // await deleteDatabase(path);
     return await openDatabase(
       path,
       version: 1,
@@ -27,7 +29,7 @@ class DatabaseHelper {
   }
 
   Future<void> _onCreate(Database db, int version) async {
-    // 1. 创建所有表结构
+    // The table creation statements remain the same as before.
     final batch = db.batch();
     batch.execute('''
       CREATE TABLE Sources (
@@ -41,11 +43,18 @@ class DatabaseHelper {
           name TEXT NOT NULL UNIQUE
       );
     ''');
-
     batch.execute('''
       CREATE TABLE Ingredients (
           ingredient_id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name TEXT NOT NULL UNIQUE
+          name TEXT NOT NULL UNIQUE,
+          category_id INTEGER,
+          FOREIGN KEY (category_id) REFERENCES IngredientCategories (category_id)
+      );
+    ''');
+    batch.execute('''
+      CREATE TABLE IngredientCategories (
+        category_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE
       );
     ''');
     batch.execute('''
@@ -74,15 +83,12 @@ class DatabaseHelper {
           FOREIGN KEY (ingredient_id) REFERENCES Ingredients (ingredient_id)
       );
     ''');
-
-    // FIX: 添加了 Users 表的创建语句
     batch.execute('''
       CREATE TABLE Users (
           user_id INTEGER PRIMARY KEY AUTOINCREMENT,
           username TEXT NOT NULL UNIQUE
       );
     ''');
-
     batch.execute('''
       CREATE TABLE User_Inventory (
           user_id INTEGER NOT NULL,
@@ -94,48 +100,61 @@ class DatabaseHelper {
     ''');
 
     await batch.commit(noResult: true);
-
-    // FIX: 插入一个默认用户，以确保外键约束有效
     await db.insert('Users', {'user_id': 1, 'username': 'default_user'});
-
-    // 2. 表结构创建完毕后，立即填充初始数据
     await _populateDataFromAsset(db);
   }
 
-  // 新增：从asset JSON文件填充数据的方法
+  // FIX: This function is now fully data-driven by the JSON files.
   Future<void> _populateDataFromAsset(Database db) async {
     await db.transaction((txn) async {
-      final String response = await rootBundle.loadString('assets/json/cocktails-cn.json');
-      final List<dynamic> data = json.decode(response);
+      // 1. Load all necessary JSON data
+      final cocktailsResponse = await rootBundle.loadString('assets/json/cocktails-cn.json');
+      final ingredientsCnResponse = await rootBundle.loadString('assets/json/ingredients-cn.json');
+      final glassesCnResponse = await rootBundle.loadString('assets/json/glasses-cn.json');
 
-      final sourceId = await txn.insert('Sources', {'name': 'IBA官方'});
+      final List<dynamic> cocktailsData = json.decode(cocktailsResponse);
+      final Map<String, dynamic> ingredientsCnData = json.decode(ingredientsCnResponse);
+      final Map<String, dynamic> glassesCnData = json.decode(glassesCnResponse);
 
-      final glassSet = <String>{};
-      for (var cocktail in data) {
-        if (cocktail['glass'] != null) {
-          glassSet.add(cocktail['glass']);
+      // 2. Dynamically discover and insert categories from ingredients-cn.json
+      final categorySet = <String>{};
+      for (var entry in ingredientsCnData.entries) {
+        if (entry.value['category'] != null) {
+          categorySet.add(entry.value['category']);
+        } else {
+          categorySet.add('未分类'); // Default category
         }
       }
 
-      final glassMap = <String, int>{};
-      for (var name in glassSet) {
-        final id = await txn.insert('Glassware', {'name': name});
-        glassMap[name] = id;
+      final categoryMap = <String, int>{};
+      for (var catName in categorySet) {
+        final id = await txn.insert('IngredientCategories', {'name': catName});
+        categoryMap[catName] = id;
       }
 
+      // 3. Insert all ingredients and link them to their categories
       final ingredientMap = <String, int>{};
+      for (var entry in ingredientsCnData.entries) {
+        final String ingredientName = entry.value['ingredient'];
+        final String categoryName = entry.value['category'] ?? '未分类';
 
-      for (var cocktail in data) {
-        for (var ingredient in cocktail['ingredients']) {
-          final uniqueName = ingredient['label'] ?? ingredient['ingredient'];
-          if (uniqueName != null && !ingredientMap.containsKey(uniqueName)) {
-            final id = await txn.insert('Ingredients', {'name': uniqueName});
-            ingredientMap[uniqueName] = id;
-          }
+        if (!ingredientMap.containsKey(ingredientName)) {
+          final categoryId = categoryMap[categoryName];
+          final id = await txn.insert('Ingredients', {'name': ingredientName, 'category_id': categoryId});
+          ingredientMap[ingredientName] = id;
         }
       }
 
-      for (var cocktail in data) {
+      // 4. Insert glassware
+      final glassMap = <String, int>{};
+      for (var entry in glassesCnData.entries) {
+        final id = await txn.insert('Glassware', {'name': entry.value['name']});
+        glassMap[entry.value['name']] = id; // Use Chinese name as key
+      }
+
+      // 5. Insert sources and recipes
+      final sourceId = await txn.insert('Sources', {'name': 'IBA官方'});
+      for (var cocktail in cocktailsData) {
         final recipeId = await txn.insert('Recipes', {
           'name': cocktail['name'],
           'instructions': cocktail['preparation'],
@@ -145,14 +164,17 @@ class DatabaseHelper {
           'description': cocktail['garnish'] != null ? '装饰: ${cocktail['garnish']}' : null,
         });
 
-        for (var ingredient in cocktail['ingredients']) {
-          final uniqueName = ingredient['label'] ?? ingredient['ingredient'];
-          if (uniqueName != null) {
+        // 6. Insert recipe-ingredient relationships
+        for (var ingredientData in cocktail['ingredients']) {
+          final uniqueName = ingredientData['label'] ?? ingredientData['ingredient'];
+          final ingredientId = ingredientMap[uniqueName];
+
+          if (uniqueName != null && ingredientId != null) {
             await txn.insert('Recipe_Ingredients', {
               'recipe_id': recipeId,
-              'ingredient_id': ingredientMap[uniqueName],
-              'amount': ingredient['amount']?.toString(),
-              'unit': ingredient['unit'],
+              'ingredient_id': ingredientId,
+              'amount': ingredientData['amount']?.toString(),
+              'unit': ingredientData['unit'],
             });
           }
         }
@@ -160,6 +182,7 @@ class DatabaseHelper {
     });
   }
 
+  // The rest of the methods (getAllRecipes, getUserInventoryIds, etc.) remain unchanged.
   Future<List<Recipe>> getAllRecipes() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.rawQuery('''
@@ -170,17 +193,11 @@ class DatabaseHelper {
       LEFT JOIN Glassware g ON r.glass_id = g.glass_id
       ORDER BY r.name
     ''');
-
-    return List.generate(maps.length, (i) {
-      return Recipe.fromMap(maps[i]);
-    });
+    return List.generate(maps.length, (i) => Recipe.fromMap(maps[i]));
   }
 
-
-// 获取用户酒柜中所有配料的ID
   Future<Set<int>> getUserInventoryIds() async {
     final db = await database;
-    // 假设用户ID为1
     final List<Map<String, dynamic>> maps = await db.query(
       'User_Inventory',
       columns: ['ingredient_id'],
@@ -190,33 +207,37 @@ class DatabaseHelper {
     return maps.map((e) => e['ingredient_id'] as int).toSet();
   }
 
-// 获取酒柜管理所需的所有配料（包括是否已在库存中）
   Future<List<Map<String, dynamic>>> getIngredientsForBarManagement() async {
     final db = await database;
     final inventoryIds = await getUserInventoryIds();
 
-    final allIngredients = await db.query('Ingredients', orderBy: 'name');
+    final List<Map<String, dynamic>> allIngredients = await db.rawQuery('''
+      SELECT 
+        i.ingredient_id, i.name, c.name as category_name
+      FROM Ingredients i
+      LEFT JOIN IngredientCategories c ON i.category_id = c.category_id
+      ORDER BY c.name, i.name
+    ''');
 
     return allIngredients.map((ingredient) {
       return {
         'id': ingredient['ingredient_id'],
         'name': ingredient['name'],
+        'category': ingredient['category_name'] ?? '未分类',
         'in_inventory': inventoryIds.contains(ingredient['ingredient_id']),
       };
     }).toList();
   }
 
-// 将配料添加到用户酒柜
   Future<void> addIngredientToInventory(int ingredientId) async {
     final db = await database;
     await db.insert(
       'User_Inventory',
       {'user_id': 1, 'ingredient_id': ingredientId},
-      conflictAlgorithm: ConflictAlgorithm.ignore, // 如果已存在则忽略
+      conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
 
-// 从用户酒柜移除配料
   Future<void> removeIngredientFromInventory(int ingredientId) async {
     final db = await database;
     await db.delete(
@@ -226,15 +247,13 @@ class DatabaseHelper {
     );
   }
 
-// 获取单个配方的配料ID列表
   Future<List<int>> getIngredientIdsForRecipe(int recipeId) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
         'Recipe_Ingredients',
         columns: ['ingredient_id'],
         where: 'recipe_id = ?',
-        whereArgs: [recipeId]
-    );
+        whereArgs: [recipeId]);
     return maps.map((e) => e['ingredient_id'] as int).toList();
   }
 }

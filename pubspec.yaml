@@ -67,6 +67,8 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/json/cocktails-cn.json
+    - assets/json/ingredients-cn.json
+    - assets/json/glasses-cn.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
