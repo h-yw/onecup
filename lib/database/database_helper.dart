@@ -41,7 +41,7 @@ class DatabaseHelper {
           name TEXT NOT NULL UNIQUE
       );
     ''');
-    // ... (其他CREATE TABLE语句保持不变)
+
     batch.execute('''
       CREATE TABLE Ingredients (
           ingredient_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,18 +75,28 @@ class DatabaseHelper {
       );
     ''');
 
+    // FIX: 添加了 Users 表的创建语句
     batch.execute('''
-  CREATE TABLE User_Inventory (
-      user_id INTEGER NOT NULL,
-      ingredient_id INTEGER NOT NULL,
-      PRIMARY KEY (user_id, ingredient_id),
-      FOREIGN KEY (user_id) REFERENCES Users (user_id), -- 假设有Users表
-      FOREIGN KEY (ingredient_id) REFERENCES Ingredients (ingredient_id)
-  );
-''');
-// 为简化，我们暂时不创建Users表，但保留外键以符合设计
+      CREATE TABLE Users (
+          user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+          username TEXT NOT NULL UNIQUE
+      );
+    ''');
+
+    batch.execute('''
+      CREATE TABLE User_Inventory (
+          user_id INTEGER NOT NULL,
+          ingredient_id INTEGER NOT NULL,
+          PRIMARY KEY (user_id, ingredient_id),
+          FOREIGN KEY (user_id) REFERENCES Users (user_id),
+          FOREIGN KEY (ingredient_id) REFERENCES Ingredients (ingredient_id)
+      );
+    ''');
 
     await batch.commit(noResult: true);
+
+    // FIX: 插入一个默认用户，以确保外键约束有效
+    await db.insert('Users', {'user_id': 1, 'username': 'default_user'});
 
     // 2. 表结构创建完毕后，立即填充初始数据
     await _populateDataFromAsset(db);
@@ -113,26 +123,17 @@ class DatabaseHelper {
         glassMap[name] = id;
       }
 
-      // --- 开始修复的逻辑 ---
-
-      // 1. 创建一个空的配料名称到ID的映射
       final ingredientMap = <String, int>{};
 
-      // 2. 遍历所有鸡尾酒的配料，以建立一个唯一的配料列表
       for (var cocktail in data) {
         for (var ingredient in cocktail['ingredients']) {
-          // 优先使用 'label' 作为唯一名称，如果不存在则使用 'ingredient'
           final uniqueName = ingredient['label'] ?? ingredient['ingredient'];
-
-          // 如果该配料尚未被添加，则插入数据库并存入map
           if (uniqueName != null && !ingredientMap.containsKey(uniqueName)) {
             final id = await txn.insert('Ingredients', {'name': uniqueName});
             ingredientMap[uniqueName] = id;
           }
         }
       }
-
-      // --- 结束修复的逻辑 ---
 
       for (var cocktail in data) {
         final recipeId = await txn.insert('Recipes', {
@@ -145,13 +146,11 @@ class DatabaseHelper {
         });
 
         for (var ingredient in cocktail['ingredients']) {
-          // 使用与上面完全相同的逻辑来查找正确的配料ID
           final uniqueName = ingredient['label'] ?? ingredient['ingredient'];
-
           if (uniqueName != null) {
             await txn.insert('Recipe_Ingredients', {
               'recipe_id': recipeId,
-              'ingredient_id': ingredientMap[uniqueName], // 使用唯一名称查找ID
+              'ingredient_id': ingredientMap[uniqueName],
               'amount': ingredient['amount']?.toString(),
               'unit': ingredient['unit'],
             });
@@ -160,7 +159,7 @@ class DatabaseHelper {
       }
     });
   }
-  // 获取所有鸡尾酒配方的方法（保持不变）
+
   Future<List<Recipe>> getAllRecipes() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.rawQuery('''

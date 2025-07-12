@@ -2,9 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:onecup/screens/home_screen.dart';
 import 'package:onecup/screens/my_bar_screen.dart';
-import 'package:onecup/theme/app_theme.dart';
-import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:onecup/screens/shopping_list_screen.dart'; // 导入新页面
 
 void main() {
   runApp(const MyApp());
@@ -31,10 +29,11 @@ class MainTabsScreen extends StatefulWidget {
 }
 
 class _MainTabsScreenState extends State<MainTabsScreen> {
-  // FIX: Defined the list of pages for the BottomNavigationBar.
+  // FIX: 定义了BottomNavigationBar的页面列表。
   final List<Widget> _pages = [
     const HomeScreen(),
-    const MyBarScreen()
+    const MyBarScreen(),
+    const ShoppingListScreen(), // 添加新页面
   ];
   int _selectedPageIndex = 0;
 
@@ -54,7 +53,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
         unselectedItemColor: Colors.white70,
         selectedItemColor: Colors.white,
         currentIndex: _selectedPageIndex,
-        // FIX: Added the items for the BottomNavigationBar.
+        // FIX: 添加了BottomNavigationBar的item。
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.local_bar),
