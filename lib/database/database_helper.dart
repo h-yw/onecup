@@ -99,6 +99,15 @@ class DatabaseHelper {
       );
     ''');
 
+    // [新增] 创建购物清单表
+    batch.execute('''
+      CREATE TABLE ShoppingList (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT NOT NULL,
+          checked INTEGER NOT NULL DEFAULT 0
+      );
+    ''');
+
     await batch.commit(noResult: true);
     await db.insert('Users', {'user_id': 1, 'username': 'default_user'});
     await _populateDataFromAsset(db);
@@ -255,5 +264,42 @@ class DatabaseHelper {
         where: 'recipe_id = ?',
         whereArgs: [recipeId]);
     return maps.map((e) => e['ingredient_id'] as int).toList();
+  }
+  // -------------------------购物清单--------------------------------//
+  // [新增] 获取购物清单所有项目
+  Future<List<Map<String, dynamic>>> getShoppingList() async {
+    final db = await database;
+    return await db.query('ShoppingList', orderBy: 'id DESC');
+  }
+
+  // [新增] 向购物清单添加一个项目
+  Future<void> addToShoppingList(String name) async {
+    final db = await database;
+    await db.insert(
+      'ShoppingList',
+      {'name': name, 'checked': 0},
+      conflictAlgorithm: ConflictAlgorithm.ignore, // 如果已存在同名项，则忽略
+    );
+  }
+
+  // [新增] 更新购物清单项目的勾选状态
+  Future<void> updateShoppingListItem(int id, bool isChecked) async {
+    final db = await database;
+    await db.update(
+      'ShoppingList',
+      {'checked': isChecked ? 1 : 0},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  // [新增] 从购物清单移除一个项目
+  Future<void> removeFromShoppingList(int id) async {
+    final db = await database;
+    await db.delete(
+      'ShoppingList',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 }
