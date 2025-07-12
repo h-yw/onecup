@@ -13,12 +13,36 @@ class RecipeDetailScreen extends StatefulWidget {
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   final DatabaseHelper _dbHelper = DatabaseHelper();
-  Future<List<Map<String, dynamic>>>? _ingredientsFuture;
+  late Future<List<Map<String, dynamic>>> _ingredientsFuture;
+  late Future<List<String>> _tagsFuture;
+  bool _isFavorited = false;
 
   @override
   void initState() {
     super.initState();
     _ingredientsFuture = _dbHelper.getIngredientsForRecipe(widget.recipe.id);
+    _tagsFuture = _dbHelper.getRecipeTags(widget.recipe.id);
+    _checkIfFavorited();
+  }
+
+  void _checkIfFavorited() async {
+    final isFav = await _dbHelper.isRecipeFavorite(widget.recipe.id);
+    if (mounted) {
+      setState(() {
+        _isFavorited = isFav;
+      });
+    }
+  }
+
+  void _toggleFavorite() async {
+    if (_isFavorited) {
+      await _dbHelper.removeRecipeFromFavorites(widget.recipe.id);
+    } else {
+      await _dbHelper.addRecipeToFavorites(widget.recipe.id);
+    }
+    setState(() {
+      _isFavorited = !_isFavorited;
+    });
   }
 
   @override
@@ -28,6 +52,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.recipe.name),
+        actions: [
+          IconButton(
+            icon: Icon(
+              _isFavorited ? Icons.favorite : Icons.favorite_border,
+              color: _isFavorited ? Colors.redAccent : null,
+            ),
+            onPressed: _toggleFavorite,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -35,18 +68,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. 鸡尾酒图片/插画区域 (符合蓝图设计)
+              // ... 其他部分不变 ...
               Container(
                 height: 250,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(12),
-                  // 在这里可以添加图片
-                  // image: DecorationImage(
-                  //   image: AssetImage('path_to_image'),
-                  //   fit: BoxFit.cover,
-                  // ),
                 ),
                 child: Icon(
                   Icons.local_bar,
@@ -55,35 +83,46 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-
-              // 2. 配方描述或故事
               if (widget.recipe.description != null && widget.recipe.description!.isNotEmpty) ...[
                 Text('关于', style: textTheme.headlineSmall),
                 const SizedBox(height: 8),
                 Text(widget.recipe.description!, style: textTheme.bodyLarge),
                 const SizedBox(height: 24),
               ],
-
-              // 3. 所需配料列表
               Text('配料', style: textTheme.headlineSmall),
               const SizedBox(height: 8),
               _buildIngredientsList(),
               const SizedBox(height: 24),
-
-              // 4. 调制步骤
               Text('调制步骤', style: textTheme.headlineSmall),
               const SizedBox(height: 8),
               Text(
                 widget.recipe.instructions ?? '暂无详细步骤。',
                 style: textTheme.bodyLarge?.copyWith(height: 1.6),
               ),
+
+              // [新增] 风味标签部分
+              const SizedBox(height: 24),
+              Text('风味标签', style: textTheme.headlineSmall),
+              const SizedBox(height: 8),
+              _buildTagsList(),
+              const SizedBox(height: 80), // 为浮动按钮留出空间
             ],
           ),
         ),
       ),
+      // [新增] 添加到购物清单的浮动按钮
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // TODO: 实现将所有配料添加到购物清单的逻辑
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('功能开发中：将所有配料添加到购物清单！')),
+          );
+        },
+        label: const Text('添加到购物清单'),
+        icon: const Icon(Icons.add_shopping_cart),
+      ),
     );
   }
-
   // 构建配料列表的辅助方法
   Widget _buildIngredientsList() {
     return FutureBuilder<List<Map<String, dynamic>>>(
@@ -119,6 +158,27 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               ),
             );
           }).toList(),
+        );
+      },
+    );
+  }
+  // [新增] 构建风味标签列表的辅助方法
+  Widget _buildTagsList() {
+    return FutureBuilder<List<String>>(
+      future: _tagsFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SizedBox(height: 30, child: CircularProgressIndicator());
+        }
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Text('暂无风味信息。', style: Theme.of(context).textTheme.bodyMedium);
+        }
+
+        final tags = snapshot.data!;
+        return Wrap(
+          spacing: 8.0,
+          runSpacing: 4.0,
+          children: tags.map((tag) => Chip(label: Text(tag))).toList(),
         );
       },
     );

@@ -108,6 +108,32 @@ class DatabaseHelper {
       );
     ''');
 
+    //  风味标签相关表 (符合蓝图第2章设计)
+    batch.execute('''
+      CREATE TABLE Tags (
+        tag_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE
+      );
+    ''');
+    batch.execute('''
+      CREATE TABLE Recipe_Tags (
+        recipe_id INTEGER NOT NULL,
+        tag_id INTEGER NOT NULL,
+        PRIMARY KEY (recipe_id, tag_id),
+        FOREIGN KEY (recipe_id) REFERENCES Recipes (recipe_id),
+        FOREIGN KEY (tag_id) REFERENCES Tags (tag_id)
+      );
+    ''');
+    batch.execute('''
+      CREATE TABLE User_Favorites (
+        user_id INTEGER NOT NULL,
+        recipe_id INTEGER NOT NULL,
+        PRIMARY KEY (user_id, recipe_id),
+        FOREIGN KEY (user_id) REFERENCES Users (user_id),
+        FOREIGN KEY (recipe_id) REFERENCES Recipes (recipe_id)
+      );
+    ''');
+
     await batch.commit(noResult: true);
     await db.insert('Users', {'user_id': 1, 'username': 'default_user'});
     await _populateDataFromAsset(db);
@@ -137,32 +163,59 @@ class DatabaseHelper {
 
       final categoryMap = <String, int>{};
       for (var catName in categorySet) {
-        final id = await txn.insert('IngredientCategories', {'name': catName});
-        categoryMap[catName] = id;
+        final id = await txn.insert('IngredientCategories', {'name': catName}, conflictAlgorithm: ConflictAlgorithm.ignore);
+        final result = await txn.query('IngredientCategories', where: 'name = ?', whereArgs: [catName]);
+        categoryMap[catName] = result.first['category_id'] as int;
       }
 
       // 3. Insert all ingredients and link them to their categories
       final ingredientMap = <String, int>{};
+      final ingredientToTasteMap = <int, String?>{};
+      final tasteSet = <String>{};
+
       for (var entry in ingredientsCnData.entries) {
         final String ingredientName = entry.value['ingredient'];
         final String categoryName = entry.value['category'] ?? '未分类';
+        final String? taste = entry.value['taste'];
+
+        if (taste != null) {
+          tasteSet.add(taste);
+        }
 
         if (!ingredientMap.containsKey(ingredientName)) {
           final categoryId = categoryMap[categoryName];
-          final id = await txn.insert('Ingredients', {'name': ingredientName, 'category_id': categoryId});
-          ingredientMap[ingredientName] = id;
+          final id = await txn.insert('Ingredients', {'name': ingredientName, 'category_id': categoryId}, conflictAlgorithm: ConflictAlgorithm.ignore);
+          final result = await txn.query('Ingredients', where: 'name = ?', whereArgs: [ingredientName]);
+          final newId = result.first['ingredient_id'] as int;
+          ingredientMap[ingredientName] = newId;
+          ingredientToTasteMap[newId] = taste;
         }
       }
 
       // 4. Insert glassware
       final glassMap = <String, int>{};
       for (var entry in glassesCnData.entries) {
-        final id = await txn.insert('Glassware', {'name': entry.value['name']});
-        glassMap[entry.value['name']] = id; // Use Chinese name as key
+        await txn.insert('Glassware', {'name': entry.value['name']}, conflictAlgorithm: ConflictAlgorithm.ignore);
+        final result = await txn.query('Glassware', where: 'name = ?', whereArgs: [entry.value['name']]);
+        glassMap[entry.value['name']] = result.first['glass_id'] as int;
+      }
+
+      // 填充Tags表
+      final tagMap = <String, int>{};
+      for (var tasteName in tasteSet) {
+        await txn.insert('Tags', {'name': tasteName}, conflictAlgorithm: ConflictAlgorithm.ignore);
+        final result = await txn.query('Tags', where: 'name = ?', whereArgs: [tasteName]);
+        tagMap[tasteName] = result.first['tag_id'] as int;
       }
 
       // 5. Insert sources and recipes
-      final sourceId = await txn.insert('Sources', {'name': 'IBA官方'});
+      final sourceIdResult = await txn.query('Sources', where: 'name = ?', whereArgs: ['IBA官方']);
+      int sourceId;
+      if (sourceIdResult.isEmpty) {
+        sourceId = await txn.insert('Sources', {'name': 'IBA官方'});
+      } else {
+        sourceId = sourceIdResult.first['source_id'] as int;
+      }
       for (var cocktail in cocktailsData) {
         final recipeId = await txn.insert('Recipes', {
           'name': cocktail['name'],
@@ -171,9 +224,9 @@ class DatabaseHelper {
           'glass_id': glassMap[cocktail['glass']],
           'source_id': sourceId,
           'description': cocktail['garnish'] != null ? '装饰: ${cocktail['garnish']}' : null,
-        });
+        }, conflictAlgorithm: ConflictAlgorithm.replace);
 
-        // 6. Insert recipe-ingredient relationships
+        final recipeTags = <String>{};
         for (var ingredientData in cocktail['ingredients']) {
           final uniqueName = ingredientData['label'] ?? ingredientData['ingredient'];
           final ingredientId = ingredientMap[uniqueName];
@@ -184,7 +237,23 @@ class DatabaseHelper {
               'ingredient_id': ingredientId,
               'amount': ingredientData['amount']?.toString(),
               'unit': ingredientData['unit'],
-            });
+            }, conflictAlgorithm: ConflictAlgorithm.replace);
+
+            // [新增] 关联配方的风味标签
+            final taste = ingredientToTasteMap[ingredientId];
+            if (taste != null) {
+              recipeTags.add(taste);
+            }
+          }
+        }
+
+        for (var tagName in recipeTags) {
+          final tagId = tagMap[tagName];
+          if (tagId != null) {
+            await txn.insert('Recipe_Tags', {
+              'recipe_id': recipeId,
+              'tag_id': tagId,
+            }, conflictAlgorithm: ConflictAlgorithm.ignore);
           }
         }
       }
@@ -396,5 +465,75 @@ class DatabaseHelper {
     return results;
   }
 
+  // [新增] 收藏夹相关方法
+  Future<void> addRecipeToFavorites(int recipeId, {int userId = 1}) async {
+    final db = await database;
+    await db.insert(
+      'User_Favorites',
+      {'user_id': userId, 'recipe_id': recipeId},
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
+  }
 
+  Future<void> removeRecipeFromFavorites(int recipeId, {int userId = 1}) async {
+    final db = await database;
+    await db.delete(
+      'User_Favorites',
+      where: 'user_id = ? AND recipe_id = ?',
+      whereArgs: [userId, recipeId],
+    );
+  }
+
+  Future<bool> isRecipeFavorite(int recipeId, {int userId = 1}) async {
+    final db = await database;
+    final result = await db.query(
+      'User_Favorites',
+      where: 'user_id = ? AND recipe_id = ?',
+      whereArgs: [userId, recipeId],
+    );
+    return result.isNotEmpty;
+  }
+
+  // [新增] 获取配方风味标签
+  Future<List<String>> getRecipeTags(int recipeId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.rawQuery('''
+          SELECT T.name FROM Tags T
+          JOIN Recipe_Tags RT ON T.tag_id = RT.tag_id
+          WHERE RT.recipe_id = ?
+      ''', [recipeId]);
+    if (maps.isEmpty) return [];
+    return maps.map((map) => map['name'] as String).toList();
+  }
+
+  // [新增] 获取基于风味的推荐
+  Future<List<Recipe>> getFlavorBasedRecommendations({int userId = 1, int limit = 10}) async {
+    final db = await database;
+    // 1. 获取用户收藏的所有配方及其标签
+    final List<Map<String, dynamic>> favoriteTagsData = await db.rawQuery('''
+      SELECT DISTINCT RT.tag_id FROM User_Favorites UF
+      JOIN Recipe_Tags RT ON UF.recipe_id = RT.recipe_id
+      WHERE UF.user_id = ?
+    ''', [userId]);
+
+    if (favoriteTagsData.isEmpty) {
+      return []; // 如果没有收藏，则无法推荐
+    }
+    final favoriteTagIds = favoriteTagsData.map((map) => map['tag_id'] as int).toList();
+
+    // 2. 找到与用户喜欢的标签匹配的其他配方，并排除已收藏的
+    final List<Map<String, dynamic>> recommendedRecipesData = await db.rawQuery('''
+      SELECT R.*, G.name as glass, COUNT(RT.tag_id) as match_score
+      FROM Recipes R
+      JOIN Recipe_Tags RT ON R.recipe_id = RT.recipe_id
+      LEFT JOIN Glassware G ON R.glass_id = G.glass_id
+      WHERE RT.tag_id IN (${favoriteTagIds.map((_) => '?').join(',')})
+        AND R.recipe_id NOT IN (SELECT recipe_id FROM User_Favorites WHERE user_id = ?)
+      GROUP BY R.recipe_id
+      ORDER BY match_score DESC
+      LIMIT ?
+    ''', [...favoriteTagIds, userId, limit]);
+
+    return recommendedRecipesData.map((map) => Recipe.fromMap(map)).toList();
+  }
 }
