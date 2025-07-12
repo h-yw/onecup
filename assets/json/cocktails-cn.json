@@ -1,0 +1,1452 @@
+[
+  {
+    "iba": true,
+    "name": "维斯珀",
+    "colors": "#D88317",
+    "glass": "马提尼杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 6, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 0.75, "ingredient": "丽叶金" }
+    ],
+    "garnish": "柠檬皮卷",
+    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "百加得",
+    "colors": ["#F80304"],
+    "glass": "马提尼杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 4.5,
+        "ingredient": "白朗姆酒",
+        "label": "百加得白朗姆酒"
+      },
+      { "unit": "厘升", "amount": 2, "ingredient": "青柠汁" },
+      { "unit": "厘升", "amount": 1, "ingredient": "糖浆", "label": "红石榴糖浆" }
+    ],
+    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "尼格罗尼",
+    "colors": "#ED0200",
+    "glass": "古典杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 3, "ingredient": "金巴利" },
+      {
+        "unit": "厘升",
+        "amount": 3,
+        "ingredient": "味美思",
+        "label": "甜红味美思"
+      }
+    ],
+    "garnish": "半片橙子",
+    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。"
+  },
+  {
+    "iba": true,
+    "name": "玫瑰",
+    "colors": "#FE29BC",
+    "glass": "马提尼杯",
+    "ingredients": [
+      { "unit": "厘升", "amount": 2, "ingredient": "樱桃酒" },
+      {
+        "unit": "厘升",
+        "amount": 4,
+        "ingredient": "味美思",
+        "label": "干味美思"
+      },
+      {
+        "amount": "3滴",
+        "ingredient": "糖浆",
+        "label": "草莓糖浆"
+      }
+    ],
+    "preparation": "将所有原料与冰块搅拌均匀，然后滤入鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "古典",
+    "colors": ["#E74A03", "#F1A507"],
+    "glass": "古典杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 4.5,
+        "ingredient": "威士忌",
+        "label": "波本或黑麦威士忌"
+      },
+      { "ingredient": "安高天娜苦精", "amount": "2滴" },
+      { "ingredient": "糖", "amount": "1块", "label": "方糖" },
+      { "special": "几滴纯水" }
+    ],
+    "garnish": "橙片和樱桃",
+    "preparation": "将方糖放入古典杯中，用苦精浸透，加入一滴纯水。捣烂直至溶解。在杯中装满冰块，加入威士忌。"
+  },
+  {
+    "iba": true,
+    "name": "燕尾服",
+    "colors": "#FDC78B",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 3,
+        "ingredient": "金酒",
+        "label": "老汤姆金酒"
+      },
+      {
+        "unit": "厘升",
+        "amount": 3,
+        "ingredient": "味美思",
+        "label": "干味美思"
+      },
+      { "amount": "1/4吧勺", "ingredient": "苦艾酒" },
+      {
+        "amount": "1/2吧勺",
+        "ingredient": "樱桃利口酒",
+        "label": "黑樱桃利口酒"
+      },
+      { "amount": "3滴", "ingredient": "橙味苦精" }
+    ],
+    "garnish": "樱桃和柠檬皮卷",
+    "preparation": "将所有原料与冰块搅拌均匀，然后滤入鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "莫吉托",
+    "colors": ["#F7F1BC", "#6D9600"],
+    "glass": "柯林斯杯",
+    "category": "长饮",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 4,
+        "ingredient": "白朗姆酒",
+        "label": "古巴白朗姆酒"
+      },
+      { "ingredient": "苏打水" },
+      { "unit": "厘升", "amount": 3, "ingredient": "青柠汁" },
+      { "ingredient": "薄荷", "amount": "6枝", "label": "薄荷枝" },
+      { "ingredient": "糖", "amount": "2茶匙", "label": "白糖" }
+    ],
+    "garnish": "薄荷叶和柠檬片",
+    "preparation": "将薄荷枝与糖和青柠汁捣烂。加入少量苏打水，然后用碎冰填满杯子。倒入朗姆酒，最后加满苏打水。用吸管饮用。"
+  },
+  {
+    "iba": true,
+    "name": "马颈",
+    "colors": "#D9A031",
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4, "ingredient": "干邑白兰地" },
+      { "unit": "厘升", "amount": 12, "ingredient": "姜汁汽水" },
+      { "special": "一滴安高天娜苦精（可选）" }
+    ],
+    "garnish": "柠檬皮卷",
+    "preparation": "在高球杯中加入冰块调制。轻轻搅拌。如果需要，可加入几滴安高天娜苦精。"
+  },
+  {
+    "iba": true,
+    "name": "种植园主潘趣",
+    "colors": ["#B51202", "#F9C31A"],
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "黑朗姆酒" },
+      { "unit": "厘升", "amount": 3.5, "ingredient": "橙汁" },
+      { "unit": "厘升", "amount": 3.5, "ingredient": "菠萝汁" },
+      { "unit": "厘升", "amount": 2, "ingredient": "柠檬汁" },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "糖浆",
+        "label": "红石榴糖浆"
+      },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "糖浆",
+        "label": "糖浆"
+      },
+      { "ingredient": "安高天娜苦精", "amount": "3至4滴" }
+    ],
+    "garnish": "菠萝片和一颗樱桃",
+    "preparation": "将除苦精外的所有原料倒入装满冰的摇酒壶中。摇匀。倒入装满冰的大杯中。在顶部滴加“安高天娜苦精”。"
+  },
+  {
+    "iba": true,
+    "name": "海风",
+    "colors": ["#f20010", "#89c134"],
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 12, "ingredient": "蔓越莓汁" },
+      { "unit": "厘升", "amount": 3, "ingredient": "葡萄柚汁" }
+    ],
+    "garnish": "青柠角",
+    "preparation": "在装满冰的岩石杯中调制所有原料。"
+  },
+  {
+    "iba": true,
+    "name": "皮斯科酸",
+    "colors": "#B5AB90",
+    "glass": "古典杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "皮斯科" },
+      { "unit": "厘升", "amount": 3, "ingredient": "柠檬汁" },
+      {
+        "unit": "厘升",
+        "amount": 2,
+        "ingredient": "糖浆",
+        "label": "糖浆"
+      },
+      {
+        "ingredient": "蛋清",
+        "amount": 1,
+        "label": "蛋清（小鸡蛋）"
+      }
+    ],
+    "preparation": "摇匀并滤入冰镇的香槟杯中。在顶部滴几滴安高天娜苦精。"
+  },
+  {
+    "iba": true,
+    "name": "长岛冰茶",
+    "colors": "#C18450",
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 1.5, "ingredient": "龙舌兰" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "白朗姆酒" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "三秒利口酒" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 2.5, "ingredient": "柠檬汁" },
+      {
+        "unit": "厘升",
+        "amount": 3.0,
+        "ingredient": "糖浆",
+        "label": "阿拉伯糖浆"
+      },
+      { "ingredient": "可乐", "amount": "1滴" }
+    ],
+    "garnish": "柠檬皮卷",
+    "preparation": "将所有原料加入装满冰块的高球杯中。轻轻搅拌。用吸管饮用。"
+  },
+  {
+    "iba": true,
+    "name": "三叶草俱乐部",
+    "colors": ["#B1061D", "#E65259", "#f4edee"],
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "金酒" },
+      {
+        "unit": "厘升",
+        "amount": 1.5,
+        "ingredient": "覆盆子糖浆"
+      },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
+      {
+        "ingredient": "蛋清",
+        "label": "几滴蛋清"
+      }
+    ],
+    "preparation": "加冰块摇匀。滤入鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "天使之面",
+    "colors": ["#F6CD4C"],
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 3, "ingredient": "杏子白兰地" },
+      { "unit": "厘升", "amount": 3, "ingredient": "卡尔瓦多斯" }
+    ],
+    "preparation": "加冰块摇匀。滤入鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "含羞草",
+    "colors": "#EBC04D",
+    "glass": "香槟杯",
+    "category": "气泡鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 7.5, "ingredient": "香槟" },
+      { "unit": "厘升", "amount": 7.5, "ingredient": "橙汁" }
+    ],
+    "garnish": "可选橙皮卷",
+    "preparation": "将橙汁倒入笛形杯中，然后轻轻倒入香槟。轻轻搅拌。注意：Buck's Fizz 是一款非常相似的鸡尾酒，但由两份香槟和一份橙汁制成。"
+  },
+  {
+    "iba": true,
+    "name": "威士忌酸",
+    "colors": "#F3CA69",
+    "glass": "古典杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 4.5,
+        "ingredient": "威士忌",
+        "label": "波本威士忌"
+      },
+      { "unit": "厘升", "amount": 3.0, "ingredient": "柠檬汁" },
+      { "ingredient": "蛋清", "label": "一滴蛋清" },
+      {
+        "unit": "厘升",
+        "amount": 1.5,
+        "ingredient": "糖浆",
+        "label": "糖浆"
+      }
+    ],
+    "garnish": "半片橙子和一颗樱桃",
+    "preparation": "（可选：如果使用蛋清，摇动时要更用力，以使蛋清起泡）。将所有原料倒入装满冰的摇酒壶中。摇匀。滤入鸡尾酒杯中。如果选择“加冰”，则将原料滤入装满冰的古典杯中。"
+  },
+  {
+    "iba": true,
+    "name": "螺丝刀",
+    "colors": "#D6C01D",
+    "glass": "高球杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 5, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 10, "ingredient": "橙汁" }
+    ],
+    "garnish": "橙片",
+    "preparation": "在高球杯中加入冰块调制。轻轻搅拌。"
+  },
+  {
+    "iba": true,
+    "name": "自由古巴",
+    "colors": ["#440D06", "#983F27", "#EDDC7C"],
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 5, "ingredient": "白朗姆酒" },
+      { "unit": "厘升", "amount": 12, "ingredient": "可乐" },
+      { "unit": "厘升", "amount": 1, "ingredient": "青柠汁" }
+    ],
+    "garnish": "青柠角",
+    "preparation": "在高球杯中加入冰块调制所有原料。"
+  },
+  {
+    "iba": true,
+    "name": "曼哈顿",
+    "colors": "#FF000B",
+    "glass": "马提尼杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 5,
+        "ingredient": "威士忌",
+        "label": "黑麦威士忌"
+      },
+      {
+        "unit": "厘升",
+        "amount": 2,
+        "ingredient": "味美思",
+        "label": "红味美思"
+      },
+      { "ingredient": "安高天娜苦精", "amount": "1滴" }
+    ],
+    "garnish": "樱桃",
+    "preparation": "在调酒杯中与冰块搅拌。滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "波特菲力普",
+    "colors": "#823D38",
+    "glass": "马提尼杯",
+    "category": "餐后鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 1.5, "ingredient": "干邑白兰地" },
+      { "unit": "厘升", "amount": 4.5, "ingredient": "红波特酒" },
+      { "unit": "厘升", "amount": 1, "ingredient": "蛋黄" }
+    ],
+    "preparation": "加冰块摇匀。滤入鸡尾酒杯中。撒上新鲜的肉豆蔻粉。"
+  },
+  {
+    "iba": true,
+    "name": "金菲士",
+    "colors": "#C6C8C3",
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 3, "ingredient": "柠檬汁" },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "糖浆",
+        "label": "糖浆"
+      },
+      { "unit": "厘升", "amount": 8, "ingredient": "苏打水" }
+    ],
+    "garnish": "柠檬片",
+    "preparation": "将除苏打水外的所有原料与冰块摇匀。倒入平底杯中。加满苏打水。"
+  },
+  {
+    "iba": true,
+    "name": "意式浓缩马提尼",
+    "searchTerm": "马提尼",
+    "colors": ["#463639", "#D0BFA5"],
+    "glass": "马提尼杯",
+    "category": "餐后鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 5, "ingredient": "伏特加" },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "咖啡利口酒",
+        "label": "甘露咖啡利口酒"
+      },
+      {
+        "ingredient": "咖啡",
+        "amount": "1份",
+        "label": "意式浓缩咖啡"
+      },
+      {
+        "label": "糖浆",
+        "ingredient": "糖浆",
+        "amount": "根据口味添加"
+      }
+    ],
+    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "玛格丽特",
+    "colors": "#B8B781",
+    "glass": "玛格丽特杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3.5, "ingredient": "龙舌兰" },
+      {
+        "unit": "厘升",
+        "amount": 2,
+        "ingredient": "三秒利口酒",
+        "label": "君度"
+      },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" }
+    ],
+    "preparation": "加冰块摇匀。滤入杯口沾有盐的鸡尾酒杯中（注意：水果玛格丽特 - 将所选水果与上述配方混合搅拌）。"
+  },
+  {
+    "iba": true,
+    "name": "法式75",
+    "colors": ["#E9CE8E"],
+    "glass": "郁金香香槟杯",
+    "category": "气泡鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
+      { "ingredient": "糖浆", "amount": "2滴", "label": "糖浆" },
+      { "unit": "厘升", "amount": 6, "ingredient": "香槟" }
+    ],
+    "preparation": "除香槟外，将其余原料与冰块摇匀。滤入香槟杯中。加满香槟。轻轻搅拌。"
+  },
+  {
+    "iba": true,
+    "name": "黄鸟",
+    "colors": "#EBCF2E",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3, "ingredient": "白朗姆酒" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "加利安诺" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "三秒利口酒" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" }
+    ],
+    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "椰林飘香",
+    "colors": "#C5B9A1",
+    "glass": "飓风杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3, "ingredient": "白朗姆酒" },
+      { "unit": "厘升", "amount": 9, "ingredient": "菠萝汁" },
+      { "unit": "厘升", "amount": 3, "ingredient": "椰奶" }
+    ],
+    "garnish": "菠萝片和一颗樱桃",
+    "preparation": "将所有原料与冰块在电动搅拌机中搅拌，倒入大高脚杯或飓风杯中，用吸管饮用。"
+  },
+  {
+    "iba": true,
+    "name": "飞行",
+    "colors": "#68517B",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "金酒" },
+      {
+        "unit": "厘升",
+        "amount": 1.5,
+        "ingredient": "樱桃利口酒",
+        "label": "黑樱桃利口酒"
+      },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
+      { "amount": "1份", "ingredient": "紫罗兰利口酒" }
+    ],
+    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。IBA的配方省略了通常会添加的紫罗兰利口酒，这种酒能赋予饮品独特的紫色。"
+  },
+  {
+    "iba": true,
+    "name": "贝里尼",
+    "colors": ["#F89E64"],
+    "glass": "香槟杯",
+    "category": "气泡鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 10, "ingredient": "普罗赛克" },
+      { "unit": "厘升", "amount": 5, "ingredient": "桃子泥" }
+    ],
+    "preparation": "将桃子泥倒入冰镇的杯中，加入气泡酒。轻轻搅拌。变种：普契尼（新鲜橘子汁）、罗西尼（新鲜草莓泥）、丁托列托（新鲜石榴汁）。"
+  },
+  {
+    "iba": true,
+    "name": "蚱蜢",
+    "colors": "#75CCA6",
+    "glass": "马提尼杯",
+    "category": "餐后鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 3,
+        "ingredient": "可可利口酒",
+        "label": "白可可利口酒"
+      },
+      {
+        "unit": "厘升",
+        "amount": 3,
+        "ingredient": "薄荷利口酒",
+        "label": "绿薄荷利口酒"
+      },
+      { "unit": "厘升", "amount": 3, "ingredient": "奶油" }
+    ],
+    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "龙舌兰日出",
+    "colors": ["#FFC800", "#F64202"],
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "龙舌兰" },
+      { "unit": "厘升", "amount": 9, "ingredient": "橙汁" },
+      {
+        "unit": "厘升",
+        "amount": 1.5,
+        "ingredient": "糖浆",
+        "label": "红石榴糖浆"
+      }
+    ],
+    "garnish": "橙片和一颗樱桃",
+    "preparation": "在高球杯中加入龙舌兰和橙汁，加冰块。加入少量红石榴糖浆，营造日出效果。不要搅拌。"
+  },
+  {
+    "iba": true,
+    "name": "得其利",
+    "colors": "#ACA99C",
+    "glass": "马提尼杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "白朗姆酒" },
+      { "unit": "厘升", "amount": 2.5, "ingredient": "青柠汁" },
+      {
+        "unit": "厘升",
+        "amount": 1.5,
+        "ingredient": "糖浆",
+        "label": "单糖浆"
+      }
+    ],
+    "preparation": "摇匀并滤入鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "锈钉",
+    "colors": "#BD4200",
+    "glass": "古典杯",
+    "category": "餐后鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 4.5,
+        "ingredient": "威士忌",
+        "label": "苏格兰威士忌"
+      },
+      { "unit": "厘升", "amount": 2.5, "ingredient": "杜林标" }
+    ],
+    "garnish": "柠檬皮卷",
+    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。"
+  },
+  {
+    "iba": true,
+    "name": "B-52",
+    "colors": ["#F39F00", "#E7D3B3", "#401110"],
+    "glass": "子弹杯",
+    "category": "餐后鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 2,
+        "ingredient": "咖啡利口酒",
+        "label": "甘露咖啡利口酒"
+      },
+      {
+        "unit": "厘升",
+        "amount": 2,
+        "ingredient": "奶油利口酒",
+        "label": "百利甜"
+      },
+      {
+        "unit": "厘升",
+        "amount": 2,
+        "ingredient": "三秒利口酒",
+        "label": "柑曼怡"
+      }
+    ],
+    "preparation": "按顺序分层倒入原料，先是甘露，然后是百利甜，最后是柑曼怡。点燃柑曼怡，趁着火焰燃烧时饮用，旁边配有吸管。"
+  },
+  {
+    "iba": true,
+    "name": "毒刺",
+    "colors": "#D66806",
+    "glass": "马提尼杯",
+    "category": "餐后鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 5, "ingredient": "干邑白兰地" },
+      {
+        "unit": "厘升",
+        "amount": 2,
+        "ingredient": "薄荷利口酒",
+        "label": "白薄荷利口酒"
+      }
+    ],
+    "preparation": "在调酒杯中与冰块搅拌。滤入鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "金色梦想",
+    "colors": "#FEEE8E",
+    "glass": "马提尼杯",
+    "category": "餐后鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 2, "ingredient": "加利安诺" },
+      { "unit": "厘升", "amount": 2, "ingredient": "三秒利口酒" },
+      { "unit": "厘升", "amount": 2, "ingredient": "橙汁" },
+      { "unit": "厘升", "amount": 1, "ingredient": "奶油" }
+    ],
+    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "教母",
+    "colors": "#C3660B",
+    "glass": "古典杯",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3.5, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 3.5, "ingredient": "杏仁利口酒" }
+    ],
+    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。"
+  },
+  {
+    "iba": true,
+    "name": "威尼斯气泡酒",
+    "colors": "#DA1903",
+    "glass": "古典杯",
+    "category": "气泡鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 6, "ingredient": "普罗赛克" },
+      { "unit": "厘升", "amount": 4, "ingredient": "阿佩罗" },
+      { "amount": "1注", "ingredient": "苏打水" }
+    ],
+    "garnish": "半片橙子",
+    "preparation": "在装满冰块的古典杯中调制。顶部加一点苏打水。"
+  },
+  {
+    "iba": true,
+    "name": "黑刺李",
+    "colors": ["#3B0005", "#C00834", "#eaafb5"],
+    "glass": "古典杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "糖浆",
+        "label": "糖浆"
+      },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "黑莓利口酒" }
+    ],
+    "garnish": "柠檬片和两颗黑莓",
+    "preparation": "在岩石杯中加碎冰调制。搅拌，然后将黑莓利口酒以打圈方式倒在饮品顶部。"
+  },
+  {
+    "iba": true,
+    "name": "白兰地亚历山大",
+    "colors": ["#B39684"],
+    "glass": "马提尼杯",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3, "ingredient": "干邑白兰地" },
+      {
+        "unit": "厘升",
+        "amount": 3,
+        "ingredient": "可可利口酒",
+        "label": "棕色可可利口酒"
+      },
+      { "unit": "厘升", "amount": 3, "ingredient": "奶油" }
+    ],
+    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。撒上新鲜的肉豆蔻粉。IBA仅将此饮品称为“亚历山大”。"
+  },
+  {
+    "iba": true,
+    "name": "柠檬马提尼",
+    "colors": "#C4B686",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 2.5,
+        "ingredient": "柠檬伏特加"
+      },
+      { "unit": "厘升", "amount": 2, "ingredient": "三秒利口酒" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" }
+    ],
+    "garnish": "柠檬片",
+    "preparation": "摇匀并滤入杯口沾有糖的冰镇鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "法式马提尼",
+    "colors": "#E00001",
+    "glass": "马提尼杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "覆盆子利口酒" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "菠萝汁" }
+    ],
+    "preparation": "在调酒杯中与冰块搅拌。滤入冰镇的鸡尾酒杯中。将柠檬皮的油挤到饮品上。"
+  },
+  {
+    "iba": true,
+    "name": "黑俄罗斯",
+    "colors": ["#EDE4DB", "#BA4D00", "#52180F"],
+    "glass": "古典杯",
+    "category": "餐后鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 5, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 2, "ingredient": "咖啡利口酒" }
+    ],
+    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。注意：对于白俄罗斯，在顶部漂浮新鲜奶油并轻轻搅拌。"
+  },
+  {
+    "iba": true,
+    "name": "血腥玛丽",
+    "colors": ["#c10000"],
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 9, "ingredient": "番茄汁" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
+      { "amount": "2至3滴", "ingredient": "伍斯特酱" },
+      { "special": "塔巴斯科辣酱" },
+      { "special": "芹菜盐" },
+      { "special": "胡椒" }
+    ],
+    "garnish": "芹菜，可选加柠檬角",
+    "preparation": "轻轻搅拌，将所有原料倒入高球杯中。"
+  },
+  {
+    "iba": true,
+    "name": "迈泰",
+    "colors": "#FF3006",
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4, "ingredient": "白朗姆酒" },
+      { "unit": "厘升", "amount": 2, "ingredient": "黑朗姆酒" },
+      {
+        "unit": "厘升",
+        "amount": 1.5,
+        "ingredient": "三秒利口酒",
+        "label": "橙味库拉索"
+      },
+      {
+        "unit": "厘升",
+        "amount": 1.5,
+        "ingredient": "糖浆",
+        "label": "杏仁糖浆"
+      },
+      { "unit": "厘升", "amount": 1, "ingredient": "青柠汁" }
+    ],
+    "garnish": "菠萝矛、薄荷叶和青柠角",
+    "preparation": "摇匀并滤入高球杯中。用吸管饮用。"
+  },
+  {
+    "iba": true,
+    "name": "梭子鱼",
+    "colors": ["#f2dd21"],
+    "glass": "玛格丽特杯",
+    "category": "气泡鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 4.5,
+        "ingredient": "黑朗姆酒",
+        "label": "金色朗姆酒"
+      },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "加利安诺" },
+      { "unit": "厘升", "amount": 6, "ingredient": "菠萝汁" },
+      { "amount": "1滴", "ingredient": "青柠汁" },
+      {
+        "ingredient": "气泡酒",
+        "label": "普罗赛克",
+        "amount": "加满"
+      }
+    ]
+  },
+  {
+    "iba": true,
+    "name": "沙滩性爱",
+    "colors": ["#FE3A24", "#FFD801"],
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 2, "ingredient": "桃子杜松子酒" },
+      { "unit": "厘升", "amount": 4, "ingredient": "蔓越莓汁" },
+      { "unit": "厘升", "amount": 4, "ingredient": "橙汁" }
+    ],
+    "garnish": "橙片",
+    "preparation": "在装满冰的高球杯中调制所有原料。"
+  },
+  {
+    "iba": true,
+    "name": "猴腺",
+    "colors": "#FD5404",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 5, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 3, "ingredient": "橙汁" },
+      { "amount": "2滴", "ingredient": "苦艾酒" },
+      { "amount": "2滴", "ingredient": "糖浆", "label": "红石榴糖浆" }
+    ],
+    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "德比",
+    "colors": "#FEB535",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 6, "ingredient": "金酒" },
+      { "unit": "2滴", "ingredient": "桃子苦精" },
+      { "amount": "2片", "ingredient": "薄荷", "label": "新鲜薄荷叶" }
+    ],
+    "garnish": "薄荷叶",
+    "preparation": "在调酒杯中与冰块搅拌。滤入鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "边车",
+    "colors": "#C7A65F",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 5, "ingredient": "干邑白兰地" },
+      { "unit": "厘升", "amount": 2, "ingredient": "三秒利口酒" },
+      { "unit": "厘升", "amount": 2, "ingredient": "柠檬汁" }
+    ],
+    "preparation": "加冰块摇匀。滤入鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "爱尔兰咖啡",
+    "colors": ["#E6D9D1", "#603309", "#1E0A05"],
+    "glass": "热饮杯",
+    "category": "热饮",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 4,
+        "ingredient": "威士忌",
+        "label": "爱尔兰威士忌"
+      },
+      {
+        "unit": "厘升",
+        "amount": 9,
+        "ingredient": "咖啡",
+        "label": "热咖啡"
+      },
+      { "unit": "厘升", "amount": 3, "ingredient": "奶油" },
+      { "ingredient": "糖", "label": "红糖", "amount": "1茶匙" }
+    ],
+    "preparation": "在火上加热爱尔兰威士忌。倒入玻璃杯（用于热饮）中，加入热咖啡和一茶匙糖。在顶部漂浮奶油。"
+  },
+  {
+    "iba": true,
+    "name": "萨泽拉克",
+    "colors": "#C98502",
+    "glass": "古典杯",
+    "category": "餐后鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 5, "ingredient": "干邑白兰地" },
+      { "unit": "厘升", "amount": 1, "ingredient": "苦艾酒" },
+      { "amount": "2滴", "ingredient": "裴乔氏苦精" },
+      { "ingredient": "糖", "amount": "1块", "label": "方糖" }
+    ],
+    "garnish": "柠檬皮卷",
+    "preparation": "用苦艾酒冲洗一个冰镇的古典杯，加入碎冰并放在一边。将其余原料加冰搅拌并放在一边。倒掉准备好的杯子里的冰和多余的苦艾酒，然后将饮品滤入杯中。注意：原始配方在美国内战后发生了变化，由于干邑难以获得，黑麦威士忌取代了干邑。"
+  },
+  {
+    "iba": true,
+    "name": "美国佬",
+    "colors": ["#ED120A", "#FAC25B"],
+    "glass": "古典杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3, "ingredient": "金巴利" },
+      {
+        "unit": "厘升",
+        "amount": 3,
+        "ingredient": "味美思",
+        "label": "红味美思"
+      },
+      { "amount": "少量", "ingredient": "苏打水" }
+    ],
+    "garnish": "半片橙子",
+    "preparation": "在装满冰块的古典杯中调制。加入少量苏打水。"
+  },
+  {
+    "iba": true,
+    "name": "新加坡司令",
+    "colors": "#FF5542",
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "樱桃利口酒" },
+      {
+        "unit": "厘升",
+        "amount": 0.75,
+        "ingredient": "三秒利口酒",
+        "label": "君度"
+      },
+      { "unit": "厘升", "amount": 0.75, "ingredient": "廊酒" },
+      { "unit": "厘升", "amount": 12.0, "ingredient": "菠萝汁" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "糖浆",
+        "label": "红石榴糖浆"
+      },
+      { "ingredient": "安高天娜苦精", "amount": "1滴" }
+    ],
+    "garnish": "菠萝片和一颗樱桃",
+    "preparation": "加冰块摇匀。滤入高球杯中。"
+  },
+  {
+    "iba": true,
+    "name": "法式连接",
+    "colors": "#EF7405",
+    "glass": "古典杯",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3.5, "ingredient": "干邑白兰地" },
+      { "unit": "厘升", "amount": 3.5, "ingredient": "杏仁利口酒" }
+    ],
+    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。"
+  },
+  {
+    "iba": true,
+    "name": "莫斯科骡子",
+    "colors": "#978540",
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 12, "ingredient": "姜汁啤酒" },
+      { "unit": "厘升", "amount": 0.5, "ingredient": "青柠汁" },
+      { "ingredient": "青柠", "amount": "1片" }
+    ],
+    "garnish": "青柠片",
+    "preparation": "将伏特加和姜汁啤酒混合。加入青柠汁。"
+  },
+  {
+    "iba": true,
+    "name": "约翰柯林斯",
+    "searchTerm": "柯林斯",
+    "colors": "#D0A254",
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 3, "ingredient": "柠檬汁" },
+      {
+        "unit": "厘升",
+        "amount": 1.5,
+        "ingredient": "糖浆",
+        "label": "糖浆"
+      },
+      { "unit": "厘升", "amount": 6, "ingredient": "苏打水" },
+      { "ingredient": "安高天娜苦精", "amount": "1滴" }
+    ],
+    "garnish": "柠檬片和一颗樱桃",
+    "preparation": "在装满冰块的高球杯中调制。轻轻搅拌。加入一滴安高天娜苦精。（注意：汤姆柯林斯使用老汤姆金酒）"
+  },
+  {
+    "iba": true,
+    "name": "基尔",
+    "colors": "#F73D29",
+    "glass": "白葡萄酒杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 9, "ingredient": "干白葡萄酒" },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "黑加仑利口酒",
+        "label": "黑加仑利口酒"
+      }
+    ],
+    "preparation": "将黑加仑利口酒倒入杯中，加满白葡萄酒。对于皇家基尔：用香槟代替白葡萄酒。"
+  },
+  {
+    "iba": true,
+    "name": "薄荷朱利普",
+    "colors": ["#F4B317", "#759B4D"],
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 6,
+        "ingredient": "威士忌",
+        "label": "波本威士忌"
+      },
+      { "amount": "4枝", "ingredient": "薄荷", "label": "新鲜薄荷枝" },
+      {
+        "amount": "1茶匙",
+        "label": "糖粉",
+        "ingredient": "糖"
+      },
+      { "special": "2茶匙水" }
+    ],
+    "garnish": "薄荷枝",
+    "preparation": "在高球杯中轻轻捣烂薄荷、糖和水。用碎冰填满杯子，加入波本威士忌，充分搅拌直到杯子结霜。"
+  },
+  {
+    "iba": true,
+    "name": "汤米玛格丽特",
+    "colors": "#B46F13",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "龙舌兰" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" },
+      { "amount": "2吧勺", "ingredient": "龙舌兰花蜜" }
+    ],
+    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "天堂",
+    "colors": "#ECAE1B",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3.5, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 2, "ingredient": "杏子白兰地" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "橙汁" }
+    ],
+    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "肮脏马提尼",
+    "searchTerm": "马提尼",
+    "colors": "#E1E6E3",
+    "glass": "马提尼杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 6, "ingredient": "伏特加" },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "味美思",
+        "label": "干味美思"
+      },
+      { "unit": "厘升", "amount": 1, "ingredient": "橄榄汁" }
+    ],
+    "garnish": "青橄榄",
+    "preparation": "在调酒杯中与冰块搅拌。滤入冰镇的马提尼杯中。"
+  },
+  {
+    "iba": true,
+    "name": "香槟鸡尾酒",
+    "colors": ["#efde8b"],
+    "glass": "香槟杯",
+    "category": "气泡鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 9, "ingredient": "香槟" },
+      { "unit": "厘升", "amount": 1, "ingredient": "干邑白兰地" },
+      { "ingredient": "安高天娜苦精", "amount": "2滴" },
+      { "ingredient": "糖", "amount": "1块", "label": "方糖" }
+    ],
+    "garnish": "橙片和一颗樱桃",
+    "preparation": "在方糖上滴一滴安高天娜苦精，然后放入香槟杯中。加入干邑白兰地，然后轻轻倒入冰镇的香槟。"
+  },
+  {
+    "iba": true,
+    "name": "玛丽璧克馥",
+    "colors": "#B11603",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 6, "ingredient": "白朗姆酒" },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "樱桃利口酒",
+        "label": "黑樱桃利口酒"
+      },
+      { "unit": "厘升", "amount": 6, "ingredient": "菠萝汁" },
+      { "unit": "厘升", "amount": 1, "ingredient": "糖浆", "label": "红石榴糖浆" }
+    ],
+    "preparation": "摇匀并滤入冰镇的大鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "海明威特别版",
+    "colors": "#FFBB6D",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 6, "ingredient": "白朗姆酒" },
+      { "unit": "厘升", "amount": 4, "ingredient": "葡萄柚汁" },
+      {
+        "unit": "厘升",
+        "amount": 1.5,
+        "ingredient": "樱桃利口酒",
+        "label": "黑樱桃利口酒"
+      },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" }
+    ],
+    "preparation": "加冰块摇匀。滤入双份鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "黑风暴",
+    "searchTerm": "黑风暴",
+    "colors": ["#CF612A", "#860F00", "#D1C112"],
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 6, "ingredient": "黑朗姆酒" },
+      { "unit": "厘升", "amount": 10, "ingredient": "姜汁啤酒" }
+    ],
+    "garnish": "青柠角",
+    "preparation": "在装满冰的高球杯中调制。先加入朗姆酒，然后加满姜汁啤酒。"
+  },
+  {
+    "iba": true,
+    "name": "拉莫斯菲士",
+    "searchTerm": "皇家金菲士",
+    "colors": "#D9CAA6",
+    "glass": "高球杯",
+    "category": "长饮",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
+      {
+        "unit": "厘升",
+        "amount": 3,
+        "ingredient": "糖浆",
+        "label": "糖浆"
+      },
+      { "unit": "厘升", "amount": 6, "ingredient": "奶油" },
+      { "amount": 1, "ingredient": "蛋清" },
+      { "ingredient": "苏打水" },
+      { "amount": "3滴", "ingredient": "橙花水" },
+      { "amount": "2滴", "ingredient": "香草精" }
+    ],
+    "preparation": "将所有原料（苏打水除外）倒入调酒杯中，干摇（不加冰）两分钟，加入冰块再用力摇一分钟。滤入不加冰的高球杯中，加满苏打水。"
+  },
+  {
+    "iba": true,
+    "name": "俄罗斯之春潘趣",
+    "colors": "#C70212",
+    "glass": "高球杯",
+    "category": "气泡鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 2.5, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 2.5, "ingredient": "柠檬汁" },
+      {
+        "unit": "厘升",
+        "amount": 1.5,
+        "ingredient": "黑加仑利口酒",
+        "label": "黑加仑利口酒"
+      },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "糖浆",
+        "label": "糖浆"
+      },
+      { "ingredient": "气泡酒" }
+    ],
+    "garnish": "柠檬片和一颗黑莓",
+    "preparation": "摇匀原料并倒入高球杯中。加满气泡酒。"
+  },
+  {
+    "iba": true,
+    "name": "教父",
+    "colors": "#B77F27",
+    "glass": "古典杯",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 3.5,
+        "ingredient": "威士忌",
+        "label": "苏格兰威士忌"
+      },
+      { "unit": "厘升", "amount": 3.5, "ingredient": "杏仁利口酒" }
+    ],
+    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。"
+  },
+  {
+    "iba": true,
+    "name": "大都会",
+    "colors": ["#EC464F"],
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 4,
+        "ingredient": "柠檬伏特加"
+      },
+      {
+        "unit": "厘升",
+        "amount": 1.5,
+        "ingredient": "三秒利口酒",
+        "label": "君度"
+      },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" },
+      { "unit": "厘升", "amount": 3, "ingredient": "蔓越莓汁" }
+    ],
+    "garnish": "青柠片",
+    "preparation": "加冰块摇匀。滤入大的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "干马提尼",
+    "searchTerm": "马提尼",
+    "colors": "#EFEFEF",
+    "glass": "马提尼杯",
+    "category": "餐前鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 6, "ingredient": "金酒" },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "味美思",
+        "label": "干味美思"
+      }
+    ],
+    "preparation": "在调酒杯中与冰块搅拌。滤入冰镇的马提尼杯中。将柠檬皮的油挤到饮品上，或用橄榄装饰。"
+  },
+  {
+    "iba": true,
+    "name": "床笫之间",
+    "colors": ["#ffe066"],
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3, "ingredient": "白朗姆酒" },
+      { "unit": "厘升", "amount": 3, "ingredient": "干邑白兰地" },
+      { "unit": "厘升", "amount": 3, "ingredient": "三秒利口酒" },
+      { "unit": "厘升", "amount": 2, "ingredient": "柠檬汁" }
+    ],
+    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "赌场",
+    "colors": ["#FB3B34", "#eff2f0"],
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 4,
+        "ingredient": "金酒",
+        "label": "老汤姆金酒"
+      },
+      {
+        "unit": "厘升",
+        "amount": 1,
+        "ingredient": "樱桃利口酒",
+        "label": "黑樱桃利口酒"
+      },
+      { "unit": "厘升", "amount": 1, "ingredient": "橙味苦精" },
+      { "unit": "厘升", "amount": 1, "ingredient": "柠檬汁" }
+    ],
+    "garnish": "柠檬皮卷和一颗樱桃",
+    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "卡琵莉亚",
+    "colors": ["#4A8C03", "#e7ea96", "#f3f9ed"],
+    "glass": "古典杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 5, "ingredient": "卡夏莎" },
+      { "ingredient": "糖", "amount": "2茶匙" },
+      {
+        "ingredient": "青柠",
+        "amount": "半个",
+        "label": "切成4瓣的新鲜青柠"
+      }
+    ],
+    "preparation": "将青柠和糖放入古典杯中捣烂。用冰块和卡夏莎填满杯子（注意：卡琵罗斯卡 - 用伏特加代替卡夏莎）。"
+  },
+  {
+    "iba": true,
+    "name": "吸血鬼",
+    "colors": "#D74339",
+    "glass": "高球杯",
+    "ingredients": [
+      {
+        "unit": "厘升",
+        "amount": 5,
+        "ingredient": "龙舌兰",
+        "label": "银龙舌兰"
+      },
+      { "unit": "厘升", "amount": 7, "ingredient": "番茄汁" },
+      { "unit": "厘升", "amount": 3, "ingredient": "橙汁" },
+      { "unit": "厘升", "amount": 1, "ingredient": "青柠汁" },
+      { "amount": "几滴", "ingredient": "伍斯特酱" },
+      { "amount": "1茶匙", "ingredient": "蜂蜜", "label": "纯蜂蜜" },
+      { "special": "半片洋葱切碎" },
+      { "special": "几片新鲜红辣椒" },
+      { "special": "盐" }
+    ],
+    "garnish": "青柠角和一颗绿色或红色辣椒",
+    "preparation": "加冰块摇匀。滤入装满冰的高球杯中。"
+  },
+  {
+    "iba": true,
+    "name": "神风",
+    "colors": "#B6A861",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 3, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 3, "ingredient": "三秒利口酒" },
+      { "unit": "厘升", "amount": 3, "ingredient": "青柠汁" }
+    ],
+    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "白女士",
+    "colors": "#E9E5C2",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 3, "ingredient": "三秒利口酒" },
+      { "unit": "厘升", "amount": 2, "ingredient": "柠檬汁" }
+    ],
+    "preparation": "加冰块摇匀。滤入大的鸡尾酒杯中。"
+  },
+  {
+    "iba": true,
+    "name": "哈维撞墙",
+    "colors": "#FFBC2F",
+    "glass": "高球杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 4.5, "ingredient": "伏特加" },
+      { "unit": "厘升", "amount": 1.5, "ingredient": "加利安诺" },
+      { "unit": "厘升", "amount": 9, "ingredient": "橙汁" }
+    ],
+    "garnish": "橙片和一颗樱桃",
+    "preparation": "在装满冰的高球杯中调制伏特加和橙汁。轻轻搅拌，然后在顶部漂浮加利安诺。"
+  },
+  {
+    "iba": false,
+    "name": "金莱特",
+    "colors": "#DADEC0",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 6, "ingredient": "金酒" },
+      { "unit": "厘升", "amount": 3, "ingredient": "青柠汁" }
+    ],
+    "garnish": "青柠片",
+    "preparation": "加冰摇匀。"
+  },
+  {
+    "iba": false,
+    "name": "白俄罗斯",
+    "colors": "#BBA69B",
+    "glass": "古典杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "unit": "厘升", "amount": 5, "ingredient": "伏特加" },
+      {
+        "unit": "厘升",
+        "amount": 2,
+        "ingredient": "咖啡利口酒",
+        "label": "甘露咖啡利口酒"
+      },
+      { "unit": "厘升", "amount": 3, "ingredient": "奶油" }
+    ],
+    "garnish": null,
+    "preparation": "摇匀后倒在冰上。"
+  },
+  {
+    "iba": false,
+    "name": "蓝鸟",
+    "colors": "#66B7EC",
+    "glass": "马提尼杯",
+    "category": "全天鸡尾酒",
+    "ingredients": [
+      { "ingredient": "金酒", "unit": "厘升", "amount": 4 },
+      { "ingredient": "蓝色库拉索", "unit": "厘升", "amount": 3 },
+      { "ingredient": "安高天娜苦精", "amount": "2滴" }
+    ],
+    "garnish": "柠檬皮卷和一颗樱桃",
+    "preparation": "与碎冰搅拌后过滤。或者，您可以使用一半蓝色库拉索和一半三秒利口酒。"
+  }
+]

@@ -1,0 +1,365 @@
+{
+  "Absinthe": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "苦艾酒"
+  },
+  "Agave nectar": {
+    "abv": 0,
+    "taste": "甜",
+    "ingredient": "龙舌兰花蜜"
+  },
+  "Angostura bitters": {
+    "abv": 44,
+    "taste": "苦",
+    "ingredient": "安高天娜苦精"
+  },
+  "Aperol": {
+    "abv": 11,
+    "taste": "苦",
+    "ingredient": "阿佩罗"
+  },
+  "Apricot brandy": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "杏子白兰地"
+  },
+  "Blackberry liqueur": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "黑莓利口酒"
+  },
+  "Blue Curaçao": {
+    "abv": 40,
+    "taste": "甜",
+    "ingredient": "蓝色库拉索"
+  },
+  "Cachaca": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "卡夏莎"
+  },
+  "Calvados": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "卡尔瓦多斯"
+  },
+  "Campari": {
+    "abv": 25,
+    "taste": null,
+    "vegan": false,
+    "ingredient": "金巴利"
+  },
+  "Champagne": {
+    "abv": 12,
+    "taste": null,
+    "ingredient": "香槟"
+  },
+  "Cherry liqueur": {
+    "abv": 30,
+    "taste": null,
+    "ingredient": "樱桃利口酒"
+  },
+  "Citron Vodka": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "柠檬伏特加"
+  },
+  "Coconut milk": {
+    "abv": 0,
+    "taste": "甜",
+    "ingredient": "椰奶"
+  },
+  "Coffee": {
+    "abv": 0,
+    "taste": "苦",
+    "ingredient": "咖啡"
+  },
+  "Coffee liqueur": {
+    "abv": 20,
+    "taste": "苦",
+    "ingredient": "咖啡利口酒"
+  },
+  "Cognac": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "干邑白兰地"
+  },
+  "Cola": {
+    "abv": 0,
+    "taste": "苦",
+    "ingredient": "可乐"
+  },
+  "Cranberry juice": {
+    "abv": 0,
+    "taste": "酸",
+    "ingredient": "蔓越莓汁"
+  },
+  "Cream": {
+    "abv": 0,
+    "taste": "甜",
+    "vegan": false,
+    "ingredient": "奶油"
+  },
+  "Créme de Cacao": {
+    "abv": 20,
+    "taste": null,
+    "ingredient": "可可利口酒"
+  },
+  "Créme de Cassis": {
+    "abv": 15,
+    "taste": null,
+    "ingredient": "黑加仑利口酒"
+  },
+  "Créme de Menthe": {
+    "abv": 25,
+    "taste": null,
+    "ingredient": "薄荷利口酒"
+  },
+  "Crème de violette": {
+    "abv": 20,
+    "taste": null,
+    "ingredient": "紫罗兰利口酒"
+  },
+  "Cream liqueur": {
+    "abv": 20,
+    "taste": null,
+    "vegan": false,
+    "ingredient": "奶油利口酒"
+  },
+  "Dark rum": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "黑朗姆酒"
+  },
+  "DiSaronno": {
+    "abv": 28,
+    "taste": null,
+    "ingredient": "杏仁利口酒"
+  },
+  "DOM Bénédictine": {
+    "abv": 40,
+    "taste": null,
+    "vegan": false,
+    "ingredient": "廊酒"
+  },
+  "Drambuie": {
+    "abv": 40,
+    "taste": null,
+    "vegan": false,
+    "ingredient": "杜林标"
+  },
+  "Dry White Wine": {
+    "abv": 12,
+    "taste": null,
+    "ingredient": "干白葡萄酒"
+  },
+  "Egg white": {
+    "abv": 0,
+    "taste": null,
+    "vegan": false,
+    "ingredient": "蛋清"
+  },
+  "Egg yolk": {
+    "abv": 0,
+    "taste": null,
+    "vegan": false,
+    "ingredient": "蛋黄"
+  },
+  "Galliano": {
+    "abv": 30,
+    "taste": "甜",
+    "ingredient": "加利安诺"
+  },
+  "Gin": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "金酒"
+  },
+  "Ginger Ale": {
+    "abv": 0,
+    "taste": null,
+    "ingredient": "姜汁汽水"
+  },
+  "Ginger beer": {
+    "abv": 5,
+    "taste": "甜",
+    "ingredient": "姜汁啤酒"
+  },
+  "Grapefruit juice": {
+    "abv": 0,
+    "taste": "酸",
+    "ingredient": "葡萄柚汁"
+  },
+  "Honey": {
+    "abv": 0,
+    "taste": "甜",
+    "vegan": false,
+    "ingredient": "蜂蜜"
+  },
+  "Kirsch": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "樱桃酒"
+  },
+  "Lemon juice": {
+    "abv": 0,
+    "taste": "酸",
+    "ingredient": "柠檬汁"
+  },
+  "Lillet Blonde": {
+    "abv": 15,
+    "taste": null,
+    "ingredient": "丽叶金"
+  },
+  "Lime": {
+    "abv": 0,
+    "taste": "酸",
+    "ingredient": "青柠"
+  },
+  "Lime juice": {
+    "abv": 0,
+    "taste": "酸",
+    "ingredient": "青柠汁"
+  },
+  "Mint": {
+    "abv": 0,
+    "taste": null,
+    "ingredient": "薄荷"
+  },
+  "Olive juice": {
+    "abv": 0,
+    "taste": "酸",
+    "ingredient": "橄榄汁"
+  },
+  "Orange bitters": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "橙味苦精"
+  },
+  "Orange flower water": {
+    "abv": 0,
+    "taste": null,
+    "ingredient": "橙花水"
+  },
+  "Orange juice": {
+    "abv": 0,
+    "taste": "甜",
+    "ingredient": "橙汁"
+  },
+  "Peach bitters": {
+    "abv": 0,
+    "taste": "果味",
+    "ingredient": "桃子苦精"
+  },
+  "Peach puree": {
+    "abv": 0,
+    "taste": "甜",
+    "ingredient": "桃子泥"
+  },
+  "Peach schnapps": {
+    "abv": 40,
+    "taste": "甜",
+    "ingredient": "桃子杜松子酒"
+  },
+  "Peychaud’s bitters": {
+    "abv": 35,
+    "taste": "木质",
+    "ingredient": "裴乔氏苦精"
+  },
+  "Pineapple juice": {
+    "abv": 0,
+    "taste": "甜",
+    "ingredient": "菠萝汁"
+  },
+  "Pisco": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "皮斯科"
+  },
+  "Prosecco": {
+    "abv": 12,
+    "taste": null,
+    "ingredient": "普罗赛克"
+  },
+  "Raspberry liqueur": {
+    "abv": 20,
+    "taste": "甜",
+    "ingredient": "覆盆子利口酒"
+  },
+  "Raspberry syrup": {
+    "abv": 0,
+    "taste": "甜",
+    "ingredient": "覆盆子糖浆"
+  },
+  "Red Port": {
+    "abv": 20,
+    "taste": null,
+    "ingredient": "红波特酒"
+  },
+  "Soda water": {
+    "abv": 0,
+    "taste": null,
+    "ingredient": "苏打水"
+  },
+  "Sparkling Wine": {
+    "abv": 12,
+    "taste": null,
+    "ingredient": "气泡酒"
+  },
+  "Sugar": {
+    "abv": 0,
+    "taste": "甜",
+    "ingredient": "糖"
+  },
+  "Syrup": {
+    "abv": 0,
+    "taste": "甜",
+    "ingredient": "糖浆"
+  },
+  "Tequila": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "龙舌兰"
+  },
+  "Tomato juice": {
+    "abv": 0,
+    "taste": "咸",
+    "ingredient": "番茄汁"
+  },
+  "Triple Sec": {
+    "abv": 40,
+    "taste": "甜",
+    "ingredient": "三秒利口酒"
+  },
+  "Vanilla extract": {
+    "abv": 0,
+    "taste": "甜",
+    "ingredient": "香草精"
+  },
+  "Vermouth": {
+    "abv": 17,
+    "taste": null,
+    "ingredient": "味美思"
+  },
+  "Vodka": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "伏特加"
+  },
+  "Whiskey": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "威士忌"
+  },
+  "White rum": {
+    "abv": 40,
+    "taste": null,
+    "ingredient": "白朗姆酒"
+  },
+  "Worcestershire Sauce": {
+    "abv": 0,
+    "taste": null,
+    "ingredient": "伍斯特酱"
+  }
+}

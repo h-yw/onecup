@@ -1,0 +1,13 @@
+{
+  "martini": { "name": "马提尼杯" },
+  "old-fashioned": { "name": "古典杯" },
+  "collins": { "name": "柯林斯杯" },
+  "highball": { "name": "高球杯" },
+  "champagne-flute": { "name": "香槟杯" },
+  "margarita": { "name": "玛格丽特杯" },
+  "champagne-tulip": { "name": "郁金香杯" },
+  "hurricane": { "name": "飓风杯" },
+  "shot": { "name": "子弹杯" },
+  "hot-drink": { "name": "热饮杯" },
+  "white-wine": { "name": "白葡萄酒杯" }
+}
