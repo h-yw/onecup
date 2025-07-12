@@ -45,6 +45,19 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     });
   }
 
+  // [新增] “一键加购”的实现
+  void _addAllIngredientsToShoppingList() async {
+    await _dbHelper.addRecipeIngredientsToShoppingList(widget.recipe.id);
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('“${widget.recipe.name}”的全部配料已添加到购物清单！'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -112,12 +125,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       ),
       // [新增] 添加到购物清单的浮动按钮
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // TODO: 实现将所有配料添加到购物清单的逻辑
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('功能开发中：将所有配料添加到购物清单！')),
-          );
-        },
+        onPressed: _addAllIngredientsToShoppingList,
         label: const Text('添加到购物清单'),
         icon: const Icon(Icons.add_shopping_cart),
       ),

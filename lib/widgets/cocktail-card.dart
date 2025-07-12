@@ -4,8 +4,9 @@ import 'package:onecup/screens/recipe_detail_screen.dart'; // 导入详情页
 
 class CocktailCard extends StatelessWidget {
   final Recipe recipe;
+  final VoidCallback? onTap; // [更新] 将导航逻辑改为一个回调函数
 
-  const CocktailCard({super.key, required this.recipe});
+  const CocktailCard({super.key, required this.recipe,  this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +34,8 @@ class CocktailCard extends StatelessWidget {
           ),
         ),
         trailing: const Icon(Icons.arrow_forward_ios),
-        onTap: () {
-          // [更新] 导航到配方详情页
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => RecipeDetailScreen(recipe: recipe)),
-          );
-        },
+        onTap: onTap, // [更新] 使用传入的onTap回调
+
       ),
     );
   }

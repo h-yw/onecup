@@ -536,4 +536,31 @@ class DatabaseHelper {
 
     return recommendedRecipesData.map((map) => Recipe.fromMap(map)).toList();
   }
+  // [新增] 获取用户收藏的所有配方
+  Future<List<Recipe>> getFavoriteRecipes({int userId = 1}) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.rawQuery('''
+      SELECT R.*, G.name as glass FROM Recipes R
+      JOIN User_Favorites UF ON R.recipe_id = UF.recipe_id
+      LEFT JOIN Glassware G ON R.glass_id = G.glass_id
+      WHERE UF.user_id = ?
+      ORDER BY R.name
+    ''', [userId]);
+    return maps.map((map) => Recipe.fromMap(map)).toList();
+  }
+
+  // [新增] 将配方的所有配料批量添加到购物清单
+  Future<void> addRecipeIngredientsToShoppingList(int recipeId) async {
+    final db = await database;
+    final ingredients = await getIngredientsForRecipe(recipeId);
+    final batch = db.batch();
+    for (var ingredient in ingredients) {
+      batch.insert(
+        'ShoppingList',
+        {'name': ingredient['name'], 'checked': 0},
+        conflictAlgorithm: ConflictAlgorithm.ignore,
+      );
+    }
+    await batch.commit(noResult: true);
+  }
 }

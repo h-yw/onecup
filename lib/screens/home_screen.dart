@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:onecup/database/database_helper.dart';
 import 'package:onecup/models/receip.dart';
+import 'package:onecup/screens/recipe_detail_screen.dart';
 import 'package:onecup/widgets/cocktail-card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,14 +37,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _loadData() {
+    // 重新获取Future，这将触发FutureBuilder重建
     _allRecipesFuture = _dbHelper.getAllRecipes();
     _recommendationsFuture = _dbHelper.getFlavorBasedRecommendations();
+    // 更新主列表，用于搜索
     _allRecipesFuture.then((recipes) {
       if (mounted) {
         setState(() {
           _allRecipesMasterList = recipes;
-          _displayedRecipes = recipes;
-          _isLoading = false;
+          _filterRecipes(_searchController.text);
         });
       }
     });
@@ -58,6 +60,17 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _displayedRecipes = filteredList;
     });
+  }
+// [新增] 统一的导航和刷新逻辑
+  void _navigateToDetail(Recipe recipe) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RecipeDetailScreen(recipe: recipe)),
+    );
+    // 当从详情页返回时，重新加载数据
+    if (mounted) {
+      _loadData();
+    }
   }
 
   @override
@@ -161,26 +174,26 @@ class _HomeScreenState extends State<HomeScreen> {
     return FutureBuilder<List<Recipe>>(
       future: _recommendationsFuture,
       builder: (context, snapshot) {
+        // ... (原有的FutureBuilder逻辑) ...
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()));
+          return const SliverToBoxAdapter(
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: CircularProgressIndicator(),
+                ),
+              )
+          );
         }
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return SliverToBoxAdapter(
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              child: const Text(
-                '收藏一些你喜欢的鸡尾酒，我们就能为你推荐更多！',
-                style: TextStyle(color: Colors.white70, fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          );
+          // ...
         }
         final recommendations = snapshot.data!;
         return SliverList(
           delegate: SliverChildBuilderDelegate(
                 (context, index) {
-              return CocktailCard(recipe: recommendations[index]);
+              // [更新] 使用新的导航方法
+              return CocktailCard(recipe: recommendations[index], onTap: () => _navigateToDetail(recommendations[index]));
             },
             childCount: recommendations.length,
           ),
@@ -190,26 +203,42 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildAllRecipesList() {
-    if (_displayedRecipes.isEmpty && _searchController.text.isNotEmpty) {
-      return const SliverToBoxAdapter(
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Text(
-              '没有找到匹配的鸡尾酒',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
+    // ... (处理空列表和错误状态的逻辑) ...
+    return FutureBuilder<List<Recipe>>(
+      future: _allRecipesFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()));
+        }
+        if (snapshot.hasError) {
+          return SliverToBoxAdapter(child: Center(child: Text('加载失败: ${snapshot.error}')));
+        }
+
+        final recipes = _searchController.text.isEmpty
+            ? snapshot.data ?? []
+            : _displayedRecipes;
+
+        if (recipes.isEmpty) {
+          return const SliverToBoxAdapter(
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Text('没有找到匹配的鸡尾酒', style: TextStyle(fontSize: 18, color: Colors.grey)),
+              ),
             ),
+          );
+        }
+
+        return SliverList(
+          delegate: SliverChildBuilderDelegate(
+                (context, index) {
+              // [更新] 使用新的导航方法
+              return CocktailCard(recipe: recipes[index], onTap: () => _navigateToDetail(recipes[index]));
+            },
+            childCount: recipes.length,
           ),
-        ),
-      );
-    }
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-            (context, index) {
-          return CocktailCard(recipe: _displayedRecipes[index]);
-        },
-        childCount: _displayedRecipes.length,
-      ),
+        );
+      },
     );
   }
 }
