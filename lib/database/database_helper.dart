@@ -302,4 +302,18 @@ class DatabaseHelper {
       whereArgs: [id],
     );
   }
+
+  // [新增] 根据配方ID获取其所有配料的详细信息
+  Future<List<Map<String, dynamic>>> getIngredientsForRecipe(int recipeId) async {
+    final db = await database;
+    return await db.rawQuery('''
+      SELECT
+        i.name,
+        ri.amount,
+        ri.unit
+      FROM Recipe_Ingredients ri
+      JOIN Ingredients i ON ri.ingredient_id = i.ingredient_id
+      WHERE ri.recipe_id = ?
+    ''', [recipeId]);
+  }
 }

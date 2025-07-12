@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onecup/models/receip.dart';
+import 'package:onecup/screens/recipe_detail_screen.dart'; // 导入详情页
+
 class CocktailCard extends StatelessWidget {
   final Recipe recipe;
 
@@ -8,33 +10,35 @@ class CocktailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      // Card的样式现在会由AppTheme自动控制
+      // margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      // elevation: 4,
+      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
         contentPadding: const EdgeInsets.all(16.0),
-        // 虽然JSON中没有图片，但我们为图片预留了位置，这符合蓝图的设计 [cite: 156]
         leading: CircleAvatar(
           radius: 30,
-          backgroundColor: Colors.grey[300],
-          // 在实际项目中，这里会是一个Image.asset(recipe.imagePath)
-          child: const Icon(Icons.local_bar, color: Colors.grey),
+          backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+          child: Icon(Icons.local_bar, color: Theme.of(context).colorScheme.primary),
         ),
         title: Text(
           recipe.name,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 18),
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: Text(
             '${recipe.category ?? '经典鸡尾酒'} | 使用 ${recipe.glass ?? '鸡尾酒杯'}',
-            style: TextStyle(color: Colors.grey[600]),
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
-          // TODO: 导航到配方详情页
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeDetailPage(recipe: recipe)));
+          // [更新] 导航到配方详情页
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => RecipeDetailScreen(recipe: recipe)),
+          );
         },
       ),
     );
