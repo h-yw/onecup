@@ -1,7 +1,7 @@
-// lib/screens/my_bar_screen.dart
 import 'package:flutter/material.dart';
 import 'package:onecup/database/database_helper.dart';
 import 'package:onecup/screens/add_ingredient_screen.dart';
+import 'package:onecup/screens/recommendation_screen.dart'; // 导入新页面
 
 class MyBarScreen extends StatefulWidget {
   const MyBarScreen({super.key});
@@ -14,7 +14,7 @@ class _MyBarScreenState extends State<MyBarScreen> {
   final DatabaseHelper _dbHelper = DatabaseHelper();
   List<Map<String, dynamic>> _myIngredients = [];
   bool _isLoading = true;
-  String? _error; // 新增：用于存储错误信息
+  String? _error;
 
   @override
   void initState() {
@@ -25,20 +25,23 @@ class _MyBarScreenState extends State<MyBarScreen> {
   Future<void> _loadMyBar() async {
     setState(() {
       _isLoading = true;
-      _error = null; // 重置错误状态
+      _error = null;
     });
     try {
       final allIngredients = await _dbHelper.getIngredientsForBarManagement();
-      setState(() {
-        _myIngredients = allIngredients.where((ing) => ing['in_inventory']).toList();
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _myIngredients = allIngredients.where((ing) => ing['in_inventory']).toList();
+          _isLoading = false;
+        });
+      }
     } catch (e) {
-      // FIX: 捕获任何可能发生的错误
-      setState(() {
-        _isLoading = false;
-        _error = '加载您的酒柜失败，请稍后重试。\n错误详情: $e';
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          _error = '加载您的酒柜失败，请稍后重试。\n错误详情: $e';
+        });
+      }
     }
   }
 
@@ -66,9 +69,10 @@ class _MyBarScreenState extends State<MyBarScreen> {
       itemBuilder: (context, index) {
         final ingredient = _myIngredients[index];
         return ListTile(
+          leading: const Icon(Icons.liquor_outlined),
           title: Text(ingredient['name']),
           trailing: IconButton(
-            icon: const Icon(Icons.delete_outline, color: Colors.red),
+            icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
             onPressed: () async {
               await _dbHelper.removeIngredientFromInventory(ingredient['id']);
               _loadMyBar();
@@ -86,7 +90,7 @@ class _MyBarScreenState extends State<MyBarScreen> {
         title: const Text('我的酒柜'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add),
+            icon: const Icon(Icons.add_shopping_cart),
             onPressed: () async {
               await Navigator.push(
                 context,
@@ -97,8 +101,20 @@ class _MyBarScreenState extends State<MyBarScreen> {
           )
         ],
       ),
-      // FIX: 使用一个构建方法来处理不同的UI状态
       body: _buildBody(),
+      // [新增] 智能推荐功能的入口
+      floatingActionButton: !_isLoading && _myIngredients.isNotEmpty
+          ? FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const RecommendationScreen()),
+          );
+        },
+        label: const Text('智能推荐'),
+        icon: const Icon(Icons.auto_awesome),
+      )
+          : null,
     );
   }
 }

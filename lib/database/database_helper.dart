@@ -99,7 +99,7 @@ class DatabaseHelper {
       );
     ''');
 
-    // [新增] 创建购物清单表
+    //创建购物清单表
     batch.execute('''
       CREATE TABLE ShoppingList (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -266,13 +266,13 @@ class DatabaseHelper {
     return maps.map((e) => e['ingredient_id'] as int).toList();
   }
   // -------------------------购物清单--------------------------------//
-  // [新增] 获取购物清单所有项目
+  //获取购物清单所有项目
   Future<List<Map<String, dynamic>>> getShoppingList() async {
     final db = await database;
     return await db.query('ShoppingList', orderBy: 'id DESC');
   }
 
-  // [新增] 向购物清单添加一个项目
+  //向购物清单添加一个项目
   Future<void> addToShoppingList(String name) async {
     final db = await database;
     await db.insert(
@@ -282,7 +282,7 @@ class DatabaseHelper {
     );
   }
 
-  // [新增] 更新购物清单项目的勾选状态
+  //更新购物清单项目的勾选状态
   Future<void> updateShoppingListItem(int id, bool isChecked) async {
     final db = await database;
     await db.update(
@@ -293,7 +293,7 @@ class DatabaseHelper {
     );
   }
 
-  // [新增] 从购物清单移除一个项目
+  //从购物清单移除一个项目
   Future<void> removeFromShoppingList(int id) async {
     final db = await database;
     await db.delete(
@@ -303,7 +303,7 @@ class DatabaseHelper {
     );
   }
 
-  // [新增] 根据配方ID获取其所有配料的详细信息
+  //根据配方ID获取其所有配料的详细信息
   Future<List<Map<String, dynamic>>> getIngredientsForRecipe(int recipeId) async {
     final db = await database;
     return await db.rawQuery('''
@@ -316,4 +316,85 @@ class DatabaseHelper {
       WHERE ri.recipe_id = ?
     ''', [recipeId]);
   }
+
+  //"智能调酒师"核心算法
+  Future<List<Map<String, dynamic>>> getPurchaseRecommendations() async {
+    final db = await database;
+    final userInventoryIds = await getUserInventoryIds(); // 用户现有库存
+
+    // 获取所有配方及其所需配料
+    final List<Map<String, dynamic>> allRecipeIngredients = await db.query('Recipe_Ingredients');
+
+    // 按 recipe_id 分组
+    final Map<int, List<int>> recipesWithIngredients = {};
+    for (var row in allRecipeIngredients) {
+      final recipeId = row['recipe_id'] as int;
+      final ingredientId = row['ingredient_id'] as int;
+      if (!recipesWithIngredients.containsKey(recipeId)) {
+        recipesWithIngredients[recipeId] = [];
+      }
+      recipesWithIngredients[recipeId]!.add(ingredientId);
+    }
+
+    // 计算每种缺失配料的“解锁”分数 [cite: 313]
+    final Map<int, double> missingIngredientsScore = {};
+    recipesWithIngredients.forEach((recipeId, requiredIds) {
+      final needed = requiredIds.toSet();
+      final missing = needed.difference(userInventoryIds); // 计算缺失的配料 [cite: 316]
+
+      if (missing.length == 1) { // 仅缺1种 [cite: 317]
+        final ingredientToBuy = missing.first;
+        missingIngredientsScore[ingredientToBuy] = (missingIngredientsScore[ingredientToBuy] ?? 0) + 1.0; // 分数+1.0 [cite: 318]
+      } else if (missing.length == 2) { // 仅缺2种 [cite: 319]
+        for (var ingredientToBuy in missing) {
+          missingIngredientsScore[ingredientToBuy] = (missingIngredientsScore[ingredientToBuy] ?? 0) + 0.4; // 分数+0.4 [cite: 320]
+        }
+      }
+    });
+
+    // 获取得分最高配料的详细信息
+    if (missingIngredientsScore.isEmpty) {
+      return [];
+    }
+
+    // 按分数排序
+    final sortedScores = missingIngredientsScore.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+
+    final topRecommendations = sortedScores.take(10).toList(); // 取前10个
+
+    final List<Map<String, dynamic>> results = [];
+    for (var entry in topRecommendations) {
+      final ingredientId = entry.key;
+      final score = entry.value;
+
+      // 获取配料名称
+      final List<Map<String, dynamic>> ingredientInfo = await db.query(
+        'Ingredients',
+        columns: ['name'],
+        where: 'ingredient_id = ?',
+        whereArgs: [ingredientId],
+      );
+
+      if (ingredientInfo.isNotEmpty) {
+        // 计算购买此配料后能解锁多少新配方
+        int unlockedCount = 0;
+        recipesWithIngredients.forEach((recipeId, requiredIds) {
+          final needed = requiredIds.toSet();
+          final missing = needed.difference(userInventoryIds);
+          if (missing.length == 1 && missing.first == ingredientId) {
+            unlockedCount++;
+          }
+        });
+
+        results.add({
+          'name': ingredientInfo.first['name'],
+          'unlocks': unlockedCount,
+        });
+      }
+    }
+    return results;
+  }
+
+
 }
