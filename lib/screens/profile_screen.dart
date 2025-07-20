@@ -3,12 +3,14 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:onecup/common/show_top_banner.dart';
-import 'package:onecup/database/database_helper.dart';
+import 'package:onecup/database/supabase_service.dart';
+import 'package:onecup/screens/auth/auth_screen.dart'; // [新增] 导入 AuthScreen
 import 'package:onecup/screens/my_creations_screen.dart';
 import 'package:onecup/screens/my_favorites_screen.dart';
 import 'package:onecup/screens/my_notes_screen.dart';
 import 'package:onecup/widgets/profile_stat_card.dart';
 import 'package:onecup/screens/create_recipe_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart'; // [新增] 导入 Supabase
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -18,42 +20,109 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
+  final SupabaseService _dbHelper = SupabaseService();
 
-  late Future<int> _favoritesCountFuture;
-  late Future<int> _creationsCountFuture;
-  late Future<int> _notesCountFuture;
-
-  final String _userName = '调酒师';
-  final IconData _userAvatarIcon = Icons.person_outline;
-  final String _userSignature = '开始你的第一杯创作吧！';
-
-  @override
-  void initState() {
-    super.initState();
-    _loadStats();
-  }
-
-  void _loadStats() {
-    setState(() {
-      _favoritesCountFuture = _dbHelper.getFavoriteRecipes().then((l) => l.length);
-      _creationsCountFuture = _dbHelper.getUserCreatedRecipes().then((l) => l.length);
-      _notesCountFuture = _dbHelper.getRecipesWithNotes().then((l) => l.length);
-    });
-  }
-
-  void _navigateAndReload(Widget page) async {
-    await Navigator.push(context, MaterialPageRoute(builder: (context) => page));
-    _loadStats();
-  }
-
-  void _navigateToCreateRecipe() async {
-    await Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateRecipeScreen()));
-    _loadStats();
-  }
+  // [修改] 将 Future 声明移至需要它们的地方
+  // late Future<int> _favoritesCountFuture;
+  // late Future<int> _creationsCountFuture;
+  // late Future<int> _notesCountFuture;
 
   @override
   Widget build(BuildContext context) {
+    // [核心改造] 使用 StreamBuilder 监听登录状态
+    return StreamBuilder<AuthState>(
+      stream: _dbHelper.authStateChanges,
+      builder: (context, snapshot) {
+        final session = snapshot.data?.session;
+
+        if (session != null) {
+          // 如果已登录，显示完整的个人资料页面
+          return _buildLoggedInProfile(context, session.user);
+        } else {
+          // 如果是游客，显示游客专用的登录提示页面
+          return _buildGuestProfile(context);
+        }
+      },
+    );
+  }
+
+  // --- 游客视图 ---
+  Widget _buildGuestProfile(BuildContext context) {
+    final theme = Theme.of(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('我的'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Icon(Icons.person_pin_circle_outlined, size: 80, color: theme.primaryColor),
+              const SizedBox(height: 24),
+              Text(
+                '登录以解锁全部功能',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.headlineSmall,
+              ),
+              const SizedBox(height: 12),
+              Text(
+                '创建和收藏您自己的鸡尾酒配方，并同步您的酒柜库存。',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 32),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.login),
+                label: const Text('登录或注册'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AuthScreen()),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // --- 登录用户视图 (大部分是您之前的代码) ---
+  Widget _buildLoggedInProfile(BuildContext context, User user) {
+    // 将状态加载逻辑移到这里，确保只在登录后执行
+    final Future<int> favoritesCountFuture = _dbHelper.getFavoritesCount();
+    final Future<int> creationsCountFuture = _dbHelper.getCreationsCount();
+    final Future<int> notesCountFuture = _dbHelper.getNotesCount();
+
+    // 在 State 中重新加载统计数据
+    void reloadStats() {
+      setState(() {
+        // 这个 setState 只是为了触发 FutureBuilder 重建
+      });
+    }
+
+    // 导航并刷新的辅助函数
+    void navigateAndReload(Widget page) async {
+      await Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+      reloadStats();
+    }
+
+    // 登出方法
+    Future<void> signOut() async {
+      try {
+        await _dbHelper.signOut();
+        // 因为 StreamBuilder 在监听，UI会自动切换到游客视图
+      } catch (e) {
+        if (mounted) {
+          showTopBanner(context, '登出失败: $e', isError: true);
+        }
+      }
+    }
+
     final theme = Theme.of(context);
     final double topPadding = MediaQuery.of(context).padding.top;
     final double collapsedHeight = kToolbarHeight;
@@ -61,7 +130,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       body: CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
           SliverAppBar(
             expandedHeight: expandedHeight,
@@ -70,16 +138,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             backgroundColor: theme.scaffoldBackgroundColor,
             flexibleSpace: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
+                // ... 这部分动画头部的逻辑保持不变 ...
                 final double currentHeight = constraints.maxHeight;
                 final double scrollProgress = ((currentHeight - collapsedHeight - topPadding) / (expandedHeight - collapsedHeight - topPadding)).clamp(0.0, 1.0);
-
                 final baseExpandedStyle = theme.textTheme.headlineSmall ?? const TextStyle();
                 final baseCollapsedStyle = theme.appBarTheme.titleTextStyle ?? const TextStyle();
-
                 final expandedStyle = baseExpandedStyle.copyWith(inherit: false);
                 final collapsedStyle = baseCollapsedStyle.copyWith(inherit: false);
+                final userEmail = user.email ?? '已登录用户';
+                final userSignature = '祝你调酒愉快！';
 
-                return _buildAnimatedHeader(theme, scrollProgress, expandedStyle, collapsedStyle);
+                return _buildAnimatedHeader(theme, scrollProgress, expandedStyle, collapsedStyle, userEmail, userSignature);
               },
             ),
           ),
@@ -89,17 +158,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildStatsSection(),
-                  // [修复2] 调整内容区域间距
+                  _buildStatsSection(favoritesCountFuture, creationsCountFuture, notesCountFuture, navigateAndReload),
                   const SizedBox(height: 24),
                   _buildSectionTitle(theme, '我的内容'),
-                  _buildContentManagementList(theme), // 传入theme以供样式使用
+                  _buildContentManagementList(theme, navigateAndReload),
                   const SizedBox(height: 24),
                   _buildSectionTitle(theme, '专业工具箱'),
                   _buildProToolsList(),
                   const SizedBox(height: 24),
                   _buildSectionTitle(theme, '应用'),
-                  _buildAppSettingsList(),
+                  _buildAppSettingsList(signOut), // 传入登出方法
                 ],
               ),
             ),
@@ -109,8 +177,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  // [修复3] 重构“我的内容”列表，将创建按钮变为独立的操作行
-  Widget _buildContentManagementList(ThemeData theme) {
+  // 其他所有 _build... 辅助方法保持不变 (仅需接收所需参数)
+  Widget _buildStatsSection(
+      Future<int> favoritesFuture, Future<int> creationsFuture, Future<int> notesFuture, Function(Widget) navigateAndReload) {
+    return Row(
+      children: [
+        _buildStatFutureCard(
+          icon: Icons.favorite_border,
+          label: '我的收藏',
+          future: favoritesFuture,
+          onTap: () => navigateAndReload(const MyFavoritesScreen()),
+        ),
+        const SizedBox(width: 12),
+        _buildStatFutureCard(
+          icon: Icons.edit_note_outlined,
+          label: '我的创作',
+          future: creationsFuture,
+          onTap: () => navigateAndReload(const MyCreationsScreen()),
+        ),
+        const SizedBox(width: 12),
+        _buildStatFutureCard(
+          icon: Icons.notes_outlined,
+          label: '我的笔记',
+          future: notesFuture,
+          onTap: () => navigateAndReload(const MyNotesScreen()),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatFutureCard({
+    required IconData icon,
+    required String label,
+    required Future<int> future,
+    required VoidCallback onTap,
+  }) {
+    return FutureBuilder<int>(
+      future: future,
+      builder: (context, snapshot) {
+        final count = snapshot.connectionState == ConnectionState.done && snapshot.hasData
+            ? snapshot.data!.toString()
+            : '-';
+        return ProfileStatCard(
+          icon: icon,
+          label: label,
+          count: count,
+          onTap: onTap,
+        );
+      },
+    );
+  }
+
+  Widget _buildContentManagementList(ThemeData theme, Function(Widget) navigateAndReload) {
     return Card(
       margin: EdgeInsets.zero,
       child: Column(
@@ -118,36 +236,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _buildListTile(
             icon: Icons.favorite_border,
             title: '我的收藏',
-            onTap: () => _navigateAndReload(const MyFavoritesScreen()),
+            onTap: () => navigateAndReload(const MyFavoritesScreen()),
           ),
           _buildListTile(
             icon: Icons.edit_note_outlined,
             title: '我的创作',
-            onTap: () => _navigateAndReload(const MyCreationsScreen()),
+            onTap: () => navigateAndReload(const MyCreationsScreen()),
           ),
           _buildListTile(
             icon: Icons.notes_outlined,
             title: '我的笔记',
-            onTap: () => _navigateAndReload(const MyNotesScreen()),
+            onTap: () => navigateAndReload(const MyNotesScreen()),
           ),
-          // 分割线，将操作与导航分开
           Divider(height: 1, indent: 16, endIndent: 16,color: Colors.grey[200],),
-          // 一个样式独特的“创建”操作行
           ListTile(
             leading: Icon(Icons.add_circle_outline, color: theme.primaryColor),
             title: Text(
               '创建新配方',
               style: TextStyle(fontSize: 16, color: theme.primaryColor, fontWeight: FontWeight.bold),
             ),
-            onTap: _navigateToCreateRecipe,
+            onTap: () async {
+              await Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateRecipeScreen()));
+              setState((){});
+            },
           ),
         ],
       ),
     );
   }
 
-  // [修复1 & 3] 优化后的头部动画
-  Widget _buildAnimatedHeader(ThemeData theme, double scrollProgress, TextStyle expandedStyle, TextStyle collapsedStyle) {
+  Widget _buildAnimatedHeader(ThemeData theme, double scrollProgress, TextStyle expandedStyle, TextStyle collapsedStyle, String userName, String userSignature) {
+    // ... 此方法实现完全不变 ...
     final double avatarStartSize = 80.0;
     final double avatarEndSize = 36.0;
     final double avatarStartTop = 50.0 - 10;
@@ -160,7 +279,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final double titleStartLeft = 0;
     final double titleEndLeft = avatarEndLeft + avatarEndSize + 12;
 
-    // [修复1] 调整签名的垂直位置，增加与用户名的间距
     final double signatureStartTop = titleStartTop + 36+12;
 
     final double currentAvatarSize = lerpDouble(avatarStartSize, avatarEndSize, 1 - scrollProgress)!;
@@ -178,20 +296,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: CircleAvatar(
             radius: currentAvatarSize / 2,
             backgroundColor: theme.primaryColor.withOpacity(0.1),
-            child: Icon(_userAvatarIcon, size: currentAvatarSize * 0.5, color: theme.primaryColor),
+            child: Icon(Icons.person_outline, size: currentAvatarSize * 0.5, color: theme.primaryColor),
           ),
         ),
         Positioned(
           top: currentTitleTop,
           left: currentTitleLeft,
-          // [修复3] 确保标题容器在折叠时有正确的宽度和高度
           right: (1 - scrollProgress) * 16.0,
           height: kToolbarHeight,
           child: Align(
             alignment: Alignment.lerp(Alignment.center, Alignment.centerLeft, 1 - scrollProgress)!,
             child: Text(
-              _userName,
+              userName, // 使用动态用户名
               style: TextStyle.lerp(expandedStyle, collapsedStyle, 1 - scrollProgress),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),
@@ -202,7 +320,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Opacity(
             opacity: signatureOpacity,
             child: Text(
-              _userSignature,
+              userSignature, // 使用动态签名
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium,
             ),
@@ -211,9 +329,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ],
     );
   }
-
-  // --- 其余所有 build 辅助方法保持不变 ---
-
   Widget _buildProToolsList() {
     return Card(
       margin: EdgeInsets.zero,
@@ -239,43 +354,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildListTile({ required IconData icon, required String title, required VoidCallback onTap}) {
+  Widget _buildListTile({ required IconData icon, required String title, required VoidCallback onTap, Color? color}) {
     final theme = Theme.of(context);
     return ListTile(
-      leading: Icon(icon, color: theme.primaryColor),
-      title: Text(title, style: const TextStyle(fontSize: 16)),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+      leading: Icon(icon, color: color ?? theme.primaryColor),
+      title: Text(title, style: TextStyle(fontSize: 16, color: color)),
+      trailing: color == null ? const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey) : null,
       onTap: onTap,
     );
   }
-
-  Widget _buildStatsSection() {
-    return Row(
-      children: [
-        _buildStatFutureCard(
-          icon: Icons.favorite_border,
-          label: '我的收藏',
-          future: _favoritesCountFuture,
-          onTap: () => _navigateAndReload(const MyFavoritesScreen()),
-        ),
-        const SizedBox(width: 12),
-        _buildStatFutureCard(
-          icon: Icons.edit_note_outlined,
-          label: '我的创作',
-          future: _creationsCountFuture,
-          onTap: () => _navigateAndReload(const MyCreationsScreen()),
-        ),
-        const SizedBox(width: 12),
-        _buildStatFutureCard(
-          icon: Icons.notes_outlined,
-          label: '我的笔记',
-          future: _notesCountFuture,
-          onTap: () => _navigateAndReload(const MyNotesScreen()),
-        ),
-      ],
-    );
-  }
-
   Widget _buildSectionTitle(ThemeData theme, String title) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -289,7 +376,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildAppSettingsList() {
+  Widget _buildAppSettingsList(VoidCallback onSignOut) {
+    final theme = Theme.of(context);
     return Card(
       margin: EdgeInsets.zero,
       child: Column(
@@ -309,30 +397,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             title: '关于',
             onTap: () => showTopBanner(context, '“关于”功能正在开发中，敬请期待！'),
           ),
+          Divider(height: 1, indent: 16, endIndent: 16, color: Colors.grey[200]),
+          _buildListTile(
+            icon: Icons.logout,
+            title: '退出登录',
+            onTap: onSignOut,
+            color: theme.colorScheme.error,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildStatFutureCard({
-    required IconData icon,
-    required String label,
-    required Future<int> future,
-    required VoidCallback onTap,
-  }) {
-    return FutureBuilder<int>(
-      future: future,
-      builder: (context, snapshot) {
-        final count = snapshot.connectionState == ConnectionState.done && snapshot.hasData
-            ? snapshot.data!.toString()
-            : '-';
-        return ProfileStatCard(
-          icon: icon,
-          label: label,
-          count: count,
-          onTap: onTap,
-        );
-      },
-    );
-  }
 }

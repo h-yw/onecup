@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:onecup/common/show_top_banner.dart';
-import 'package:onecup/database/database_helper.dart';
+import 'package:onecup/database/supabase_service.dart';
 
 class EditNoteScreen extends StatefulWidget {
   final int recipeId;
@@ -24,7 +24,7 @@ class EditNoteScreen extends StatefulWidget {
 
 class _EditNoteScreenState extends State<EditNoteScreen> {
   late QuillController _controller;
-  final _dbHelper = DatabaseHelper();
+  final _dbHelper = SupabaseService();
   bool _isSaving = false;
   bool _isToolbarExpanded = false;
 

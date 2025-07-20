@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:onecup/common/show_top_banner.dart';
 import 'package:onecup/database/database_helper.dart';
+import 'package:onecup/database/supabase_service.dart';
 
 class ShoppingListScreen extends StatefulWidget {
   const ShoppingListScreen({super.key});
@@ -17,7 +18,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   // final TextEditingController _textController = TextEditingController();
   // final FocusNode _focusNode = FocusNode();
 
-  final DatabaseHelper _dbHelper = DatabaseHelper();
+  final SupabaseService _dbHelper = SupabaseService();
 
   List<Map<String, dynamic>> _shoppingList = [];
   List<Map<String, dynamic>> _allIngredients = [];

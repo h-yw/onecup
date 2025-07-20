@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:onecup/database/database_helper.dart';
+import 'package:onecup/database/supabase_service.dart';
 import 'package:onecup/search/ingredient_search_delegate.dart'; // [新] 导入我们的搜索页面
 
 class AddIngredientScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class AddIngredientScreen extends StatefulWidget {
 }
 
 class _AddIngredientScreenState extends State<AddIngredientScreen> {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
+  final SupabaseService _dbHelper = SupabaseService();
   List<Map<String, dynamic>> _allIngredients = [];
   Map<String, List<Map<String, dynamic>>> _groupedIngredients = {};
 

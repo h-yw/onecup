@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:onecup/common/show_top_banner.dart';
 import 'package:onecup/database/database_helper.dart';
+import 'package:onecup/database/supabase_service.dart';
 import 'package:onecup/models/receip.dart';
 import 'package:onecup/screens/add_ingredient_screen.dart';
 import 'package:onecup/screens/recipe_detail_screen.dart';
@@ -20,7 +21,7 @@ class MyBarScreen extends StatefulWidget {
 }
 
 class _MyBarScreenState extends State<MyBarScreen> with TickerProviderStateMixin {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
+  final SupabaseService _dbHelper = SupabaseService();
 
   late Future<Map<String, List<String>>> _inventoryFuture;
   late Future<List<Recipe>> _makeableRecipesFuture;

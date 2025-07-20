@@ -133,6 +133,11 @@ class AppTheme {
         unselectedLabelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
         indicatorAnimation: TabIndicatorAnimation.linear
       ),
+      dividerTheme: DividerThemeData(
+        color: Colors.grey[200],
+        thickness: 1,
+        // space: 12
+      )
     );
   }
 }

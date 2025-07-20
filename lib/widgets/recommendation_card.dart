@@ -14,7 +14,7 @@ class RecommendationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final imagePath = recipe.imagePath;
+    final imagePath = recipe.imageUrl;
     final isUrl = imagePath != null && imagePath.startsWith('http');
 
     return GestureDetector(

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:onecup/database/database_helper.dart';
+import 'package:onecup/database/supabase_service.dart';
 import 'package:onecup/models/receip.dart';
 import 'package:onecup/screens/create_recipe_screen.dart';
 import 'package:onecup/screens/recipe_detail_screen.dart';
@@ -15,7 +16,7 @@ class MyCreationsScreen extends StatefulWidget {
 }
 
 class _MyCreationsScreenState extends State<MyCreationsScreen> {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
+  final SupabaseService _dbHelper = SupabaseService();
   late Future<List<Recipe>> _creationsFuture;
 
   @override

@@ -3,11 +3,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:onecup/common/login_prompt_dialog.dart';
 import 'package:onecup/common/show_top_banner.dart';
+import 'package:onecup/database/supabase_service.dart';
 import 'package:onecup/models/receip.dart';
-import 'package:onecup/database/database_helper.dart';
 import 'package:onecup/screens/edit_note_screen.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final Recipe recipe;
@@ -19,7 +19,7 @@ class RecipeDetailScreen extends StatefulWidget {
 }
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
+  final SupabaseService _dbHelper = SupabaseService();
   late Future<List<Map<String, dynamic>>> _ingredientsFuture;
   late Future<List<String>> _tagsFuture;
   late Future<double?> _abvFuture;
@@ -44,12 +44,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         _tagsFuture = _dbHelper.getRecipeTags(widget.recipe.id);
         _abvFuture = _dbHelper.getRecipeABV(widget.recipe.id);
       }
-      _checkIfFavorited();
-      _loadNoteStatus();
+      if (_dbHelper.currentUser != null) {
+        _checkIfFavorited();
+        _loadNoteStatus();
+      }
     });
   }
 
   void _checkIfFavorited() async {
+    if (_dbHelper.currentUser == null) return;
     final isFav = await _dbHelper.isRecipeFavorite(widget.recipe.id);
     if (mounted) {
       setState(() {
@@ -59,6 +62,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   }
 
   void _loadNoteStatus() async {
+    if (_dbHelper.currentUser == null) return;
     _noteFuture = _dbHelper.getRecipeNote(widget.recipe.id);
     final noteContent = await _noteFuture;
     if (mounted) {
@@ -68,16 +72,48 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     }
   }
 
+  // [核心修复] 统一的乐观更新逻辑
   void _toggleFavorite() async {
-    if (_isFavorited) {
-      await _dbHelper.removeRecipeFromFavorites(widget.recipe.id);
-    } else {
-      await _dbHelper.addRecipeToFavorites(widget.recipe.id);
+    if (_dbHelper.currentUser == null) {
+      showLoginPromptDialog(context);
+      return;
     }
-    _checkIfFavorited();
+
+    // 1. 立即更新UI，提供即时反馈
+    final originalIsFavorited = _isFavorited;
+    setState(() {
+      _isFavorited = !originalIsFavorited;
+    });
+
+    // 2. 在后台执行数据库操作
+    try {
+      if (originalIsFavorited) {
+        // 如果之前是已收藏，则执行移除操作
+        await _dbHelper.removeRecipeFromFavorites(widget.recipe.id);
+        // [UI 优化] 为成功操作提供一个可选的、非阻塞的提示
+        if (mounted) showTopBanner(context, '已取消收藏');
+      } else {
+        // 如果之前是未收藏，则执行添加操作
+        await _dbHelper.addRecipeToFavorites(widget.recipe.id);
+        if (mounted) showTopBanner(context, '已添加到收藏');
+      }
+    } catch (e) {
+      // 3. 如果数据库操作失败，则恢复UI状态并提示用户
+      if (mounted) {
+        showTopBanner(context, '操作失败，请重试', isError: true);
+        setState(() {
+          _isFavorited = originalIsFavorited; // 恢复到原始状态
+        });
+      }
+    }
   }
 
+
   void _addAllIngredientsToShoppingList() async {
+    if (_dbHelper.currentUser == null) {
+      showLoginPromptDialog(context);
+      return;
+    }
     await _dbHelper.addRecipeIngredientsToShoppingList(widget.recipe.id);
     if (mounted) {
       showTopBanner(context,'“${widget.recipe.name}”的全部配料已添加到购物清单！');
@@ -85,6 +121,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   }
 
   void _navigateToEditNote() async {
+    if (_dbHelper.currentUser == null) {
+      showLoginPromptDialog(context);
+      return;
+    }
     final currentNote = await _noteFuture;
     final result = await Navigator.push<bool>(
       context,
@@ -158,7 +198,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     const SizedBox(height: 24),
                   ],
 
-                  // [核心优化] 页面主体现在是一个统一的“制作流程”卡片
                   _buildMakingProcessCard(theme),
                   const SizedBox(height: 24),
 
@@ -182,7 +221,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     );
   }
 
-  // [新] 统一的制作流程卡片
+  // ... 其他所有 _build... 辅助方法保持不变 ...
   Widget _buildMakingProcessCard(ThemeData theme) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -192,12 +231,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         border: Border.all(color: Colors.grey.withOpacity(0.15)),
       ),
       child: _isUserCreated
-          ? _buildUserCreatedProcess(theme) // 用户创建的配方使用简化版
-          : _buildStandardProcess(theme),  // 标准配方使用完整版
+          ? _buildUserCreatedProcess(theme)
+          : _buildStandardProcess(theme),
     );
   }
 
-  // [新] 构建标准配方的制作流程
   Widget _buildStandardProcess(ThemeData theme) {
     return FutureBuilder<List<Map<String, dynamic>>>(
         future: _ingredientsFuture,
@@ -213,7 +251,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. 配料部分
               _buildInternalSectionHeader(theme, icon: Icons.format_list_bulleted_rounded, title: '配料清单'),
               const SizedBox(height: 12),
               ...ingredients.map((ing) => _buildIngredientRow(theme, ing)),
@@ -230,7 +267,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               ),
               const Divider(height: 32),
 
-              // 2. 步骤部分
               _buildInternalSectionHeader(theme, icon: Icons.receipt_long_rounded, title: '调制步骤'),
               const SizedBox(height: 12),
               Text(
@@ -242,7 +278,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         });
   }
 
-  // [新] 构建用户自创配方的制作流程
   Widget _buildUserCreatedProcess(ThemeData theme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,7 +299,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     );
   }
 
-  // [新] 卡片内部使用的、更柔和的小标题
   Widget _buildInternalSectionHeader(ThemeData theme, {required IconData icon, required String title}) {
     return Row(
       children: [
@@ -275,7 +309,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     );
   }
 
-  // [新] 构建单行配料的辅助方法
   Widget _buildIngredientRow(ThemeData theme, Map<String, dynamic> ing) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -293,8 +326,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       ),
     );
   }
-
-  // --- 其他所有 build 辅助方法保持不变 ---
 
   Widget _buildInfoCard(ThemeData theme) {
     return Container(
@@ -373,7 +404,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   }
 
   Widget _buildHeaderImage() {
-    final imagePath = widget.recipe.imagePath;
+    final imagePath = widget.recipe.imageUrl;
     final isUrl = imagePath != null && imagePath.startsWith('http');
     return Hero(
       tag: 'recipe_${widget.recipe.id}',
