@@ -41,6 +41,8 @@ dependencies:
   sliver_tools: ^0.2.12
   toastification: ^3.0.3
   flutter_quill: ^11.4.1
+  supabase_flutter: ^2.9.1
+  supabase: ^2.8.0
 
 dev_dependencies:
   flutter_test:

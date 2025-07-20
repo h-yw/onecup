@@ -1,125 +1,37 @@
 {
-  "glass": {
-    "name": "马提尼杯"
-  },
-  "glass-1": {
-    "name": "古典杯"
-  },
-  "glass-2": {
-    "name": "柯林斯杯"
-  },
-  "glass-3": {
-    "name": "高球杯"
-  },
-  "glass-4": {
-    "name": "香槟杯"
-  },
-  "glass-5": {
-    "name": "玛格丽特杯"
-  },
-  "glass-6": {
-    "name": "郁金香杯"
-  },
-  "glass-7": {
-    "name": "飓风杯"
-  },
-  "glass-8": {
-    "name": "子弹杯"
-  },
-  "glass-9": {
-    "name": "热饮杯"
-  },
-  "glass-10": {
-    "name": "白葡萄酒杯"
-  },
-  "glass-11": {
-    "name": "老式酒杯"
-  },
-  "glass-12": {
-    "name": "小号坦布勒杯"
-  },
-  "glass-glass": {
-    "name": "鸡尾酒杯"
-  },
-  "glass-13": {
-    "name": "大号飓风杯"
-  },
-  "glass-14": {
-    "name": "高脚杯"
-  },
-  "glass-15": {
-    "name": "爱尔兰咖啡杯"
-  },
-  "glass-glass-4": {
-    "name": "柯林斯杯或特制的混蛋杯"
-  },
-  "glass-16": {
-    "name": "大的科帕杯"
-  },
-  "glass-17": {
-    "name": "马提尼鸡尾酒杯"
-  },
-  "glass-18": {
-    "name": "传统陶土杯"
-  },
-  "glass-19": {
-    "name": "香槟笛形杯"
-  },
-  "glass-20": {
-    "name": "鸡尾酒杯"
-  },
-  "glass-glass-5": {
-    "name": "岩石杯"
-  },
-  "glass-21": {
-    "name": "细长高脚杯"
-  },
-  "glass-22": {
-    "name": "提基杯"
-  },
-  "glass-23": {
-    "name": "葡萄酒杯"
-  },
-  "glass-24": {
-    "name": "朱利普鸡尾酒杯"
-  },
-  "glass-25": {
-    "name": "笛形杯"
-  },
-  "glass-26": {
-    "name": "岩石杯"
-  },
-  "glass-glass-6": {
-    "name": "骡子杯"
-  },
-  "glass-27": {
-    "name": "大鸡尾酒杯"
-  },
-  "glass-28": {
-    "name": "带脚的科波杯"
-  },
-  "glass-30": {
-    "name": "朱利普不锈钢杯"
-  },
-  "glass-31": {
-    "name": "细长鸡尾酒杯"
-  },
-  "glass-32": {
-    "name": "大香槟杯"
-  },
-  "glass-33": {
-    "name": "高脚坦布勒杯"
-  },
-  "glass-34": {
-    "name": "双份老式酒杯"
-  },
-  "glass-35": {
-    "name": "大高脚杯"
-  },
-  "glass-36": {
-    "name": "陶土杯"
-  },
-  "glass-37": {
-    "name": "双份岩石杯"
-  }
+  "glass-1": { "name": "古典杯" },
+  "glass-2": { "name": "柯林斯杯" },
+  "glass-3": { "name": "传统陶土杯" },
+  "glass-4": { "name": "双份岩石杯" },
+  "glass-5": { "name": "双份老式酒杯" },
+  "glass-6": { "name": "大号飓风杯" },
+  "glass-7": { "name": "大鸡尾酒杯" },
+  "glass-8": { "name": "大香槟杯" },
+  "glass-9": { "name": "大高脚杯" },
+  "glass-10": { "name": "大的科帕杯" },
+  "glass-11": { "name": "带脚的科波杯" },
+  "glass-12": { "name": "岩石杯" },
+  "glass-13": { "name": "优雅鸡尾酒杯" },
+  "glass-14": { "name": "朱利普不锈钢杯" },
+  "glass-15": { "name": "朱利普鸡尾酒杯" },
+  "glass-16": { "name": "特制的混蛋杯" },
+  "glass-17": { "name": "玛格丽特杯" },
+  "glass-18": { "name": "白葡萄酒杯" },
+  "glass-19": { "name": "细长鸡尾酒杯" },
+  "glass-20": { "name": "细长高脚杯" },
+  "glass-21": { "name": "老式酒杯" },
+  "glass-22": { "name": "葡萄酒杯" },
+  "glass-23": { "name": "蝎子杯" },
+  "glass-24": { "name": "骡子杯" },
+  "glass-25": { "name": "高球杯" },
+  "glass-26": { "name": "高脚坦布勒杯" },
+  "glass-27": { "name": "高脚杯" },
+  "glass-28": { "name": "鸡尾酒杯" },
+  "glass-29": { "name": "香槟杯" },
+  "glass-30": { "name": "香槟笛形杯" },
+  "glass-31": { "name": "马提尼鸡尾酒杯" },
+  "glass-32": { "name": "飓风杯" },
+  "glass-33": { "name": "小号坦布勒杯" },
+  "glass-34": { "name": "提基杯" },
+  "glass-35": { "name": "典型陶土杯" }
 }
