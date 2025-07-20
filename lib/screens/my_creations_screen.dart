@@ -1,41 +1,54 @@
-// lib/screens/my_favorites_screen.dart
+// lib/screens/my_creations_screen.dart
 
 import 'package:flutter/material.dart';
 import 'package:onecup/database/database_helper.dart';
 import 'package:onecup/models/receip.dart';
+import 'package:onecup/screens/create_recipe_screen.dart';
 import 'package:onecup/screens/recipe_detail_screen.dart';
 import 'package:onecup/widgets/cocktail-card.dart';
 
-class MyFavoritesScreen extends StatefulWidget {
-  const MyFavoritesScreen({super.key});
+class MyCreationsScreen extends StatefulWidget {
+  const MyCreationsScreen({super.key});
 
   @override
-  State<MyFavoritesScreen> createState() => _MyFavoritesScreenState();
+  State<MyCreationsScreen> createState() => _MyCreationsScreenState();
 }
 
-class _MyFavoritesScreenState extends State<MyFavoritesScreen> {
+class _MyCreationsScreenState extends State<MyCreationsScreen> {
   final DatabaseHelper _dbHelper = DatabaseHelper();
-  late Future<List<Recipe>> _favoritesFuture;
+  late Future<List<Recipe>> _creationsFuture;
 
   @override
   void initState() {
     super.initState();
-    _loadFavorites();
+    _loadCreations();
   }
 
-  void _loadFavorites() {
+  void _loadCreations() {
     setState(() {
-      _favoritesFuture = _dbHelper.getFavoriteRecipes();
+      _creationsFuture = _dbHelper.getUserCreatedRecipes();
     });
   }
 
   void _navigateToDetail(Recipe recipe) async {
+    // 用户创建的配方也可以查看详情
     await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => RecipeDetailScreen(recipe: recipe)),
     );
     if (mounted) {
-      _loadFavorites();
+      _loadCreations();
+    }
+  }
+
+  void _navigateToCreateRecipe() async {
+    final result = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(builder: (context) => const CreateRecipeScreen()),
+    );
+    // 如果创建成功，则刷新列表
+    if (result == true && mounted) {
+      _loadCreations();
     }
   }
 
@@ -43,23 +56,23 @@ class _MyFavoritesScreenState extends State<MyFavoritesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('我的收藏'),
+        title: const Text('我的创作'),
       ),
       body: FutureBuilder<List<Recipe>>(
-        future: _favoritesFuture,
+        future: _creationsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('加载收藏列表失败: ${snapshot.error}'));
+            return Center(child: Text('加载失败: ${snapshot.error}'));
           }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
               child: Padding(
                 padding: EdgeInsets.all(24.0),
                 child: Text(
-                  '您还没有收藏任何鸡尾酒。\n去首页看看，点击♥️收藏您喜欢的吧！',
+                  '你还没有创作任何配方。\n点击右下角的“+”按钮，开始你的第一杯创作吧！',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18, color: Colors.grey),
                 ),
@@ -67,11 +80,11 @@ class _MyFavoritesScreenState extends State<MyFavoritesScreen> {
             );
           }
 
-          final favorites = snapshot.data!;
+          final creations = snapshot.data!;
           return ListView.builder(
-            itemCount: favorites.length,
+            itemCount: creations.length,
             itemBuilder: (context, index) {
-              final recipe = favorites[index];
+              final recipe = creations[index];
               return CocktailCard(
                 recipe: recipe,
                 onTap: () => _navigateToDetail(recipe),
@@ -80,7 +93,12 @@ class _MyFavoritesScreenState extends State<MyFavoritesScreen> {
           );
         },
       ),
-      // [核心升级] 移除此处的 FloatingActionButton
+      // 将创建按钮（FAB）放在这里
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _navigateToCreateRecipe,
+        icon: const Icon(Icons.add),
+        label: const Text('创建新配方'),
+      ),
     );
   }
 }

@@ -1,1452 +1,4227 @@
 [
   {
-    "iba": true,
-    "name": "维斯珀",
-    "colors": "#D88317",
-    "glass": "马提尼杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 6, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 0.75, "ingredient": "丽叶金" }
-    ],
-    "garnish": "柠檬皮卷",
-    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "百加得",
-    "colors": ["#F80304"],
-    "glass": "马提尼杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 4.5,
-        "ingredient": "白朗姆酒",
-        "label": "百加得白朗姆酒"
-      },
-      { "unit": "厘升", "amount": 2, "ingredient": "青柠汁" },
-      { "unit": "厘升", "amount": 1, "ingredient": "糖浆", "label": "红石榴糖浆" }
-    ],
-    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "尼格罗尼",
-    "colors": "#ED0200",
-    "glass": "古典杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 3, "ingredient": "金巴利" },
-      {
-        "unit": "厘升",
-        "amount": 3,
-        "ingredient": "味美思",
-        "label": "甜红味美思"
-      }
-    ],
-    "garnish": "半片橙子",
-    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。"
-  },
-  {
-    "iba": true,
-    "name": "玫瑰",
-    "colors": "#FE29BC",
-    "glass": "马提尼杯",
-    "ingredients": [
-      { "unit": "厘升", "amount": 2, "ingredient": "樱桃酒" },
-      {
-        "unit": "厘升",
-        "amount": 4,
-        "ingredient": "味美思",
-        "label": "干味美思"
-      },
-      {
-        "amount": "3滴",
-        "ingredient": "糖浆",
-        "label": "草莓糖浆"
-      }
-    ],
-    "preparation": "将所有原料与冰块搅拌均匀，然后滤入鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "古典",
-    "colors": ["#E74A03", "#F1A507"],
-    "glass": "古典杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 4.5,
-        "ingredient": "威士忌",
-        "label": "波本或黑麦威士忌"
-      },
-      { "ingredient": "安高天娜苦精", "amount": "2滴" },
-      { "ingredient": "糖", "amount": "1块", "label": "方糖" },
-      { "special": "几滴纯水" }
-    ],
-    "garnish": "橙片和樱桃",
-    "preparation": "将方糖放入古典杯中，用苦精浸透，加入一滴纯水。捣烂直至溶解。在杯中装满冰块，加入威士忌。"
-  },
-  {
-    "iba": true,
-    "name": "燕尾服",
-    "colors": "#FDC78B",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 3,
-        "ingredient": "金酒",
-        "label": "老汤姆金酒"
-      },
-      {
-        "unit": "厘升",
-        "amount": 3,
-        "ingredient": "味美思",
-        "label": "干味美思"
-      },
-      { "amount": "1/4吧勺", "ingredient": "苦艾酒" },
-      {
-        "amount": "1/2吧勺",
-        "ingredient": "樱桃利口酒",
-        "label": "黑樱桃利口酒"
-      },
-      { "amount": "3滴", "ingredient": "橙味苦精" }
-    ],
-    "garnish": "樱桃和柠檬皮卷",
-    "preparation": "将所有原料与冰块搅拌均匀，然后滤入鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "莫吉托",
-    "colors": ["#F7F1BC", "#6D9600"],
-    "glass": "柯林斯杯",
-    "category": "长饮",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 4,
-        "ingredient": "白朗姆酒",
-        "label": "古巴白朗姆酒"
-      },
-      { "ingredient": "苏打水" },
-      { "unit": "厘升", "amount": 3, "ingredient": "青柠汁" },
-      { "ingredient": "薄荷", "amount": "6枝", "label": "薄荷枝" },
-      { "ingredient": "糖", "amount": "2茶匙", "label": "白糖" }
-    ],
-    "garnish": "薄荷叶和柠檬片",
-    "preparation": "将薄荷枝与糖和青柠汁捣烂。加入少量苏打水，然后用碎冰填满杯子。倒入朗姆酒，最后加满苏打水。用吸管饮用。"
-  },
-  {
-    "iba": true,
-    "name": "马颈",
-    "colors": "#D9A031",
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4, "ingredient": "干邑白兰地" },
-      { "unit": "厘升", "amount": 12, "ingredient": "姜汁汽水" },
-      { "special": "一滴安高天娜苦精（可选）" }
-    ],
-    "garnish": "柠檬皮卷",
-    "preparation": "在高球杯中加入冰块调制。轻轻搅拌。如果需要，可加入几滴安高天娜苦精。"
-  },
-  {
-    "iba": true,
-    "name": "种植园主潘趣",
-    "colors": ["#B51202", "#F9C31A"],
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "黑朗姆酒" },
-      { "unit": "厘升", "amount": 3.5, "ingredient": "橙汁" },
-      { "unit": "厘升", "amount": 3.5, "ingredient": "菠萝汁" },
-      { "unit": "厘升", "amount": 2, "ingredient": "柠檬汁" },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "糖浆",
-        "label": "红石榴糖浆"
-      },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "糖浆",
-        "label": "糖浆"
-      },
-      { "ingredient": "安高天娜苦精", "amount": "3至4滴" }
-    ],
-    "garnish": "菠萝片和一颗樱桃",
-    "preparation": "将除苦精外的所有原料倒入装满冰的摇酒壶中。摇匀。倒入装满冰的大杯中。在顶部滴加“安高天娜苦精”。"
-  },
-  {
-    "iba": true,
-    "name": "海风",
-    "colors": ["#f20010", "#89c134"],
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 12, "ingredient": "蔓越莓汁" },
-      { "unit": "厘升", "amount": 3, "ingredient": "葡萄柚汁" }
-    ],
-    "garnish": "青柠角",
-    "preparation": "在装满冰的岩石杯中调制所有原料。"
-  },
-  {
-    "iba": true,
-    "name": "皮斯科酸",
-    "colors": "#B5AB90",
-    "glass": "古典杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "皮斯科" },
-      { "unit": "厘升", "amount": 3, "ingredient": "柠檬汁" },
-      {
-        "unit": "厘升",
-        "amount": 2,
-        "ingredient": "糖浆",
-        "label": "糖浆"
-      },
-      {
-        "ingredient": "蛋清",
-        "amount": 1,
-        "label": "蛋清（小鸡蛋）"
-      }
-    ],
-    "preparation": "摇匀并滤入冰镇的香槟杯中。在顶部滴几滴安高天娜苦精。"
-  },
-  {
-    "iba": true,
-    "name": "长岛冰茶",
-    "colors": "#C18450",
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 1.5, "ingredient": "龙舌兰" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "白朗姆酒" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "三秒利口酒" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 2.5, "ingredient": "柠檬汁" },
-      {
-        "unit": "厘升",
-        "amount": 3.0,
-        "ingredient": "糖浆",
-        "label": "阿拉伯糖浆"
-      },
-      { "ingredient": "可乐", "amount": "1滴" }
-    ],
-    "garnish": "柠檬皮卷",
-    "preparation": "将所有原料加入装满冰块的高球杯中。轻轻搅拌。用吸管饮用。"
-  },
-  {
-    "iba": true,
-    "name": "三叶草俱乐部",
-    "colors": ["#B1061D", "#E65259", "#f4edee"],
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "金酒" },
-      {
-        "unit": "厘升",
-        "amount": 1.5,
-        "ingredient": "覆盆子糖浆"
-      },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
-      {
-        "ingredient": "蛋清",
-        "label": "几滴蛋清"
-      }
-    ],
-    "preparation": "加冰块摇匀。滤入鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "天使之面",
-    "colors": ["#F6CD4C"],
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 3, "ingredient": "杏子白兰地" },
-      { "unit": "厘升", "amount": 3, "ingredient": "卡尔瓦多斯" }
-    ],
-    "preparation": "加冰块摇匀。滤入鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "含羞草",
-    "colors": "#EBC04D",
-    "glass": "香槟杯",
-    "category": "气泡鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 7.5, "ingredient": "香槟" },
-      { "unit": "厘升", "amount": 7.5, "ingredient": "橙汁" }
-    ],
-    "garnish": "可选橙皮卷",
-    "preparation": "将橙汁倒入笛形杯中，然后轻轻倒入香槟。轻轻搅拌。注意：Buck's Fizz 是一款非常相似的鸡尾酒，但由两份香槟和一份橙汁制成。"
-  },
-  {
-    "iba": true,
-    "name": "威士忌酸",
-    "colors": "#F3CA69",
-    "glass": "古典杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 4.5,
-        "ingredient": "威士忌",
-        "label": "波本威士忌"
-      },
-      { "unit": "厘升", "amount": 3.0, "ingredient": "柠檬汁" },
-      { "ingredient": "蛋清", "label": "一滴蛋清" },
-      {
-        "unit": "厘升",
-        "amount": 1.5,
-        "ingredient": "糖浆",
-        "label": "糖浆"
-      }
-    ],
-    "garnish": "半片橙子和一颗樱桃",
-    "preparation": "（可选：如果使用蛋清，摇动时要更用力，以使蛋清起泡）。将所有原料倒入装满冰的摇酒壶中。摇匀。滤入鸡尾酒杯中。如果选择“加冰”，则将原料滤入装满冰的古典杯中。"
-  },
-  {
-    "iba": true,
-    "name": "螺丝刀",
-    "colors": "#D6C01D",
-    "glass": "高球杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 5, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 10, "ingredient": "橙汁" }
-    ],
-    "garnish": "橙片",
-    "preparation": "在高球杯中加入冰块调制。轻轻搅拌。"
-  },
-  {
-    "iba": true,
-    "name": "自由古巴",
-    "colors": ["#440D06", "#983F27", "#EDDC7C"],
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 5, "ingredient": "白朗姆酒" },
-      { "unit": "厘升", "amount": 12, "ingredient": "可乐" },
-      { "unit": "厘升", "amount": 1, "ingredient": "青柠汁" }
-    ],
-    "garnish": "青柠角",
-    "preparation": "在高球杯中加入冰块调制所有原料。"
-  },
-  {
-    "iba": true,
-    "name": "曼哈顿",
-    "colors": "#FF000B",
-    "glass": "马提尼杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 5,
-        "ingredient": "威士忌",
-        "label": "黑麦威士忌"
-      },
-      {
-        "unit": "厘升",
-        "amount": 2,
-        "ingredient": "味美思",
-        "label": "红味美思"
-      },
-      { "ingredient": "安高天娜苦精", "amount": "1滴" }
-    ],
-    "garnish": "樱桃",
-    "preparation": "在调酒杯中与冰块搅拌。滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "波特菲力普",
-    "colors": "#823D38",
-    "glass": "马提尼杯",
-    "category": "餐后鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 1.5, "ingredient": "干邑白兰地" },
-      { "unit": "厘升", "amount": 4.5, "ingredient": "红波特酒" },
-      { "unit": "厘升", "amount": 1, "ingredient": "蛋黄" }
-    ],
-    "preparation": "加冰块摇匀。滤入鸡尾酒杯中。撒上新鲜的肉豆蔻粉。"
-  },
-  {
-    "iba": true,
-    "name": "金菲士",
-    "colors": "#C6C8C3",
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 3, "ingredient": "柠檬汁" },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "糖浆",
-        "label": "糖浆"
-      },
-      { "unit": "厘升", "amount": 8, "ingredient": "苏打水" }
-    ],
-    "garnish": "柠檬片",
-    "preparation": "将除苏打水外的所有原料与冰块摇匀。倒入平底杯中。加满苏打水。"
-  },
-  {
-    "iba": true,
-    "name": "意式浓缩马提尼",
-    "searchTerm": "马提尼",
-    "colors": ["#463639", "#D0BFA5"],
-    "glass": "马提尼杯",
-    "category": "餐后鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 5, "ingredient": "伏特加" },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "咖啡利口酒",
-        "label": "甘露咖啡利口酒"
-      },
-      {
-        "ingredient": "咖啡",
-        "amount": "1份",
-        "label": "意式浓缩咖啡"
-      },
-      {
-        "label": "糖浆",
-        "ingredient": "糖浆",
-        "amount": "根据口味添加"
-      }
-    ],
-    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "玛格丽特",
-    "colors": "#B8B781",
-    "glass": "玛格丽特杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3.5, "ingredient": "龙舌兰" },
-      {
-        "unit": "厘升",
-        "amount": 2,
-        "ingredient": "三秒利口酒",
-        "label": "君度"
-      },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" }
-    ],
-    "preparation": "加冰块摇匀。滤入杯口沾有盐的鸡尾酒杯中（注意：水果玛格丽特 - 将所选水果与上述配方混合搅拌）。"
-  },
-  {
-    "iba": true,
-    "name": "法式75",
-    "colors": ["#E9CE8E"],
-    "glass": "郁金香香槟杯",
-    "category": "气泡鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
-      { "ingredient": "糖浆", "amount": "2滴", "label": "糖浆" },
-      { "unit": "厘升", "amount": 6, "ingredient": "香槟" }
-    ],
-    "preparation": "除香槟外，将其余原料与冰块摇匀。滤入香槟杯中。加满香槟。轻轻搅拌。"
-  },
-  {
-    "iba": true,
-    "name": "黄鸟",
-    "colors": "#EBCF2E",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3, "ingredient": "白朗姆酒" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "加利安诺" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "三秒利口酒" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" }
-    ],
-    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "椰林飘香",
-    "colors": "#C5B9A1",
-    "glass": "飓风杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3, "ingredient": "白朗姆酒" },
-      { "unit": "厘升", "amount": 9, "ingredient": "菠萝汁" },
-      { "unit": "厘升", "amount": 3, "ingredient": "椰奶" }
-    ],
-    "garnish": "菠萝片和一颗樱桃",
-    "preparation": "将所有原料与冰块在电动搅拌机中搅拌，倒入大高脚杯或飓风杯中，用吸管饮用。"
-  },
-  {
-    "iba": true,
-    "name": "飞行",
-    "colors": "#68517B",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "金酒" },
-      {
-        "unit": "厘升",
-        "amount": 1.5,
-        "ingredient": "樱桃利口酒",
-        "label": "黑樱桃利口酒"
-      },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
-      { "amount": "1份", "ingredient": "紫罗兰利口酒" }
-    ],
-    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。IBA的配方省略了通常会添加的紫罗兰利口酒，这种酒能赋予饮品独特的紫色。"
-  },
-  {
-    "iba": true,
-    "name": "贝里尼",
-    "colors": ["#F89E64"],
-    "glass": "香槟杯",
-    "category": "气泡鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 10, "ingredient": "普罗赛克" },
-      { "unit": "厘升", "amount": 5, "ingredient": "桃子泥" }
-    ],
-    "preparation": "将桃子泥倒入冰镇的杯中，加入气泡酒。轻轻搅拌。变种：普契尼（新鲜橘子汁）、罗西尼（新鲜草莓泥）、丁托列托（新鲜石榴汁）。"
-  },
-  {
-    "iba": true,
-    "name": "蚱蜢",
-    "colors": "#75CCA6",
-    "glass": "马提尼杯",
-    "category": "餐后鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 3,
-        "ingredient": "可可利口酒",
-        "label": "白可可利口酒"
-      },
-      {
-        "unit": "厘升",
-        "amount": 3,
-        "ingredient": "薄荷利口酒",
-        "label": "绿薄荷利口酒"
-      },
-      { "unit": "厘升", "amount": 3, "ingredient": "奶油" }
-    ],
-    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "龙舌兰日出",
-    "colors": ["#FFC800", "#F64202"],
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "龙舌兰" },
-      { "unit": "厘升", "amount": 9, "ingredient": "橙汁" },
-      {
-        "unit": "厘升",
-        "amount": 1.5,
-        "ingredient": "糖浆",
-        "label": "红石榴糖浆"
-      }
-    ],
-    "garnish": "橙片和一颗樱桃",
-    "preparation": "在高球杯中加入龙舌兰和橙汁，加冰块。加入少量红石榴糖浆，营造日出效果。不要搅拌。"
-  },
-  {
-    "iba": true,
-    "name": "得其利",
-    "colors": "#ACA99C",
-    "glass": "马提尼杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "白朗姆酒" },
-      { "unit": "厘升", "amount": 2.5, "ingredient": "青柠汁" },
-      {
-        "unit": "厘升",
-        "amount": 1.5,
-        "ingredient": "糖浆",
-        "label": "单糖浆"
-      }
-    ],
-    "preparation": "摇匀并滤入鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "锈钉",
-    "colors": "#BD4200",
-    "glass": "古典杯",
-    "category": "餐后鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 4.5,
-        "ingredient": "威士忌",
-        "label": "苏格兰威士忌"
-      },
-      { "unit": "厘升", "amount": 2.5, "ingredient": "杜林标" }
-    ],
-    "garnish": "柠檬皮卷",
-    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。"
-  },
-  {
-    "iba": true,
-    "name": "B-52",
-    "colors": ["#F39F00", "#E7D3B3", "#401110"],
-    "glass": "子弹杯",
-    "category": "餐后鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 2,
-        "ingredient": "咖啡利口酒",
-        "label": "甘露咖啡利口酒"
-      },
-      {
-        "unit": "厘升",
-        "amount": 2,
-        "ingredient": "奶油利口酒",
-        "label": "百利甜"
-      },
-      {
-        "unit": "厘升",
-        "amount": 2,
-        "ingredient": "三秒利口酒",
-        "label": "柑曼怡"
-      }
-    ],
-    "preparation": "按顺序分层倒入原料，先是甘露，然后是百利甜，最后是柑曼怡。点燃柑曼怡，趁着火焰燃烧时饮用，旁边配有吸管。"
-  },
-  {
-    "iba": true,
-    "name": "毒刺",
-    "colors": "#D66806",
-    "glass": "马提尼杯",
-    "category": "餐后鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 5, "ingredient": "干邑白兰地" },
-      {
-        "unit": "厘升",
-        "amount": 2,
-        "ingredient": "薄荷利口酒",
-        "label": "白薄荷利口酒"
-      }
-    ],
-    "preparation": "在调酒杯中与冰块搅拌。滤入鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "金色梦想",
-    "colors": "#FEEE8E",
-    "glass": "马提尼杯",
-    "category": "餐后鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 2, "ingredient": "加利安诺" },
-      { "unit": "厘升", "amount": 2, "ingredient": "三秒利口酒" },
-      { "unit": "厘升", "amount": 2, "ingredient": "橙汁" },
-      { "unit": "厘升", "amount": 1, "ingredient": "奶油" }
-    ],
-    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "教母",
-    "colors": "#C3660B",
-    "glass": "古典杯",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3.5, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 3.5, "ingredient": "杏仁利口酒" }
-    ],
-    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。"
-  },
-  {
-    "iba": true,
-    "name": "威尼斯气泡酒",
-    "colors": "#DA1903",
-    "glass": "古典杯",
-    "category": "气泡鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 6, "ingredient": "普罗赛克" },
-      { "unit": "厘升", "amount": 4, "ingredient": "阿佩罗" },
-      { "amount": "1注", "ingredient": "苏打水" }
-    ],
-    "garnish": "半片橙子",
-    "preparation": "在装满冰块的古典杯中调制。顶部加一点苏打水。"
-  },
-  {
-    "iba": true,
-    "name": "黑刺李",
-    "colors": ["#3B0005", "#C00834", "#eaafb5"],
-    "glass": "古典杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "糖浆",
-        "label": "糖浆"
-      },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "黑莓利口酒" }
-    ],
-    "garnish": "柠檬片和两颗黑莓",
-    "preparation": "在岩石杯中加碎冰调制。搅拌，然后将黑莓利口酒以打圈方式倒在饮品顶部。"
-  },
-  {
-    "iba": true,
-    "name": "白兰地亚历山大",
-    "colors": ["#B39684"],
-    "glass": "马提尼杯",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3, "ingredient": "干邑白兰地" },
-      {
-        "unit": "厘升",
-        "amount": 3,
-        "ingredient": "可可利口酒",
-        "label": "棕色可可利口酒"
-      },
-      { "unit": "厘升", "amount": 3, "ingredient": "奶油" }
-    ],
-    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。撒上新鲜的肉豆蔻粉。IBA仅将此饮品称为“亚历山大”。"
-  },
-  {
-    "iba": true,
-    "name": "柠檬马提尼",
-    "colors": "#C4B686",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 2.5,
-        "ingredient": "柠檬伏特加"
-      },
-      { "unit": "厘升", "amount": 2, "ingredient": "三秒利口酒" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" }
-    ],
-    "garnish": "柠檬片",
-    "preparation": "摇匀并滤入杯口沾有糖的冰镇鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "法式马提尼",
-    "colors": "#E00001",
-    "glass": "马提尼杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "覆盆子利口酒" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "菠萝汁" }
-    ],
-    "preparation": "在调酒杯中与冰块搅拌。滤入冰镇的鸡尾酒杯中。将柠檬皮的油挤到饮品上。"
-  },
-  {
-    "iba": true,
-    "name": "黑俄罗斯",
-    "colors": ["#EDE4DB", "#BA4D00", "#52180F"],
-    "glass": "古典杯",
-    "category": "餐后鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 5, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 2, "ingredient": "咖啡利口酒" }
-    ],
-    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。注意：对于白俄罗斯，在顶部漂浮新鲜奶油并轻轻搅拌。"
-  },
-  {
-    "iba": true,
-    "name": "血腥玛丽",
-    "colors": ["#c10000"],
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 9, "ingredient": "番茄汁" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
-      { "amount": "2至3滴", "ingredient": "伍斯特酱" },
-      { "special": "塔巴斯科辣酱" },
-      { "special": "芹菜盐" },
-      { "special": "胡椒" }
-    ],
-    "garnish": "芹菜，可选加柠檬角",
-    "preparation": "轻轻搅拌，将所有原料倒入高球杯中。"
-  },
-  {
-    "iba": true,
-    "name": "迈泰",
-    "colors": "#FF3006",
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4, "ingredient": "白朗姆酒" },
-      { "unit": "厘升", "amount": 2, "ingredient": "黑朗姆酒" },
-      {
-        "unit": "厘升",
-        "amount": 1.5,
-        "ingredient": "三秒利口酒",
-        "label": "橙味库拉索"
-      },
-      {
-        "unit": "厘升",
-        "amount": 1.5,
-        "ingredient": "糖浆",
-        "label": "杏仁糖浆"
-      },
-      { "unit": "厘升", "amount": 1, "ingredient": "青柠汁" }
-    ],
-    "garnish": "菠萝矛、薄荷叶和青柠角",
-    "preparation": "摇匀并滤入高球杯中。用吸管饮用。"
-  },
-  {
-    "iba": true,
-    "name": "梭子鱼",
-    "colors": ["#f2dd21"],
-    "glass": "玛格丽特杯",
-    "category": "气泡鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 4.5,
-        "ingredient": "黑朗姆酒",
-        "label": "金色朗姆酒"
-      },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "加利安诺" },
-      { "unit": "厘升", "amount": 6, "ingredient": "菠萝汁" },
-      { "amount": "1滴", "ingredient": "青柠汁" },
-      {
-        "ingredient": "气泡酒",
-        "label": "普罗赛克",
-        "amount": "加满"
-      }
-    ]
-  },
-  {
-    "iba": true,
-    "name": "沙滩性爱",
-    "colors": ["#FE3A24", "#FFD801"],
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 2, "ingredient": "桃子杜松子酒" },
-      { "unit": "厘升", "amount": 4, "ingredient": "蔓越莓汁" },
-      { "unit": "厘升", "amount": 4, "ingredient": "橙汁" }
-    ],
-    "garnish": "橙片",
-    "preparation": "在装满冰的高球杯中调制所有原料。"
-  },
-  {
-    "iba": true,
-    "name": "猴腺",
-    "colors": "#FD5404",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 5, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 3, "ingredient": "橙汁" },
-      { "amount": "2滴", "ingredient": "苦艾酒" },
-      { "amount": "2滴", "ingredient": "糖浆", "label": "红石榴糖浆" }
-    ],
-    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "德比",
-    "colors": "#FEB535",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 6, "ingredient": "金酒" },
-      { "unit": "2滴", "ingredient": "桃子苦精" },
-      { "amount": "2片", "ingredient": "薄荷", "label": "新鲜薄荷叶" }
-    ],
-    "garnish": "薄荷叶",
-    "preparation": "在调酒杯中与冰块搅拌。滤入鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "边车",
-    "colors": "#C7A65F",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 5, "ingredient": "干邑白兰地" },
-      { "unit": "厘升", "amount": 2, "ingredient": "三秒利口酒" },
-      { "unit": "厘升", "amount": 2, "ingredient": "柠檬汁" }
-    ],
-    "preparation": "加冰块摇匀。滤入鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "爱尔兰咖啡",
-    "colors": ["#E6D9D1", "#603309", "#1E0A05"],
-    "glass": "热饮杯",
-    "category": "热饮",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 4,
-        "ingredient": "威士忌",
-        "label": "爱尔兰威士忌"
-      },
-      {
-        "unit": "厘升",
-        "amount": 9,
-        "ingredient": "咖啡",
-        "label": "热咖啡"
-      },
-      { "unit": "厘升", "amount": 3, "ingredient": "奶油" },
-      { "ingredient": "糖", "label": "红糖", "amount": "1茶匙" }
-    ],
-    "preparation": "在火上加热爱尔兰威士忌。倒入玻璃杯（用于热饮）中，加入热咖啡和一茶匙糖。在顶部漂浮奶油。"
-  },
-  {
-    "iba": true,
-    "name": "萨泽拉克",
-    "colors": "#C98502",
-    "glass": "古典杯",
-    "category": "餐后鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 5, "ingredient": "干邑白兰地" },
-      { "unit": "厘升", "amount": 1, "ingredient": "苦艾酒" },
-      { "amount": "2滴", "ingredient": "裴乔氏苦精" },
-      { "ingredient": "糖", "amount": "1块", "label": "方糖" }
-    ],
-    "garnish": "柠檬皮卷",
-    "preparation": "用苦艾酒冲洗一个冰镇的古典杯，加入碎冰并放在一边。将其余原料加冰搅拌并放在一边。倒掉准备好的杯子里的冰和多余的苦艾酒，然后将饮品滤入杯中。注意：原始配方在美国内战后发生了变化，由于干邑难以获得，黑麦威士忌取代了干邑。"
-  },
-  {
-    "iba": true,
-    "name": "美国佬",
-    "colors": ["#ED120A", "#FAC25B"],
-    "glass": "古典杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3, "ingredient": "金巴利" },
-      {
-        "unit": "厘升",
-        "amount": 3,
-        "ingredient": "味美思",
-        "label": "红味美思"
-      },
-      { "amount": "少量", "ingredient": "苏打水" }
-    ],
-    "garnish": "半片橙子",
-    "preparation": "在装满冰块的古典杯中调制。加入少量苏打水。"
-  },
-  {
-    "iba": true,
-    "name": "新加坡司令",
-    "colors": "#FF5542",
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "樱桃利口酒" },
-      {
-        "unit": "厘升",
-        "amount": 0.75,
-        "ingredient": "三秒利口酒",
-        "label": "君度"
-      },
-      { "unit": "厘升", "amount": 0.75, "ingredient": "廊酒" },
-      { "unit": "厘升", "amount": 12.0, "ingredient": "菠萝汁" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "糖浆",
-        "label": "红石榴糖浆"
-      },
-      { "ingredient": "安高天娜苦精", "amount": "1滴" }
-    ],
-    "garnish": "菠萝片和一颗樱桃",
-    "preparation": "加冰块摇匀。滤入高球杯中。"
-  },
-  {
-    "iba": true,
-    "name": "法式连接",
-    "colors": "#EF7405",
-    "glass": "古典杯",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3.5, "ingredient": "干邑白兰地" },
-      { "unit": "厘升", "amount": 3.5, "ingredient": "杏仁利口酒" }
-    ],
-    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。"
-  },
-  {
-    "iba": true,
-    "name": "莫斯科骡子",
-    "colors": "#978540",
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 12, "ingredient": "姜汁啤酒" },
-      { "unit": "厘升", "amount": 0.5, "ingredient": "青柠汁" },
-      { "ingredient": "青柠", "amount": "1片" }
-    ],
-    "garnish": "青柠片",
-    "preparation": "将伏特加和姜汁啤酒混合。加入青柠汁。"
-  },
-  {
-    "iba": true,
-    "name": "约翰柯林斯",
-    "searchTerm": "柯林斯",
-    "colors": "#D0A254",
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 3, "ingredient": "柠檬汁" },
-      {
-        "unit": "厘升",
-        "amount": 1.5,
-        "ingredient": "糖浆",
-        "label": "糖浆"
-      },
-      { "unit": "厘升", "amount": 6, "ingredient": "苏打水" },
-      { "ingredient": "安高天娜苦精", "amount": "1滴" }
-    ],
-    "garnish": "柠檬片和一颗樱桃",
-    "preparation": "在装满冰块的高球杯中调制。轻轻搅拌。加入一滴安高天娜苦精。（注意：汤姆柯林斯使用老汤姆金酒）"
-  },
-  {
-    "iba": true,
-    "name": "基尔",
-    "colors": "#F73D29",
-    "glass": "白葡萄酒杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 9, "ingredient": "干白葡萄酒" },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "黑加仑利口酒",
-        "label": "黑加仑利口酒"
-      }
-    ],
-    "preparation": "将黑加仑利口酒倒入杯中，加满白葡萄酒。对于皇家基尔：用香槟代替白葡萄酒。"
-  },
-  {
-    "iba": true,
-    "name": "薄荷朱利普",
-    "colors": ["#F4B317", "#759B4D"],
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 6,
-        "ingredient": "威士忌",
-        "label": "波本威士忌"
-      },
-      { "amount": "4枝", "ingredient": "薄荷", "label": "新鲜薄荷枝" },
-      {
-        "amount": "1茶匙",
-        "label": "糖粉",
-        "ingredient": "糖"
-      },
-      { "special": "2茶匙水" }
-    ],
-    "garnish": "薄荷枝",
-    "preparation": "在高球杯中轻轻捣烂薄荷、糖和水。用碎冰填满杯子，加入波本威士忌，充分搅拌直到杯子结霜。"
-  },
-  {
-    "iba": true,
-    "name": "汤米玛格丽特",
-    "colors": "#B46F13",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "龙舌兰" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" },
-      { "amount": "2吧勺", "ingredient": "龙舌兰花蜜" }
-    ],
-    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "天堂",
-    "colors": "#ECAE1B",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3.5, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 2, "ingredient": "杏子白兰地" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "橙汁" }
-    ],
-    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "肮脏马提尼",
-    "searchTerm": "马提尼",
-    "colors": "#E1E6E3",
-    "glass": "马提尼杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 6, "ingredient": "伏特加" },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "味美思",
-        "label": "干味美思"
-      },
-      { "unit": "厘升", "amount": 1, "ingredient": "橄榄汁" }
-    ],
-    "garnish": "青橄榄",
-    "preparation": "在调酒杯中与冰块搅拌。滤入冰镇的马提尼杯中。"
-  },
-  {
-    "iba": true,
-    "name": "香槟鸡尾酒",
-    "colors": ["#efde8b"],
-    "glass": "香槟杯",
-    "category": "气泡鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 9, "ingredient": "香槟" },
-      { "unit": "厘升", "amount": 1, "ingredient": "干邑白兰地" },
-      { "ingredient": "安高天娜苦精", "amount": "2滴" },
-      { "ingredient": "糖", "amount": "1块", "label": "方糖" }
-    ],
-    "garnish": "橙片和一颗樱桃",
-    "preparation": "在方糖上滴一滴安高天娜苦精，然后放入香槟杯中。加入干邑白兰地，然后轻轻倒入冰镇的香槟。"
-  },
-  {
-    "iba": true,
-    "name": "玛丽璧克馥",
-    "colors": "#B11603",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 6, "ingredient": "白朗姆酒" },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "樱桃利口酒",
-        "label": "黑樱桃利口酒"
-      },
-      { "unit": "厘升", "amount": 6, "ingredient": "菠萝汁" },
-      { "unit": "厘升", "amount": 1, "ingredient": "糖浆", "label": "红石榴糖浆" }
-    ],
-    "preparation": "摇匀并滤入冰镇的大鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "海明威特别版",
-    "colors": "#FFBB6D",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 6, "ingredient": "白朗姆酒" },
-      { "unit": "厘升", "amount": 4, "ingredient": "葡萄柚汁" },
-      {
-        "unit": "厘升",
-        "amount": 1.5,
-        "ingredient": "樱桃利口酒",
-        "label": "黑樱桃利口酒"
-      },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" }
-    ],
-    "preparation": "加冰块摇匀。滤入双份鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "黑风暴",
-    "searchTerm": "黑风暴",
-    "colors": ["#CF612A", "#860F00", "#D1C112"],
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 6, "ingredient": "黑朗姆酒" },
-      { "unit": "厘升", "amount": 10, "ingredient": "姜汁啤酒" }
-    ],
-    "garnish": "青柠角",
-    "preparation": "在装满冰的高球杯中调制。先加入朗姆酒，然后加满姜汁啤酒。"
-  },
-  {
-    "iba": true,
-    "name": "拉莫斯菲士",
-    "searchTerm": "皇家金菲士",
-    "colors": "#D9CAA6",
-    "glass": "高球杯",
-    "category": "长饮",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "柠檬汁" },
-      {
-        "unit": "厘升",
-        "amount": 3,
-        "ingredient": "糖浆",
-        "label": "糖浆"
-      },
-      { "unit": "厘升", "amount": 6, "ingredient": "奶油" },
-      { "amount": 1, "ingredient": "蛋清" },
-      { "ingredient": "苏打水" },
-      { "amount": "3滴", "ingredient": "橙花水" },
-      { "amount": "2滴", "ingredient": "香草精" }
-    ],
-    "preparation": "将所有原料（苏打水除外）倒入调酒杯中，干摇（不加冰）两分钟，加入冰块再用力摇一分钟。滤入不加冰的高球杯中，加满苏打水。"
-  },
-  {
-    "iba": true,
-    "name": "俄罗斯之春潘趣",
-    "colors": "#C70212",
-    "glass": "高球杯",
-    "category": "气泡鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 2.5, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 2.5, "ingredient": "柠檬汁" },
-      {
-        "unit": "厘升",
-        "amount": 1.5,
-        "ingredient": "黑加仑利口酒",
-        "label": "黑加仑利口酒"
-      },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "糖浆",
-        "label": "糖浆"
-      },
-      { "ingredient": "气泡酒" }
-    ],
-    "garnish": "柠檬片和一颗黑莓",
-    "preparation": "摇匀原料并倒入高球杯中。加满气泡酒。"
-  },
-  {
-    "iba": true,
-    "name": "教父",
-    "colors": "#B77F27",
-    "glass": "古典杯",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 3.5,
-        "ingredient": "威士忌",
-        "label": "苏格兰威士忌"
-      },
-      { "unit": "厘升", "amount": 3.5, "ingredient": "杏仁利口酒" }
-    ],
-    "preparation": "在装满冰块的古典杯中调制。轻轻搅拌。"
-  },
-  {
-    "iba": true,
-    "name": "大都会",
-    "colors": ["#EC464F"],
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 4,
-        "ingredient": "柠檬伏特加"
-      },
-      {
-        "unit": "厘升",
-        "amount": 1.5,
-        "ingredient": "三秒利口酒",
-        "label": "君度"
-      },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "青柠汁" },
-      { "unit": "厘升", "amount": 3, "ingredient": "蔓越莓汁" }
-    ],
-    "garnish": "青柠片",
-    "preparation": "加冰块摇匀。滤入大的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "干马提尼",
-    "searchTerm": "马提尼",
-    "colors": "#EFEFEF",
-    "glass": "马提尼杯",
-    "category": "餐前鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 6, "ingredient": "金酒" },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "味美思",
-        "label": "干味美思"
-      }
-    ],
-    "preparation": "在调酒杯中与冰块搅拌。滤入冰镇的马提尼杯中。将柠檬皮的油挤到饮品上，或用橄榄装饰。"
-  },
-  {
-    "iba": true,
-    "name": "床笫之间",
-    "colors": ["#ffe066"],
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3, "ingredient": "白朗姆酒" },
-      { "unit": "厘升", "amount": 3, "ingredient": "干邑白兰地" },
-      { "unit": "厘升", "amount": 3, "ingredient": "三秒利口酒" },
-      { "unit": "厘升", "amount": 2, "ingredient": "柠檬汁" }
-    ],
-    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "赌场",
-    "colors": ["#FB3B34", "#eff2f0"],
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 4,
-        "ingredient": "金酒",
-        "label": "老汤姆金酒"
-      },
-      {
-        "unit": "厘升",
-        "amount": 1,
-        "ingredient": "樱桃利口酒",
-        "label": "黑樱桃利口酒"
-      },
-      { "unit": "厘升", "amount": 1, "ingredient": "橙味苦精" },
-      { "unit": "厘升", "amount": 1, "ingredient": "柠檬汁" }
-    ],
-    "garnish": "柠檬皮卷和一颗樱桃",
-    "preparation": "加冰块摇匀。滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "卡琵莉亚",
-    "colors": ["#4A8C03", "#e7ea96", "#f3f9ed"],
-    "glass": "古典杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 5, "ingredient": "卡夏莎" },
-      { "ingredient": "糖", "amount": "2茶匙" },
-      {
-        "ingredient": "青柠",
-        "amount": "半个",
-        "label": "切成4瓣的新鲜青柠"
-      }
-    ],
-    "preparation": "将青柠和糖放入古典杯中捣烂。用冰块和卡夏莎填满杯子（注意：卡琵罗斯卡 - 用伏特加代替卡夏莎）。"
-  },
-  {
-    "iba": true,
-    "name": "吸血鬼",
-    "colors": "#D74339",
-    "glass": "高球杯",
-    "ingredients": [
-      {
-        "unit": "厘升",
-        "amount": 5,
-        "ingredient": "龙舌兰",
-        "label": "银龙舌兰"
-      },
-      { "unit": "厘升", "amount": 7, "ingredient": "番茄汁" },
-      { "unit": "厘升", "amount": 3, "ingredient": "橙汁" },
-      { "unit": "厘升", "amount": 1, "ingredient": "青柠汁" },
-      { "amount": "几滴", "ingredient": "伍斯特酱" },
-      { "amount": "1茶匙", "ingredient": "蜂蜜", "label": "纯蜂蜜" },
-      { "special": "半片洋葱切碎" },
-      { "special": "几片新鲜红辣椒" },
-      { "special": "盐" }
-    ],
-    "garnish": "青柠角和一颗绿色或红色辣椒",
-    "preparation": "加冰块摇匀。滤入装满冰的高球杯中。"
-  },
-  {
-    "iba": true,
-    "name": "神风",
-    "colors": "#B6A861",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 3, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 3, "ingredient": "三秒利口酒" },
-      { "unit": "厘升", "amount": 3, "ingredient": "青柠汁" }
-    ],
-    "preparation": "摇匀并滤入冰镇的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "白女士",
-    "colors": "#E9E5C2",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 3, "ingredient": "三秒利口酒" },
-      { "unit": "厘升", "amount": 2, "ingredient": "柠檬汁" }
-    ],
-    "preparation": "加冰块摇匀。滤入大的鸡尾酒杯中。"
-  },
-  {
-    "iba": true,
-    "name": "哈维撞墙",
-    "colors": "#FFBC2F",
-    "glass": "高球杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 4.5, "ingredient": "伏特加" },
-      { "unit": "厘升", "amount": 1.5, "ingredient": "加利安诺" },
-      { "unit": "厘升", "amount": 9, "ingredient": "橙汁" }
-    ],
-    "garnish": "橙片和一颗樱桃",
-    "preparation": "在装满冰的高球杯中调制伏特加和橙汁。轻轻搅拌，然后在顶部漂浮加利安诺。"
-  },
-  {
-    "iba": false,
-    "name": "金莱特",
-    "colors": "#DADEC0",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 6, "ingredient": "金酒" },
-      { "unit": "厘升", "amount": 3, "ingredient": "青柠汁" }
-    ],
-    "garnish": "青柠片",
-    "preparation": "加冰摇匀。"
-  },
-  {
-    "iba": false,
-    "name": "白俄罗斯",
-    "colors": "#BBA69B",
-    "glass": "古典杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "unit": "厘升", "amount": 5, "ingredient": "伏特加" },
-      {
-        "unit": "厘升",
-        "amount": 2,
-        "ingredient": "咖啡利口酒",
-        "label": "甘露咖啡利口酒"
-      },
-      { "unit": "厘升", "amount": 3, "ingredient": "奶油" }
-    ],
-    "garnish": null,
-    "preparation": "摇匀后倒在冰上。"
-  },
-  {
-    "iba": false,
-    "name": "蓝鸟",
-    "colors": "#66B7EC",
-    "glass": "马提尼杯",
-    "category": "全天鸡尾酒",
-    "ingredients": [
-      { "ingredient": "金酒", "unit": "厘升", "amount": 4 },
-      { "ingredient": "蓝色库拉索", "unit": "厘升", "amount": 3 },
-      { "ingredient": "安高天娜苦精", "amount": "2滴" }
-    ],
-    "garnish": "柠檬皮卷和一颗樱桃",
-    "preparation": "与碎冰搅拌后过滤。或者，您可以使用一半蓝色库拉索和一半三秒利口酒。"
+    "id": "196",
+    "link": "https://iba-world.com/iba-cocktail/americano/",
+    "title": "美国佬",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-americano-669490fe3cb42.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-americano-669490fe3cb42.webp",
+      "video": "https://www.youtube.com/watch?v=jICPm1fc72E",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "金巴利苦酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "甜红味美思"
+        },
+        {
+          "count": "",
+          "unit": "",
+          "ingredient": "苏打水"
+        }
+      ],
+      "preparation": [
+        "将所有原料直接在装满冰块的老式酒杯中混合;",
+        "加入少量苏打水;",
+        "轻轻搅拌。"
+      ],
+      "decorated": [
+        "用半片橙子和柠檬皮装饰。"
+      ],
+      "receptacle": "老式酒杯"
+    }
+  },
+  {
+    "id": "94",
+    "link": "https://iba-world.com/iba-cocktail/alexander/",
+    "title": "亚历山大",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-alexander-669491364f7f2.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-alexander-669491364f7f2.webp",
+      "video": "https://www.youtube.com/watch?v=pr5-AGgOozU",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "干邑"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "可可利口酒（棕色）"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜奶油"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入装满冰块的摇酒壶中。",
+        "摇匀并滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "在顶部撒上现磨的肉豆蔻粉。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "197",
+    "link": "https://iba-world.com/iba-cocktail/angel-face/",
+    "title": "天使之面",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-angel-face-669490fe6df67.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-angel-face-669490fe6df67.webp",
+      "video": "https://www.youtube.com/watch?v=YHSEmhHBhzo",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "杏子白兰地"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "苹果白兰地"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入装满冰块的摇酒壶中。",
+        "摇匀并滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "199",
+    "link": "https://iba-world.com/iba-cocktail/aviation/",
+    "title": "飞行",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-aviation-66949102296a4.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-aviation-66949102296a4.webp",
+      "video": "https://www.youtube.com/watch?v=FfV4Ll7oNHE",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "奢华樱桃利口酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "1",
+          "unit": "吧勺",
+          "ingredient": "紫罗兰利口酒"
+        }
+      ],
+      "preparation": [
+        "将所有原料加入摇酒壶中。",
+        "用碎冰摇匀并滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "可选：马拉斯奇诺樱桃。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "266",
+    "link": "https://iba-world.com/iba-cocktail/bees-knees/",
+    "title": "蜂之膝",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-bees-knees-6695d397e26c1.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-bees-knees-6695d397e26c1.webp",
+      "video": "https://www.youtube.com/watch?v=u7v_cI9gcy8",
+      "ingredients": [
+        {
+          "count": "52.5",
+          "unit": "毫升",
+          "ingredient": "干金酒"
+        },
+        {
+          "count": "2",
+          "unit": "茶匙",
+          "ingredient": "蜂蜜糖浆"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨橙汁"
+        }
+      ],
+      "preparation": [
+        "将蜂蜜与柠檬汁和橙汁搅拌至溶解，加入金酒和冰块摇匀;",
+        "滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "可选：用柠檬或橙皮装饰。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "232",
+    "link": "https://iba-world.com/iba-cocktail/bellini/",
+    "title": "贝利尼",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-bellini-6695cda4217da.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-bellini-6695cda4217da.webp",
+      "video": "https://www.youtube.com/watch?v=yIkvSw59V_E",
+      "ingredients": [
+        {
+          "count": "100",
+          "unit": "毫升",
+          "ingredient": "普罗塞克葡萄酒"
+        },
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "白桃果泥"
+        }
+      ],
+      "preparation": [
+        "将桃子果泥倒入加冰的调酒杯中，加入普罗塞克葡萄酒。",
+        "轻轻搅拌，倒入冰镇的笛形杯中。",
+        "注意：\nPuccini – 新鲜柑橘汁；\nRossini – 新鲜草莓果泥；\nTintoretto – 新鲜石榴汁。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "笛形杯"
+    }
+  },
+  {
+    "id": "200",
+    "link": "https://iba-world.com/iba-cocktail/between-the-sheets/",
+    "title": "床笫之间",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-between-the-sheets-669491023d7af.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-between-the-sheets-669491023d7af.webp",
+      "video": "https://www.youtube.com/watch?v=-wLpX8iICeU",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "白朗姆酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "干邑"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "君度"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料加入摇酒壶中。",
+        "加冰摇匀并滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "233",
+    "link": "https://iba-world.com/iba-cocktail/black-russian/",
+    "title": "黑俄罗斯",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-black-russian-6695cda4183dc.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-black-russian-6695cda4183dc.webp",
+      "video": "https://www.youtube.com/watch?v=iOoBh4Qc6gs",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "伏特加"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "咖啡利口酒"
+        }
+      ],
+      "preparation": [
+        "将原料倒入装满冰块的老式酒杯中。",
+        "轻轻搅拌。将原料滤入装满冰块的老式酒杯中。",
+        "注意：\n白俄罗斯 – 在顶部漂浮鲜奶油并缓慢搅拌。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "老式酒杯"
+    }
+  },
+  {
+    "id": "234",
+    "link": "https://iba-world.com/iba-cocktail/bloody-mary/",
+    "title": "血腥玛丽",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-bloody-mary-6695cda72fe0f.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-bloody-mary-6695cda72fe0f.webp",
+      "video": "https://www.youtube.com/watch?v=SLj0vs3Hu2E",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "伏特加"
+        },
+        {
+          "count": "90",
+          "unit": "毫升",
+          "ingredient": "番茄汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "伍斯特沙司"
+        },
+        {
+          "count": "",
+          "unit": "",
+          "ingredient": "塔巴斯科辣酱"
+        },
+        {
+          "count": "",
+          "unit": "",
+          "ingredient": "芹菜盐"
+        },
+        {
+          "count": "",
+          "unit": "",
+          "ingredient": "胡椒"
+        }
+      ],
+      "preparation": [
+        "依口味添加胡椒；",
+        "在加冰的调酒杯中轻轻搅拌所有原料，倒入岩石杯中;",
+        "注意：\n如果要求加冰，则倒入高球杯中。"
+      ],
+      "decorated": [
+        "芹菜、柠檬角（可选）。"
+      ],
+      "receptacle": "岩石杯或高球杯"
+    }
+  },
+  {
+    "id": "201",
+    "link": "https://iba-world.com/iba-cocktail/boulevardier/",
+    "title": "花花公子",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-boulevardier-6694910552acd.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-boulevardier-6694910552acd.webp",
+      "video": "https://www.youtube.com/watch?v=tToFmEpsTsE",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "波本或黑麦威士忌"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "金巴利苦酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "甜红味美思"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的调酒杯中。",
+        "充分搅拌。滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用橙皮装饰，也可选用柠檬皮。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "267",
+    "link": "https://iba-world.com/iba-cocktail/bramble/",
+    "title": "悬钩子",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-bramble-6695d398036e1.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-bramble-6695d398036e1.webp",
+      "video": "https://www.youtube.com/watch?v=N0SBJ_Oe54I",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "25",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "12.5",
+          "unit": "毫升",
+          "ingredient": "糖浆"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "黑莓利口酒"
+        }
+      ],
+      "preparation": [
+        "将除黑莓利口酒外的所有原料倒入摇酒壶中，加冰摇匀，滤入装满碎冰的冰镇老式酒杯中，然后将黑莓利口酒以画圈方式倒在饮品顶部。"
+      ],
+      "decorated": [
+        "可选：用柠檬片和黑莓装饰。"
+      ],
+      "receptacle": "老式酒杯"
+    }
+  },
+  {
+    "id": "202",
+    "link": "https://iba-world.com/iba-cocktail/brandy-crusta/",
+    "title": "白兰地硬壳",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-brandy-crusta-6694910571bcb.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-brandy-crusta-6694910571bcb.webp",
+      "video": "https://www.youtube.com/watch?v=C2EK9mrwwz4",
+      "ingredients": [
+        {
+          "count": "52.5",
+          "unit": "毫升",
+          "ingredient": "白兰地"
+        },
+        {
+          "count": "7.5",
+          "unit": "毫升",
+          "ingredient": "奢华樱桃利口酒"
+        },
+        {
+          "count": "1",
+          "unit": "吧勺",
+          "ingredient": "库拉索"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "1",
+          "unit": "吧勺",
+          "ingredient": "单糖浆"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "芳香苦精"
+        }
+      ],
+      "preparation": [
+        "在调酒杯中将所有原料与冰块混合",
+        "并滤入准备好的细长鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用一片橙子（或柠檬）擦拭杯口，并蘸上",
+        "粉状白糖，使糖附着在杯沿。",
+        "小心地将橙/柠檬皮卷曲放置在杯内。"
+      ],
+      "receptacle": "细长鸡尾酒杯"
+    }
+  },
+  {
+    "id": "268",
+    "link": "https://iba-world.com/iba-cocktail/canchanchara/",
+    "title": "坎特查拉",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-canchanchara-6695d39b24d7e.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-canchanchara-6695d39b24d7e.webp",
+      "video": "https://www.youtube.com/watch?v=pK0MRwpLC94",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "古巴甘蔗酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "生蜂蜜"
+        },
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "水"
+        }
+      ],
+      "preparation": [
+        "将蜂蜜与水和青柠汁混合，并将混合物涂抹在杯底和杯壁上。",
+        "加入碎冰，然后加入朗姆酒。",
+        "最后从下到上用力搅拌。"
+      ],
+      "decorated": [
+        "用青柠角装饰。"
+      ],
+      "receptacle": "传统陶土杯"
+    }
+  },
+  {
+    "id": "235",
+    "link": "https://iba-world.com/iba-cocktail/caipirinha/",
+    "title": "卡琵莉亚",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-caipirinha-6695cda74b13a.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-caipirinha-6695cda74b13a.webp",
+      "video": "https://www.youtube.com/watch?v=nil7VZJBoEU",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "卡沙萨"
+        },
+        {
+          "count": "1",
+          "unit": "个",
+          "ingredient": "青柠切成小角"
+        },
+        {
+          "count": "4",
+          "unit": "茶匙",
+          "ingredient": "白蔗糖"
+        }
+      ],
+      "preparation": [
+        "将青柠和糖放入双份老式酒杯中，轻轻捣碎。",
+        "杯中装满碎冰并加入卡沙萨。轻轻搅拌以混合原料。",
+        "注意：\nCaipiroska – 用伏特加代替卡沙萨；\nCaipirissima – 用朗姆酒代替卡沙萨。\nCaipirão – 用Beirão利口酒代替卡沙萨。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "双份老式酒杯"
+    }
+  },
+  {
+    "id": "236",
+    "link": "https://iba-world.com/iba-cocktail/cardinale/",
+    "title": "卡迪纳尔",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-cardinale-6695cdaa5f0d8.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-cardinale-6695cdaa5f0d8.webp",
+      "video": "https://www.youtube.com/watch?v=r-KZFxaIR-k",
+      "ingredients": [
+        {
+          "count": "40",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "干味美思"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "金巴利苦酒"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的调酒杯中。充分搅拌。",
+        "滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用柠檬皮装饰。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "203",
+    "link": "https://iba-world.com/iba-cocktail/casino/",
+    "title": "赌场",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-casino-6694910882cd6.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-casino-6694910882cd6.webp",
+      "video": "https://www.youtube.com/watch?v=Xomx4il2GnM",
+      "ingredients": [
+        {
+          "count": "40",
+          "unit": "毫升",
+          "ingredient": "老汤姆金酒"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "奢华樱桃利口酒"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "橙味苦精"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入",
+        "加冰的冰镇岩石杯中。"
+      ],
+      "decorated": [
+        "用柠檬皮和马拉斯奇诺樱桃装饰。"
+      ],
+      "receptacle": "岩石杯"
+    }
+  },
+  {
+    "id": "269",
+    "link": "https://iba-world.com/iba-cocktail/chartreuse-swizzle/",
+    "title": "查特酒旋彩",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-chartreuse-swizzle-6695d39b326e0.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-chartreuse-swizzle-6695d39b326e0.webp",
+      "video": "https://www.youtube.com/watch?v=EHDL_2MtyXE",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "绿色查特酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜榨菠萝汁"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "法勒南姆"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入高脚杯中，加入碎石冰。",
+        "借助旋彩棒（或鸡尾酒勺）用力混合，最后再加入更多碎石冰填满杯子。"
+      ],
+      "decorated": [
+        "用薄荷叶和磨碎的肉豆蔻装饰。"
+      ],
+      "receptacle": "高脚杯"
+    }
+  },
+  {
+    "id": "237",
+    "link": "https://iba-world.com/iba-cocktail/champagne-cocktail/",
+    "title": "香槟鸡尾酒",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-champagne-cocktail-6695cdaa71bb2.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-champagne-cocktail-6695cdaa71bb2.webp",
+      "video": "https://www.youtube.com/watch?v=liGUP4kfCZ0",
+      "ingredients": [
+        {
+          "count": "90",
+          "unit": "毫升",
+          "ingredient": "冰镇香槟"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "干邑"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "安高天娜苦精"
+        },
+        {
+          "count": "几",
+          "unit": "滴",
+          "ingredient": "柑曼怡（可选）"
+        },
+        {
+          "count": "1",
+          "unit": "块",
+          "ingredient": "方糖"
+        }
+      ],
+      "preparation": [
+        "将方糖和2滴苦精放入大的香槟杯中，加入干邑。",
+        "轻轻倒入冰镇香槟。"
+      ],
+      "decorated": [
+        "用橙皮和马拉斯奇诺樱桃装饰。"
+      ],
+      "receptacle": "大的香槟杯"
+    }
+  },
+  {
+    "id": "238",
+    "link": "https://iba-world.com/iba-cocktail/corpse-reviver-2/",
+    "title": "亡者复生2号",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-corpse-reviver-2-6695cdad6da15.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-corpse-reviver-2-6695cdad6da15.webp",
+      "video": "https://www.youtube.com/watch?v=DnckejSfjvk",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "君度"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "丽叶白"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "1",
+          "unit": "滴",
+          "ingredient": "苦艾酒"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的摇酒壶中。",
+        "充分摇匀并滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用橙皮装饰。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "204",
+    "link": "https://iba-world.com/iba-cocktail/clover-club/",
+    "title": "三叶草俱乐部",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-clover-club-66949108a3e54.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-clover-club-66949108a3e54.webp",
+      "video": "https://www.youtube.com/watch?v=oo9R082EgGs",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "覆盆子糖浆"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "几",
+          "unit": "滴",
+          "ingredient": "蛋清"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "新鲜覆盆子。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "239",
+    "link": "https://iba-world.com/iba-cocktail/cosmopolitan/",
+    "title": "大都会",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-cosmopolitan-6695cdae389dc.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-cosmopolitan-6695cdae389dc.webp",
+      "video": "https://www.youtube.com/watch?v=dKaPC677-iU",
+      "ingredients": [
+        {
+          "count": "40",
+          "unit": "毫升",
+          "ingredient": "柠檬伏特加"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "君度"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "蔓越莓汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入装满冰块的摇酒壶中。",
+        "充分摇匀并滤入大的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用柠檬卷装饰。"
+      ],
+      "receptacle": "大的鸡尾酒杯"
+    }
+  },
+  {
+    "id": "240",
+    "link": "https://iba-world.com/iba-cocktail/cuba-libre/",
+    "title": "自由古巴",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-cuba-libre-6695cdb0a6f80.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-cuba-libre-6695cdb0a6f80.webp",
+      "video": "https://www.youtube.com/watch?v=oo49ybutqiQ",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "白朗姆酒"
+        },
+        {
+          "count": "120",
+          "unit": "毫升",
+          "ingredient": "可乐"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        }
+      ],
+      "preparation": [
+        "在装满冰块的高球杯中直接调制所有原料。"
+      ],
+      "decorated": [
+        "用青柠角装饰。"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "205",
+    "link": "https://iba-world.com/iba-cocktail/daiquiri/",
+    "title": "得其利",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-daiquiri-6694910c5866e.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-daiquiri-6694910c5866e.webp",
+      "video": "https://www.youtube.com/watch?v=Vyi1YUSRyk4",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "古巴白朗姆酒"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "2",
+          "unit": "吧勺",
+          "ingredient": "细砂糖"
+        }
+      ],
+      "preparation": [
+        "在摇酒壶中加入所有原料。充分搅拌使糖溶解。",
+        "加入冰块摇匀。滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "270",
+    "link": "https://iba-world.com/iba-cocktail/dark-n-stormy/",
+    "title": "黑与风暴",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-dark-n-stormy-6695d39e2bd94.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-dark-n-stormy-6695d39e2bd94.webp",
+      "video": "https://www.youtube.com/watch?v=Bys-Sa_ZiCM",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "高斯林朗姆酒"
+        },
+        {
+          "count": "100",
+          "unit": "毫升",
+          "ingredient": "姜汁啤酒"
+        }
+      ],
+      "preparation": [
+        "在装满冰块的高球杯中倒入姜汁啤酒，然后在顶部漂浮朗姆酒。"
+      ],
+      "decorated": [
+        "用青柠角或青柠片装饰。"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "271",
+    "link": "https://iba-world.com/iba-cocktail/dons-special-daiquiri/",
+    "title": "唐的特别得其利",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-dons-special-daiquiri-6695d39e89fd7.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-dons-special-daiquiri-6695d39e89fd7.webp",
+      "video": "https://www.youtube.com/watch?v=-nuxrAH1eEk",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "牙买加金朗姆酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "古巴朗姆酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "百香果糖浆"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "蜂蜜糖浆"
+        }
+      ],
+      "preparation": [
+        "在奶昔搅拌机中与碎冰混合几秒钟，然后倒入带脚的科波杯中。",
+        "杯中装满更多碎冰。"
+      ],
+      "decorated": [
+        "用半个百香果装饰。"
+      ],
+      "receptacle": "带脚的科波杯"
+    }
+  },
+  {
+    "id": "206",
+    "link": "https://iba-world.com/iba-cocktail/dry-martini/",
+    "title": "干马提尼",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-dry-martini-6694910fb500c.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-dry-martini-6694910fb500c.webp",
+      "video": "https://www.youtube.com/watch?v=e9A5YX6BUzM",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "干味美思"
+        }
+      ],
+      "preparation": [
+        "滤入冰镇的马提尼鸡尾酒杯中。",
+        "将所有原料倒入加冰的调酒杯中。充分搅拌。"
+      ],
+      "decorated": [
+        "将柠檬皮的油挤入饮品中，或按要求用绿橄榄装饰。"
+      ],
+      "receptacle": "马提尼鸡尾酒杯"
+    }
+  },
+  {
+    "id": "272",
+    "link": "https://iba-world.com/iba-cocktail/espresso-martini/",
+    "title": "意式浓缩马提尼",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-espresso-martini-6695d3a172fd3.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-espresso-martini-6695d3a172fd3.webp",
+      "video": "https://www.youtube.com/watch?v=P9znTX7DrRk",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "伏特加"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "甘露咖啡利口酒"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "糖浆"
+        },
+        {
+          "count": "1",
+          "unit": "份",
+          "ingredient": "浓缩咖啡"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "3颗咖啡豆"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "241",
+    "link": "https://iba-world.com/iba-cocktail/french-75/",
+    "title": "法式75",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-french-75-6695cdb175e06.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-french-75-6695cdb175e06.webp",
+      "video": "https://www.youtube.com/watch?v=lF9fAhkyATs",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "糖浆"
+        },
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "香槟"
+        }
+      ],
+      "preparation": [
+        "将除香槟外的所有原料倒入摇酒壶中。",
+        "充分摇匀并滤入香槟笛形杯中。",
+        "加满香槟。",
+        "轻轻搅拌。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "香槟笛形杯"
+    }
+  },
+  {
+    "id": "704",
+    "link": "https://iba-world.com/iba-cocktail/fernandito/",
+    "title": "费南迪托",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-fernandito-6695d3a1a3586.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-fernandito-6695d3a1a3586.webp",
+      "video": "https://www.youtube.com/watch?v=XCUiLpnaHp4",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "飞乃独家"
+        },
+        {
+          "count": "加满",
+          "unit": "",
+          "ingredient": "可乐"
+        }
+      ],
+      "preparation": [
+        "将飞乃独家倒入加冰的双份老式酒杯中，加满可乐。轻轻搅拌。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "双份老式酒杯"
+    }
+  },
+  {
+    "id": "242",
+    "link": "https://iba-world.com/iba-cocktail/french-connection/",
+    "title": "法国贩毒网",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-french-connection-6695cdb3cc15f.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-french-connection-6695cdb3cc15f.webp",
+      "video": "https://www.youtube.com/watch?v=smlUadU8j8Q",
+      "ingredients": [
+        {
+          "count": "35",
+          "unit": "毫升",
+          "ingredient": "干邑"
+        },
+        {
+          "count": "35",
+          "unit": "毫升",
+          "ingredient": "杏仁利口酒"
+        }
+      ],
+      "preparation": [
+        "将所有原料直接倒入装满冰块的老式酒杯中。",
+        "轻轻搅拌。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "老式酒杯"
+    }
+  },
+  {
+    "id": "273",
+    "link": "https://iba-world.com/iba-cocktail/french-martini/",
+    "title": "法式马提尼",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-french-martini-6695d3a4acf5f.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-french-martini-6695d3a4acf5f.webp",
+      "video": "https://www.youtube.com/watch?v=E1q3w_56jKs",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "伏特加"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "覆盆子利口酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨菠萝汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "将柠檬皮的油挤入饮品中。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "274",
+    "link": "https://iba-world.com/iba-cocktail/gin-basil-smash/",
+    "title": "金酒罗勒碎",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-gin-basil-smash-6695d3a4c0967.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-gin-basil-smash-6695d3a4c0967.webp",
+      "video": "https://www.youtube.com/watch?v=3T0zb0pXTfg",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "糖浆"
+        },
+        {
+          "count": "10",
+          "unit": "片",
+          "ingredient": "意大利罗勒叶"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的摇酒壶中。",
+        "用力摇匀并倒入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "243",
+    "link": "https://iba-world.com/iba-cocktail/garibaldi/",
+    "title": "加里波第",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-garibaldi-6695cdb4cbf81.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-garibaldi-6695cdb4cbf81.webp",
+      "video": "https://www.youtube.com/watch?v=Ym8ttc7x8MU",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "金巴利苦酒"
+        },
+        {
+          "count": "120",
+          "unit": "毫升",
+          "ingredient": "鲜榨橙汁"
+        }
+      ],
+      "preparation": [
+        "在装满冰块的高球杯中直接调制所有原料。"
+      ],
+      "decorated": [
+        "用橙角装饰。"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "207",
+    "link": "https://iba-world.com/iba-cocktail/gin-fizz/",
+    "title": "金菲士",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-gin-fizz-6694910fc2eab.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-gin-fizz-6694910fc2eab.webp",
+      "video": "https://www.youtube.com/watch?v=ovziLbpas0E",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "单糖浆"
+        },
+        {
+          "count": "少量",
+          "unit": "",
+          "ingredient": "苏打水"
+        }
+      ],
+      "preparation": [
+        "将除苏打水外的所有原料加冰摇匀。",
+        "倒入细长的高脚杯中，顶部加少量苏打水。",
+        "注意：\n不加冰饮用。"
+      ],
+      "decorated": [
+        "用柠檬片装饰，可选柠檬皮。"
+      ],
+      "receptacle": "细长的高脚杯"
+    }
+  },
+  {
+    "id": "275",
+    "link": "https://iba-world.com/iba-cocktail/grand-margarita/",
+    "title": "至尊玛格丽特",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-tommys-margarita-6695d3c7171ef.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-tommys-margarita-6695d3c7171ef.webp",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "100%龙舌兰"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "柑曼怡"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        }
+      ],
+      "preparation": [
+        "用优质海盐为岩石杯挂边。将原料倒入摇酒壶中。",
+        "向杯子和摇酒壶中加入冰块。",
+        "用力摇晃10秒钟。将饮品滤入杯中。"
+      ],
+      "decorated": [
+        "用青柠片装饰。"
+      ],
+      "receptacle": "岩石杯"
+    }
+  },
+  {
+    "id": "208",
+    "link": "https://iba-world.com/iba-cocktail/hanky-panky/",
+    "title": "汉基潘基",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-hanky-panky-66949112edbf5.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-hanky-panky-66949112edbf5.webp",
+      "video": "https://www.youtube.com/watch?v=YO1oUoyktN0",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "伦敦干金酒"
+        },
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "甜红味美思"
+        },
+        {
+          "count": "7.5",
+          "unit": "毫升",
+          "ingredient": "菲奈特"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的调酒杯中。充分搅拌。",
+        "滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "橙皮。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "244",
+    "link": "https://iba-world.com/iba-cocktail/grasshopper/",
+    "title": "蚱蜢",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-grasshopper-6695cdb737498.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-grasshopper-6695cdb737498.webp",
+      "video": "https://www.youtube.com/watch?v=7Hfq2PxVOD0",
+      "ingredients": [
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "可可利口酒（白色）"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "薄荷利口酒（绿色）"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "鲜奶油"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入装满冰块的摇酒壶中。",
+        "快速摇晃几秒钟。滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无，可选薄荷叶。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "245",
+    "link": "https://iba-world.com/iba-cocktail/hemingway-special/",
+    "title": "海明威特别版",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-hemingway-special-6695cdb814e5a.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-hemingway-special-6695cdb814e5a.webp",
+      "video": "https://www.youtube.com/watch?v=1pFVdJ42Ydk",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "朗姆酒"
+        },
+        {
+          "count": "40",
+          "unit": "毫升",
+          "ingredient": "葡萄柚汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "奢华樱桃利口酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的摇酒壶中。",
+        "充分摇匀并滤入大的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "大的鸡尾酒杯"
+    }
+  },
+  {
+    "id": "246",
+    "link": "https://iba-world.com/iba-cocktail/horses-neck/",
+    "title": "马颈",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-horses-neck-6695cdba5fadc.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-horses-neck-6695cdba5fadc.webp",
+      "video": "https://www.youtube.com/watch?v=kn_3gNrNiK8",
+      "ingredients": [
+        {
+          "count": "40",
+          "unit": "毫升",
+          "ingredient": "干邑"
+        },
+        {
+          "count": "120",
+          "unit": "毫升",
+          "ingredient": "姜汁汽水"
+        },
+        {
+          "count": "一",
+          "unit": "滴",
+          "ingredient": "安高天娜苦精（可选）"
+        }
+      ],
+      "preparation": [
+        "将干邑和姜汁汽水直接倒入加冰的高球杯中。",
+        "轻轻搅拌。",
+        "如果喜欢，可以加入几滴安高天娜苦精。"
+      ],
+      "decorated": [
+        "用一个柠檬的螺旋形皮装饰。"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "298",
+    "link": "https://iba-world.com/iba-cocktail/iba-tiki/",
+    "title": "IBA提基",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-iba-tiki-6695d3a7e33fd.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-iba-tiki-6695d3a7e33fd.webp",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "哈瓦那俱乐部深色朗姆酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "哈瓦那俱乐部烟熏朗姆酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "杏仁利口酒"
+        },
+        {
+          "count": "5",
+          "unit": "毫升",
+          "ingredient": "榛子利口酒"
+        },
+        {
+          "count": "5",
+          "unit": "滴",
+          "ingredient": "奢华樱桃利口酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "百香果果泥"
+        },
+        {
+          "count": "90",
+          "unit": "毫升",
+          "ingredient": "鲜榨菠萝汁"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "1",
+          "unit": "片",
+          "ingredient": "姜"
+        }
+      ],
+      "preparation": [
+        "在摇酒壶中捣碎一片薄姜，倒入所有其他原料。",
+        "加冰用力摇匀。",
+        "滤入装满碎石冰的冰镇提基杯中。"
+      ],
+      "decorated": [
+        "用柑橘和脱水菠萝片装饰。"
+      ],
+      "receptacle": "提基杯"
+    }
+  },
+  {
+    "id": "276",
+    "link": "https://iba-world.com/iba-cocktail/illegal/",
+    "title": "非法",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-illegal-6695d3a7de51f.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-illegal-6695d3a7de51f.webp",
+      "video": "https://www.youtube.com/watch?v=_2miULIOS3Y",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "梅斯卡尔"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "牙买加烈性白朗姆酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "法勒南姆"
+        },
+        {
+          "count": "1",
+          "unit": "吧勺",
+          "ingredient": "奢华樱桃利口酒"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "单糖浆"
+        },
+        {
+          "count": "几",
+          "unit": "滴",
+          "ingredient": "蛋清（可选）"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中。加冰用力摇匀。",
+        "滤入冰镇的鸡尾酒杯中，或在传统的陶土杯中加冰饮用。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯或传统的陶土杯"
+    }
+  },
+  {
+    "id": "247",
+    "link": "https://iba-world.com/iba-cocktail/irish-coffee/",
+    "title": "爱尔兰咖啡",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-irish-coffee-copy-6695cdbb430cd.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-irish-coffee-copy-6695cdbb430cd.webp",
+      "video": "https://www.youtube.com/watch?v=MWLonPDIpTo",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "爱尔兰威士忌"
+        },
+        {
+          "count": "120",
+          "unit": "毫升",
+          "ingredient": "热咖啡"
+        },
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "鲜奶油（冰镇）"
+        },
+        {
+          "count": "1",
+          "unit": "茶匙",
+          "ingredient": "糖"
+        }
+      ],
+      "preparation": [
+        "将温热的黑咖啡倒入预热的爱尔兰咖啡杯中。",
+        "加入威士忌和至少一茶匙糖，搅拌至溶解。",
+        "将浓稠的冰镇鲜奶油小心地倒在勺子背面，勺子刚好处在咖啡表面上方。",
+        "奶油层会浮在咖啡上而不会混合。",
+        "可以用糖浆代替白糖。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "爱尔兰咖啡杯"
+    }
+  },
+  {
+    "id": "209",
+    "link": "https://iba-world.com/iba-cocktail/john-collins/",
+    "title": "约翰·柯林斯",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-john-collins-669491130ef87.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-john-collins-669491130ef87.webp",
+      "video": "https://www.youtube.com/watch?v=Zu1Z96TpbW8",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "单糖浆"
+        },
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "苏打水"
+        }
+      ],
+      "preparation": [
+        "将所有原料直接倒入装满冰块的高球杯中。轻轻搅拌。",
+        "注意：\n汤姆·柯林斯使用“老汤姆”金酒。"
+      ],
+      "decorated": [
+        "用柠檬片和马拉斯奇诺樱桃装饰。"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "248",
+    "link": "https://iba-world.com/iba-cocktail/kir/",
+    "title": "基尔",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-kir-6695cdbdbb2e1.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-kir-6695cdbdbb2e1.webp",
+      "video": "https://www.youtube.com/watch?v=pRZuuQow3hE",
+      "ingredients": [
+        {
+          "count": "90",
+          "unit": "毫升",
+          "ingredient": "干白葡萄酒"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "黑加仑利口酒"
+        }
+      ],
+      "preparation": [
+        "将黑加仑利口酒倒入杯中，加满白葡萄酒。",
+        "注意：\n基尔皇家 – 用香槟代替白葡萄酒。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "葡萄酒杯"
+    }
+  },
+  {
+    "id": "277",
+    "link": "https://iba-world.com/iba-cocktail/jungle-bird/",
+    "title": "丛林鸟",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-jungle-bird-6695d3ab45a87.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-jungle-bird-6695d3ab45a87.webp",
+      "video": "https://www.youtube.com/watch?v=_aq8vPPBxiE",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "黑朗姆酒"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "金巴利"
+        },
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "菠萝汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "红糖糖浆"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的摇酒壶中摇匀。",
+        "滤入装满冰块的岩石杯中。"
+      ],
+      "decorated": [
+        "用菠萝角装饰。"
+      ],
+      "receptacle": "岩石杯"
+    }
+  },
+  {
+    "id": "249",
+    "link": "https://iba-world.com/iba-cocktail/lemon-drop-martini/",
+    "title": "柠檬马提尼",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-lemon-drop-martini-6695cdbe3eed7.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-lemon-drop-martini-6695cdbe3eed7.webp",
+      "video": "https://www.youtube.com/watch?v=KcSjqOw0BbU",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "伏特加"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "君度"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的摇酒壶中。",
+        "充分摇匀并滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "210",
+    "link": "https://iba-world.com/iba-cocktail/last-word/",
+    "title": "临别一语",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-last-word-6694911607ddf.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-last-word-6694911607ddf.webp",
+      "video": "https://www.youtube.com/watch?v=5mUFczY-csc",
+      "ingredients": [
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "绿色查特酒"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "奢华樱桃利口酒"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料加入摇酒壶中。",
+        "加冰摇匀并滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "251",
+    "link": "https://iba-world.com/iba-cocktail/mai-tai/",
+    "title": "迈泰",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-mai-tai-6695cdc169ea3.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-mai-tai-6695cdc169ea3.webp",
+      "video": "https://www.youtube.com/watch?v=TRv82F2rQlY",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "牙买加琥珀朗姆酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "马提尼克糖蜜朗姆酒*"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "橙味库拉索"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "杏仁糖浆"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "7.5",
+          "unit": "毫升",
+          "ingredient": "单糖浆"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的摇酒壶中。",
+        "摇匀并倒入双份岩石杯或高球杯中。",
+        "* Trader Vic使用的马提尼克糖蜜朗姆酒不是农业朗姆酒，而是一种来自糖蜜的“朗姆味”酒。"
+      ],
+      "decorated": [
+        "用菠萝矛、薄荷叶和青柠皮装饰。"
+      ],
+      "receptacle": "双份岩石杯或高球杯"
+    }
+  },
+  {
+    "id": "250",
+    "link": "https://iba-world.com/iba-cocktail/long-island-iced-tea/",
+    "title": "长岛冰茶",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-long-island-iced-tea-6695cdc10c463.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-long-island-iced-tea-6695cdc10c463.webp",
+      "video": "https://www.youtube.com/watch?v=aND4ay7mQJ4",
+      "ingredients": [
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "伏特加"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "龙舌兰"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "白朗姆酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "君度"
+        },
+        {
+          "count": "25",
+          "unit": "毫升",
+          "ingredient": "柠檬汁"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "单糖浆"
+        }
+      ],
+      "preparation": [
+        "顶部加可乐",
+        "将所有原料倒入装满冰块的高球杯中。",
+        "轻轻搅拌。"
+      ],
+      "decorated": [
+        "用柠檬片装饰（可选）。"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "211",
+    "link": "https://iba-world.com/iba-cocktail/manhattan/",
+    "title": "曼哈顿",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-manhattan-6694911627de7.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-manhattan-6694911627de7.webp",
+      "video": "https://www.youtube.com/watch?v=pXI_OeayD2w",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "黑麦威士忌"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "甜红味美思"
+        },
+        {
+          "count": "1",
+          "unit": "滴",
+          "ingredient": "安高天娜苦精"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的调酒杯中。",
+        "充分搅拌。滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用鸡尾酒樱桃装饰。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "252",
+    "link": "https://iba-world.com/iba-cocktail/margarita/",
+    "title": "玛格丽特",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-margarita-6695cdd7505e0.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-margarita-6695cdd7505e0.webp",
+      "video": "https://www.youtube.com/watch?v=cKqcp0NORK0",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "100%龙舌兰"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "君度"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的摇酒壶中。",
+        "摇匀并滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "半盐边（可选）。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "212",
+    "link": "https://iba-world.com/iba-cocktail/martinez/",
+    "title": "马丁内斯",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-martinez-6694911927849.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-martinez-6694911927849.webp",
+      "video": "https://www.youtube.com/watch?v=YzARtB3fZxM",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "伦敦干金酒"
+        },
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "甜红味美思"
+        },
+        {
+          "count": "1",
+          "unit": "吧勺",
+          "ingredient": "奢华樱桃利口酒"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "橙味苦精"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的调酒杯中。",
+        "充分搅拌。滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "柠檬皮。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "214",
+    "link": "https://iba-world.com/iba-cocktail/mary-pickford/",
+    "title": "玛丽·璧克馥",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-mary-pickford-6694911933ea7.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-mary-pickford-6694911933ea7.webp",
+      "video": "https://www.youtube.com/watch?v=oZw5AxZSJPw",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "白朗姆酒"
+        },
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "鲜榨菠萝汁"
+        },
+        {
+          "count": "7.5",
+          "unit": "毫升",
+          "ingredient": "奢华樱桃利口酒"
+        },
+        {
+          "count": "5",
+          "unit": "毫升",
+          "ingredient": "红石榴糖浆"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "253",
+    "link": "https://iba-world.com/iba-cocktail/mimosa/",
+    "title": "含羞草",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-mimosa-6695cdc4463c9.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-mimosa-6695cdc4463c9.webp",
+      "video": "https://www.youtube.com/watch?v=yM9pE3iVkrA",
+      "ingredients": [
+        {
+          "count": "75",
+          "unit": "毫升",
+          "ingredient": "鲜榨橙汁"
+        },
+        {
+          "count": "75",
+          "unit": "毫升",
+          "ingredient": "普罗塞克"
+        }
+      ],
+      "preparation": [
+        "将橙汁倒入笛形杯中，轻轻倒入起泡酒。",
+        "轻轻搅拌。",
+        "注意：\n也称为巴克费兹。"
+      ],
+      "decorated": [
+        "用橙皮卷装饰（可选）。"
+      ],
+      "receptacle": "笛形杯"
+    }
+  },
+  {
+    "id": "254",
+    "link": "https://iba-world.com/iba-cocktail/mint-julep/",
+    "title": "薄荷朱利普",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-mint-julep-6695cdc4aa398.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-mint-julep-6695cdc4aa398.webp",
+      "video": "https://www.youtube.com/watch?v=w9p3sedBLYk",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "波本威士忌"
+        },
+        {
+          "count": "4",
+          "unit": "枝",
+          "ingredient": "新鲜薄荷"
+        },
+        {
+          "count": "1",
+          "unit": "茶匙",
+          "ingredient": "糖粉"
+        },
+        {
+          "count": "2",
+          "unit": "茶匙",
+          "ingredient": "水"
+        }
+      ],
+      "preparation": [
+        "在朱利普不锈钢杯中，轻轻捣碎薄荷、糖和水。",
+        "杯中装满碎冰，加入波本威士忌，充分搅拌至杯壁结霜。"
+      ],
+      "decorated": [
+        "用一枝薄荷装饰。"
+      ],
+      "receptacle": "朱利普不锈钢杯"
+    }
+  },
+  {
+    "id": "278",
+    "link": "https://iba-world.com/iba-cocktail/missionarys-downfall/",
+    "title": "传教士的堕落",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-missionarys-downfall-6695d3ab4d4c5.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-missionarys-downfall-6695d3ab4d4c5.webp",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "白朗姆酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "桃子白兰地"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "蜂蜜混合物"
+        },
+        {
+          "count": "10",
+          "unit": "片",
+          "ingredient": "薄荷叶"
+        },
+        {
+          "count": "3-4",
+          "unit": "块",
+          "ingredient": "菠萝块"
+        }
+      ],
+      "preparation": [
+        "将所有原料与半杯碎冰混合。",
+        "倒入大的科帕杯中。"
+      ],
+      "decorated": [
+        "用薄荷枝和一片菠萝装饰。"
+      ],
+      "receptacle": "大的科帕杯"
+    }
+  },
+  {
+    "id": "255",
+    "link": "https://iba-world.com/iba-cocktail/mojito/",
+    "title": "莫吉托",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-mojito-6695cdc755626.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-mojito-6695cdc755626.webp",
+      "video": "https://www.youtube.com/watch?v=Mgw_nE1ZQsE",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "古巴白朗姆酒"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "6",
+          "unit": "枝",
+          "ingredient": "薄荷"
+        },
+        {
+          "count": "2",
+          "unit": "茶匙",
+          "ingredient": "白蔗糖"
+        },
+        {
+          "count": "",
+          "unit": "",
+          "ingredient": "苏打水"
+        }
+      ],
+      "preparation": [
+        "将薄荷枝与糖和青柠汁混合。",
+        "加入少量苏打水，杯中装满冰块。",
+        "倒入朗姆酒，顶部加满苏打水。轻轻搅拌以混合所有原料。"
+      ],
+      "decorated": [
+        "用薄荷枝和青柠片装饰。"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "215",
+    "link": "https://iba-world.com/iba-cocktail/monkey-gland/",
+    "title": "猴腺",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-monkey-gland-6694911cbf5a2.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-monkey-gland-6694911cbf5a2.webp",
+      "video": "https://www.youtube.com/watch?v=TAMplkSDD6g",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "干金酒"
+        },
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "鲜榨橙汁"
+        },
+        {
+          "count": "1",
+          "unit": "汤匙",
+          "ingredient": "苦艾酒"
+        },
+        {
+          "count": "1",
+          "unit": "汤匙",
+          "ingredient": "红石榴糖浆"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "256",
+    "link": "https://iba-world.com/iba-cocktail/moscow-mule/",
+    "title": "莫斯科骡子",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-moscow-mule-6695cdc7d8cb2.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-moscow-mule-6695cdc7d8cb2.webp",
+      "video": "https://www.youtube.com/watch?v=mCD3QBnDTHg",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "斯米诺伏特加"
+        },
+        {
+          "count": "120",
+          "unit": "毫升",
+          "ingredient": "姜汁啤酒"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        }
+      ],
+      "preparation": [
+        "在骡子杯或岩石杯中，混合伏特加和姜汁啤酒。",
+        "加入青柠汁，轻轻搅拌以混合所有原料。"
+      ],
+      "decorated": [
+        "用青柠片装饰。"
+      ],
+      "receptacle": "骡子杯或岩石杯"
+    }
+  },
+  {
+    "id": "279",
+    "link": "https://iba-world.com/iba-cocktail/naked-and-famous/",
+    "title": "裸体与成名",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-naked-and-famous-6695d3ae8e1dc.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-naked-and-famous-6695d3ae8e1dc.webp",
+      "video": "https://www.youtube.com/watch?v=9MoiuEUlp7o",
+      "ingredients": [
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "梅斯卡尔"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "黄色查特酒"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "阿佩罗"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "216",
+    "link": "https://iba-world.com/iba-cocktail/negroni/",
+    "title": "内格罗尼",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-negroni-6694911cc3b65.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-negroni-6694911cc3b65.webp",
+      "video": "https://www.youtube.com/watch?v=_bcC-cRWP4I",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "金巴利苦酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "甜红味美思"
+        }
+      ],
+      "preparation": [
+        "将所有原料直接倒入装满冰块的冰镇老式酒杯中。",
+        "轻轻搅拌。"
+      ],
+      "decorated": [
+        "用半片橙子装饰。"
+      ],
+      "receptacle": "老式酒杯"
+    }
+  },
+  {
+    "id": "281",
+    "link": "https://iba-world.com/iba-cocktail/old-cuban/",
+    "title": "老古巴",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-old-cuban-6695d3b18c692.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-old-cuban-6695d3b18c692.webp",
+      "video": "https://www.youtube.com/watch?v=lsamLijmRwg",
+      "ingredients": [
+        {
+          "count": "6-8",
+          "unit": "片",
+          "ingredient": "薄荷叶"
+        },
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "陈年朗姆酒"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "单糖浆"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "安高天娜苦精"
+        },
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "干型香槟或普罗塞克"
+        }
+      ],
+      "preparation": [
+        "将除酒外的所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的优雅鸡尾酒杯中。",
+        "顶部加满起泡酒。"
+      ],
+      "decorated": [
+        "用薄荷枝装饰。"
+      ],
+      "receptacle": "优雅鸡尾酒杯"
+    }
+  },
+  {
+    "id": "280",
+    "link": "https://iba-world.com/iba-cocktail/new-york-sour/",
+    "title": "纽约酸",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-new-york-sour-6695d3ae88cd2.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-new-york-sour-6695d3ae88cd2.webp",
+      "video": "https://www.youtube.com/watch?v=JdQXePtlyk0",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "黑麦威士忌或波本威士忌"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "单糖浆"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "几",
+          "unit": "滴",
+          "ingredient": "蛋清"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "红酒（西拉或马尔贝克）"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中。加冰用力摇匀。",
+        "滤入装满冰块的冰镇岩石杯中。在顶部漂浮红酒。"
+      ],
+      "decorated": [
+        "用柠檬或橙皮和樱桃装饰。"
+      ],
+      "receptacle": "岩石杯"
+    }
+  },
+  {
+    "id": "217",
+    "link": "https://iba-world.com/iba-cocktail/old-fashioned/",
+    "title": "古典",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-old-fashioned-6694911fce360.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-old-fashioned-6694911fce360.webp",
+      "video": "https://www.youtube.com/watch?v=HVb0H2jd-8M",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "波本或黑麦威士忌"
+        },
+        {
+          "count": "1",
+          "unit": "块",
+          "ingredient": "方糖"
+        },
+        {
+          "count": "几",
+          "unit": "滴",
+          "ingredient": "安高天娜苦精"
+        },
+        {
+          "count": "几",
+          "unit": "滴",
+          "ingredient": "清水"
+        }
+      ],
+      "preparation": [
+        "将方糖放入老式酒杯中，用苦精浸透，加入几滴清水。捣碎至溶解。杯中装满冰块并加入威士忌。",
+        "轻轻搅拌。"
+      ],
+      "decorated": [
+        "用橙片或橙皮和鸡尾酒樱桃装饰。"
+      ],
+      "receptacle": "老式酒杯"
+    }
+  },
+  {
+    "id": "282",
+    "link": "https://iba-world.com/iba-cocktail/paloma/",
+    "title": "帕洛玛",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-paloma-6695d3b19cda4.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-paloma-6695d3b19cda4.webp",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "100%龙舌兰"
+        },
+        {
+          "count": "5",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "一",
+          "unit": "撮",
+          "ingredient": "盐"
+        },
+        {
+          "count": "100",
+          "unit": "毫升",
+          "ingredient": "粉红葡萄柚苏打水"
+        }
+      ],
+      "preparation": [
+        "将龙舌兰倒入高球杯中，挤入青柠汁。",
+        "加入冰和盐，加满粉红葡萄柚苏打水。",
+        "轻轻搅拌。"
+      ],
+      "decorated": [
+        "用一片青柠装饰。"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "283",
+    "link": "https://iba-world.com/iba-cocktail/paper-plane/",
+    "title": "纸飞机",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-paper-plane-6695d3b4745eb.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-paper-plane-6695d3b4745eb.webp",
+      "video": "https://www.youtube.com/watch?v=8Mh7eE9aJgI",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "波本威士忌"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "诺尼诺阿玛罗"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "阿佩罗"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "218",
+    "link": "https://iba-world.com/iba-cocktail/paradise/",
+    "title": "天堂",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-paradise-6694911fdbd4b.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-paradise-6694911fdbd4b.webp",
+      "video": "https://www.youtube.com/watch?v=qjabUbNBasQ",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "杏子白兰地"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨橙汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "284",
+    "link": "https://iba-world.com/iba-cocktail/penicillin/",
+    "title": "盘尼西林",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-penicillin-6695d3b47b79f.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-penicillin-6695d3b47b79f.webp",
+      "video": "https://www.youtube.com/watch?v=crswfLbasVE",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "混合苏格兰威士忌"
+        },
+        {
+          "count": "7.5",
+          "unit": "毫升",
+          "ingredient": "拉加维林16年"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "蜂蜜糖浆"
+        },
+        {
+          "count": "2-3",
+          "unit": "片",
+          "ingredient": "硬币大小的鲜姜"
+        }
+      ],
+      "preparation": [
+        "在摇酒壶中捣碎鲜姜，加入除艾雷岛单一麦芽威士忌外的其余原料。",
+        "摇酒壶装满冰块并摇匀。",
+        "细滤入加冰的冰镇老式酒杯中。",
+        "在顶部漂浮单一麦芽威士忌。"
+      ],
+      "decorated": [
+        "用糖渍姜片装饰。"
+      ],
+      "receptacle": "老式酒杯"
+    }
+  },
+  {
+    "id": "257",
+    "link": "https://iba-world.com/iba-cocktail/pina-colada/",
+    "title": "椰林飘香",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-pina-colada-6695cdcabbf00.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-pina-colada-6695cdcabbf00.webp",
+      "video": "https://www.youtube.com/watch?v=Q60iH34gBRw",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "白朗姆酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "椰浆"
+        },
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "鲜榨菠萝汁"
+        }
+      ],
+      "preparation": [
+        "在电动搅拌机中将所有原料与冰块混合，",
+        "倒入大杯中，用吸管饮用。",
+        "注意：\n历史上会根据口味加入几滴鲜榨青柠汁。可用4片新鲜菠萝代替果汁。"
+      ],
+      "decorated": [
+        "用一片菠萝和一颗鸡尾酒樱桃装饰。"
+      ],
+      "receptacle": "大号飓风杯"
+    }
+  },
+  {
+    "id": "258",
+    "link": "https://iba-world.com/iba-cocktail/pisco-sour/",
+    "title": "皮斯科酸",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-pisco-sour-6695cdcaf1122.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-pisco-sour-6695cdcaf1122.webp",
+      "video": "https://www.youtube.com/watch?v=fZXODSVdRd0",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "皮斯科"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "单糖浆"
+        },
+        {
+          "count": "1",
+          "unit": "个",
+          "ingredient": "生蛋清"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的摇酒壶中。",
+        "摇匀并滤入冰镇的高脚杯中。"
+      ],
+      "decorated": [
+        "在顶部滴几滴阿玛戈苦精作为芳香装饰。"
+      ],
+      "receptacle": "高脚杯"
+    }
+  },
+  {
+    "id": "285",
+    "link": "https://iba-world.com/iba-cocktail/pisco-punch/",
+    "title": "皮斯科潘趣",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-pisco-punch-6695d3b74b9f5.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-pisco-punch-6695d3b74b9f5.webp",
+      "video": "https://www.youtube.com/watch?v=IAlnS-P2154",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "皮斯科"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨菠萝汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "单糖浆"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "干白葡萄酒"
+        },
+        {
+          "count": "3",
+          "unit": "颗",
+          "ingredient": "丁香"
+        }
+      ],
+      "preparation": [
+        "将单糖浆与丁香轻轻捣碎，加入除酒外的其余原料。",
+        "用力摇匀并双重过滤到大的高脚杯中。",
+        "在顶部加入葡萄酒并轻轻搅拌。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "大的高脚杯"
+    }
+  },
+  {
+    "id": "286",
+    "link": "https://iba-world.com/iba-cocktail/porn-star-martini/",
+    "title": "艳星马提尼",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-porn-star-martini-6695d3b771b97.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-porn-star-martini-6695d3b771b97.webp",
+      "video": "https://www.youtube.com/watch?v=CRGiSLWy5AI",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "香草伏特加"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "百香果利口酒"
+        },
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "百香果果泥"
+        },
+        {
+          "count": "2",
+          "unit": "吧勺",
+          "ingredient": "香草糖"
+        },
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "香槟（佐饮）"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，双重过滤到大的冰镇鸡尾酒杯中。",
+        "佐以一杯香槟。"
+      ],
+      "decorated": [
+        "用百香果壳和糖装饰。"
+      ],
+      "receptacle": "大的鸡尾酒杯"
+    }
+  },
+  {
+    "id": "219",
+    "link": "https://iba-world.com/iba-cocktail/planters-punch/",
+    "title": "种植园主潘趣",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-planters-punch-66949122d41fb.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-planters-punch-66949122d41fb.webp",
+      "video": "https://www.youtube.com/watch?v=9nHk23V2jqk",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "牙买加朗姆酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "青柠汁"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "甘蔗汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料直接倒入小号坦布勒杯或典型的陶土杯中。",
+        "注意：\n根据口味添加稀释剂，可以是水、冰或新鲜果汁。"
+      ],
+      "decorated": [
+        "用橙皮装饰。"
+      ],
+      "receptacle": "小号坦布勒杯或典型的陶土杯"
+    }
+  },
+  {
+    "id": "220",
+    "link": "https://iba-world.com/iba-cocktail/porto-flip/",
+    "title": "波特菲丽普",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-porto-flip-669491230cea4.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-porto-flip-669491230cea4.webp",
+      "video": "https://www.youtube.com/watch?v=pdn5KZWZbUY",
+      "ingredients": [
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "白兰地"
+        },
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "红宝石波特酒"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "蛋黄"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "撒上现磨的肉豆蔻粉。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "259",
+    "link": "https://iba-world.com/iba-cocktail/rabo-de-galo/",
+    "title": "鸡尾",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-rabo-de-galo-6695cdcdb2df1.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-rabo-de-galo-6695cdcdb2df1.webp",
+      "video": "https://www.youtube.com/watch?v=XZnkEPB2n1c",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "卡沙萨"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "仙山露红味美思"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "西娜尔"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "安高天娜（可选）"
+        }
+      ],
+      "preparation": [
+        "将所有原料混合到岩石杯中，加冰并短暂搅拌。"
+      ],
+      "decorated": [
+        "用橙皮卷装饰。"
+      ],
+      "receptacle": "岩石杯"
+    }
+  },
+  {
+    "id": "221",
+    "link": "https://iba-world.com/iba-cocktail/ramos-fizz/",
+    "title": "雷蒙斯菲士",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-ramos-fizz-669491260ca6c.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-ramos-fizz-669491260ca6c.webp",
+      "video": "https://www.youtube.com/watch?v=2qt-8MLADkA",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "糖浆"
+        },
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "奶油"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "蛋清"
+        },
+        {
+          "count": "3",
+          "unit": "滴",
+          "ingredient": "橙花水"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "香草精"
+        },
+        {
+          "count": "",
+          "unit": "",
+          "ingredient": "苏打水"
+        }
+      ],
+      "preparation": [
+        "将除苏打水外的所有原料倒入加冰的摇酒壶中。",
+        "摇晃两分钟，双重过滤到杯中，将饮品倒回摇酒壶中，不加冰用力摇晃一分钟。",
+        "滤入高球杯中，顶部加满苏打水。",
+        "注意：\n这款饮品由亨利·雷蒙斯于1888年在新奥尔良的Meyer’s Table d’Hôtel Internationale酒吧发明。\n雷蒙斯菲士最初由30名调酒师组成的团队摇晃12分钟，他们将摇酒壶一个接一个地传递。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "222",
+    "link": "https://iba-world.com/iba-cocktail/remember-the-maine/",
+    "title": "勿忘缅因号",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-remember-the-main-6694912622959.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-remember-the-main-6694912622959.webp",
+      "video": "https://www.youtube.com/watch?v=GNzbV264mQU",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "黑麦威士忌"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "甜味美思"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "奢华樱桃白兰地"
+        },
+        {
+          "count": "7.5",
+          "unit": "毫升",
+          "ingredient": "苦艾酒"
+        }
+      ],
+      "preparation": [
+        "将苦艾酒倒入冰镇杯中，旋转以完全覆盖内壁。",
+        "倒掉苦艾酒，将杯子放在一边。将其他原料加入调酒杯中，并用冰块填充3/4。搅拌至冷却，然后滤入用苦艾酒涮过的杯中。"
+      ],
+      "decorated": [
+        "用柠檬皮装饰。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "287",
+    "link": "https://iba-world.com/iba-cocktail/russian-spring-punch/",
+    "title": "俄罗斯春天潘趣",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-russian-spring-punch-6695d3ba314f1.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-russian-spring-punch-6695d3ba314f1.webp",
+      "video": "https://www.youtube.com/watch?v=FqUbUqPgA9s",
+      "ingredients": [
+        {
+          "count": "25",
+          "unit": "毫升",
+          "ingredient": "伏特加"
+        },
+        {
+          "count": "25",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "黑加仑利口酒"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "糖浆"
+        },
+        {
+          "count": "",
+          "unit": "",
+          "ingredient": "起泡酒"
+        }
+      ],
+      "preparation": [
+        "将除起泡酒外的所有原料倒入摇酒壶中，加冰摇匀，滤入装满冰块的冰镇高脚杯中",
+        "并顶部加满起泡酒。"
+      ],
+      "decorated": [
+        "用黑莓装饰，也可选加柠檬片。"
+      ],
+      "receptacle": "高脚杯"
+    }
+  },
+  {
+    "id": "223",
+    "link": "https://iba-world.com/iba-cocktail/rusty-nail/",
+    "title": "生锈钉",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-rusty-nail-66949129acfd1.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-rusty-nail-66949129acfd1.webp",
+      "video": "https://www.youtube.com/watch?v=gfgk7cwNoGk",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "苏格兰威士忌"
+        },
+        {
+          "count": "25",
+          "unit": "毫升",
+          "ingredient": "杜林标"
+        }
+      ],
+      "preparation": [
+        "将所有原料直接倒入装满冰块的老式酒杯中。",
+        "轻轻搅拌。"
+      ],
+      "decorated": [
+        "用柠檬皮装饰。"
+      ],
+      "receptacle": "老式酒杯"
+    }
+  },
+  {
+    "id": "225",
+    "link": "https://iba-world.com/iba-cocktail/sazerac/",
+    "title": "萨泽拉克",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-sazerac-66949129b50d1.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-sazerac-66949129b50d1.webp",
+      "video": "https://www.youtube.com/watch?v=YhX3pwiDyeU",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "干邑"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "苦艾酒"
+        },
+        {
+          "count": "1",
+          "unit": "块",
+          "ingredient": "方糖"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "裴乔氏苦精"
+        }
+      ],
+      "preparation": [
+        "用苦艾酒涮洗一个冰镇的老式酒杯，加入碎冰并放在一边。在调酒杯中将剩余的原料与冰块搅拌。",
+        "倒掉准备好的杯中的冰块和多余的苦艾酒，将混合好的饮品滤入杯中。",
+        "注意：\n原始配方在美国内战后改变，黑麦威士忌取代了难以获得的干邑。"
+      ],
+      "decorated": [
+        "用柠檬皮装饰。"
+      ],
+      "receptacle": "老式酒杯"
+    }
+  },
+  {
+    "id": "260",
+    "link": "https://iba-world.com/iba-cocktail/sea-breeze/",
+    "title": "海风",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-sea-breeze-6695cdce015a8.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-sea-breeze-6695cdce015a8.webp",
+      "video": "https://www.youtube.com/watch?v=A6jBgspcTKk",
+      "ingredients": [
+        {
+          "count": "40",
+          "unit": "毫升",
+          "ingredient": "伏特加"
+        },
+        {
+          "count": "120",
+          "unit": "毫升",
+          "ingredient": "蔓越莓汁"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "葡萄柚汁"
+        }
+      ],
+      "preparation": [
+        "在装满冰块的高球杯中直接调制所有原料。"
+      ],
+      "decorated": [
+        "用橙皮和樱桃装饰。"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "261",
+    "link": "https://iba-world.com/iba-cocktail/sex-on-the-beach/",
+    "title": "激情海岸",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-sex-on-the-beach-6695cdd0aecf3.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-sex-on-the-beach-6695cdd0aecf3.webp",
+      "video": "https://www.youtube.com/watch?v=MjVMECfzTk4",
+      "ingredients": [
+        {
+          "count": "40",
+          "unit": "毫升",
+          "ingredient": "伏特加"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "桃子利口酒"
+        },
+        {
+          "count": "40",
+          "unit": "毫升",
+          "ingredient": "鲜榨橙汁"
+        },
+        {
+          "count": "40",
+          "unit": "毫升",
+          "ingredient": "蔓越莓汁"
+        }
+      ],
+      "preparation": [
+        "在装满冰块的高球杯中直接调制所有原料。"
+      ],
+      "decorated": [
+        "用半片橙子装饰。"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "288",
+    "link": "https://iba-world.com/iba-cocktail/sherry-cobbler/",
+    "title": "雪利酒补鞋匠",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-sherry-cobbler-6695d3ba8bdb7.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-sherry-cobbler-6695d3ba8bdb7.webp",
+      "video": "https://www.youtube.com/watch?v=yfKDXsfmWlU",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "阿蒙蒂亚雪利酒"
+        },
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "帕罗科尔塔多雪利酒"
+        },
+        {
+          "count": "1",
+          "unit": "茶匙",
+          "ingredient": "细砂糖（或砂糖）"
+        },
+        {
+          "count": "半",
+          "unit": "个",
+          "ingredient": "橙轮"
+        },
+        {
+          "count": "半",
+          "unit": "个",
+          "ingredient": "柠檬轮"
+        }
+      ],
+      "preparation": [
+        "将雪利酒、糖和各两片四分之一的橙轮和柠檬轮在摇酒壶中与冰块混合，快速摇匀，滤入装满碎冰的朱利普鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用新鲜浆果、各四分之一的橙轮和柠檬轮装饰。用吸管饮用。"
+      ],
+      "receptacle": "朱利普鸡尾酒杯"
+    }
+  },
+  {
+    "id": "226",
+    "link": "https://iba-world.com/iba-cocktail/sidecar/",
+    "title": "边车",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-sidecar-6694912cb8aa9.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-sidecar-6694912cb8aa9.webp",
+      "video": "https://www.youtube.com/watch?v=9HvcVECK2YY",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "干邑"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "君度"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "262",
+    "link": "https://iba-world.com/iba-cocktail/singapore-sling/",
+    "title": "新加坡司令",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-singapore-sling-6695cdd136426.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-singapore-sling-6695cdd136426.webp",
+      "video": "https://www.youtube.com/watch?v=o1ocGgiokLg",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "樱桃利口酒"
+        },
+        {
+          "count": "7.5",
+          "unit": "毫升",
+          "ingredient": "君度"
+        },
+        {
+          "count": "7.5",
+          "unit": "毫升",
+          "ingredient": "廊酒"
+        },
+        {
+          "count": "120",
+          "unit": "毫升",
+          "ingredient": "鲜榨菠萝汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "红石榴糖浆"
+        },
+        {
+          "count": "一",
+          "unit": "滴",
+          "ingredient": "安高天娜苦精"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入装满冰块的摇酒壶中。",
+        "充分摇匀。",
+        "滤入飓风杯中。"
+      ],
+      "decorated": [
+        "用菠萝和马拉斯奇诺樱桃装饰。"
+      ],
+      "receptacle": "飓风杯"
+    }
+  },
+  {
+    "id": "289",
+    "link": "https://iba-world.com/iba-cocktail/south-side/",
+    "title": "南区",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-south-side-6695d3bdcc9fe.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-south-side-6695d3bdcc9fe.webp",
+      "video": "https://www.youtube.com/watch?v=7fJLXevYNq0",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "伦敦干金酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "单糖浆"
+        },
+        {
+          "count": "5",
+          "unit": "/",
+          "ingredient": "6片 薄荷叶"
+        },
+        {
+          "count": "几",
+          "unit": "滴",
+          "ingredient": "蛋清（可选）"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，双重过滤到冰镇的鸡尾酒杯中。",
+        "注意：\n如果使用蛋清，请用力摇晃。"
+      ],
+      "decorated": [
+        "用薄荷枝装饰。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "290",
+    "link": "https://iba-world.com/iba-cocktail/spicy-fifty/",
+    "title": "激情五十",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-spicy-fifty-6695d3bdd14b1.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-spicy-fifty-6695d3bdd14b1.webp",
+      "video": "https://www.youtube.com/watch?v=-9Cde74HQhM",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "香草伏特加"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "接骨木花利口酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "10",
+          "unit": "毫升",
+          "ingredient": "莫林蜂蜜糖浆"
+        },
+        {
+          "count": "2",
+          "unit": "片",
+          "ingredient": "薄红辣椒"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，双重过滤到冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用一个红辣椒装饰。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "291",
+    "link": "https://iba-world.com/iba-cocktail/spritz/",
+    "title": "斯普利茨",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-spritz-6695d3c0f113f.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-spritz-6695d3c0f113f.webp",
+      "video": "https://www.youtube.com/watch?v=CN-0_jiv2Bc",
+      "ingredients": [
+        {
+          "count": "90",
+          "unit": "毫升",
+          "ingredient": "普罗塞克"
+        },
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "阿佩罗"
+        },
+        {
+          "count": "少量",
+          "unit": "",
+          "ingredient": "苏打水"
+        }
+      ],
+      "preparation": [
+        "在装满冰块的葡萄酒杯中直接调制所有原料。",
+        "轻轻搅拌。",
+        "注意：\n斯普利茨还有其他版本，使用金巴利、西娜尔或赛莱克特代替阿佩罗。"
+      ],
+      "decorated": [
+        "用一片橙子装饰。"
+      ],
+      "receptacle": "葡萄酒杯"
+    }
+  },
+  {
+    "id": "227",
+    "link": "https://iba-world.com/iba-cocktail/stinger/",
+    "title": "毒刺",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-stinger-6694912ce0b8d.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-stinger-6694912ce0b8d.webp",
+      "video": "https://www.youtube.com/watch?v=iWZdXL8tNoc",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "干邑"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "白薄荷利口酒"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的调酒杯中。充分搅拌。",
+        "滤入冰镇的马提尼鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "可选：薄荷叶。"
+      ],
+      "receptacle": "马提尼鸡尾酒杯"
+    }
+  },
+  {
+    "id": "263",
+    "link": "https://iba-world.com/iba-cocktail/tequila-sunrise/",
+    "title": "龙舌兰日出",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-tequila-sunrise-6695cdd3da10a.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-tequila-sunrise-6695cdd3da10a.webp",
+      "video": "https://www.youtube.com/watch?v=rZr5O1_fMoM",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "龙舌兰"
+        },
+        {
+          "count": "90",
+          "unit": "毫升",
+          "ingredient": "鲜榨橙汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "红石榴糖浆"
+        }
+      ],
+      "preparation": [
+        "将龙舌兰和橙汁直接倒入装满冰块的高球杯中。",
+        "加入红石榴糖浆以产生色彩效果（日出），不要搅拌。"
+      ],
+      "decorated": [
+        "用半片橙子或橙皮装饰。"
+      ],
+      "receptacle": "高球杯"
+    }
+  },
+  {
+    "id": "292",
+    "link": "https://iba-world.com/iba-cocktail/suffering-bastard/",
+    "title": "受苦的混蛋",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-suffering-bastard-6695d3c1081c4.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-suffering-bastard-6695d3c1081c4.webp",
+      "video": "https://www.youtube.com/watch?v=B4xoYv-0B_M",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "干邑或白兰地"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "安高天娜苦精"
+        },
+        {
+          "count": "",
+          "unit": "",
+          "ingredient": "姜汁啤酒"
+        }
+      ],
+      "preparation": [
+        "将除姜汁啤酒外的所有原料倒入摇酒壶中，加冰摇匀。",
+        "不经过滤倒入柯林斯杯或特制的混蛋杯中，顶部加满姜汁啤酒。"
+      ],
+      "decorated": [
+        "用薄荷枝装饰，也可选加橙片。"
+      ],
+      "receptacle": "柯林斯杯或特制的混蛋杯"
+    }
+  },
+  {
+    "id": "293",
+    "link": "https://iba-world.com/iba-cocktail/three-dots-and-a-dash/",
+    "title": "三点一划",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-three-dots-and-a-dash-6695d3c3e2d24.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-three-dots-and-a-dash-6695d3c3e2d24.webp",
+      "video": "https://www.youtube.com/watch?v=KDufx7oLq8o",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "马提尼克农业朗姆酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "混合陈年朗姆酒"
+        },
+        {
+          "count": "7.5",
+          "unit": "毫升",
+          "ingredient": "法勒南姆"
+        },
+        {
+          "count": "7.5",
+          "unit": "毫升",
+          "ingredient": "多香果利口酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "鲜榨橙汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "蜂蜜糖浆"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "安高天娜苦精"
+        }
+      ],
+      "preparation": [
+        "将所有原料与12盎司碎冰一起倒入搅拌机中，快速搅拌，将饮品倒入带脚的科波杯中。",
+        "杯中装满更多碎冰。"
+      ],
+      "decorated": [
+        "用三颗樱桃和一个长方形菠萝块装饰。"
+      ],
+      "receptacle": "带脚的科波杯"
+    }
+  },
+  {
+    "id": "294",
+    "link": "https://iba-world.com/iba-cocktail/tipperary/",
+    "title": "蒂珀雷里",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-tipperary-6695d3c453fd3.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-tipperary-6695d3c453fd3.webp",
+      "video": "https://www.youtube.com/watch?v=nGuLrgl441Q",
+      "ingredients": [
+        {
+          "count": "50",
+          "unit": "毫升",
+          "ingredient": "爱尔兰威士忌"
+        },
+        {
+          "count": "25",
+          "unit": "毫升",
+          "ingredient": "甜红味美思"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "绿色查特酒"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "安高天娜苦精"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的调酒杯中。",
+        "充分搅拌。滤入冰镇的马提尼鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用一片橙子装饰。"
+      ],
+      "receptacle": "马提尼鸡尾酒杯"
+    }
+  },
+  {
+    "id": "295",
+    "link": "https://iba-world.com/iba-cocktail/tommys-margarita/",
+    "title": "汤米的玛格丽特",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-tommys-margarita-6695d3c7171ef.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-tommys-margarita-6695d3c7171ef.webp",
+      "video": "https://www.youtube.com/watch?v=-O_6Ae89RWU",
+      "ingredients": [
+        {
+          "count": "60",
+          "unit": "毫升",
+          "ingredient": "100%龙舌兰"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "龙舌兰花蜜"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入装满冰块的冰镇岩石杯中。"
+      ],
+      "decorated": [
+        "用一片青柠装饰。"
+      ],
+      "receptacle": "岩石杯"
+    }
+  },
+  {
+    "id": "296",
+    "link": "https://iba-world.com/iba-cocktail/trinidad-sour/",
+    "title": "特立尼达酸",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-trinidad-sour-6695d3c794a43.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-trinidad-sour-6695d3c794a43.webp",
+      "video": "https://www.youtube.com/watch?v=4STs4YyOw90",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "安高天娜苦精"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "杏仁糖浆"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "黑麦威士忌"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀。",
+        "滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "228",
+    "link": "https://iba-world.com/iba-cocktail/tuxedo/",
+    "title": "燕尾服",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-tuxedo-6694912fd3b8f.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-tuxedo-6694912fd3b8f.webp",
+      "video": "https://www.youtube.com/watch?v=mwQ2elGVlEI",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "老汤姆金酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "干味美思"
+        },
+        {
+          "count": "半",
+          "unit": "吧勺",
+          "ingredient": "奢华樱桃利口酒"
+        },
+        {
+          "count": "1/4",
+          "unit": "吧勺",
+          "ingredient": "苦艾酒"
+        },
+        {
+          "count": "3",
+          "unit": "滴",
+          "ingredient": "橙味苦精"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的调酒杯中。充分搅拌。",
+        "滤入冰镇的马提尼鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用樱桃和柠檬皮装饰。"
+      ],
+      "receptacle": "马提尼鸡尾酒杯"
+    }
+  },
+  {
+    "id": "297",
+    "link": "https://iba-world.com/iba-cocktail/ve-n-to/",
+    "title": "威尼托",
+    "category": "新时代",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-vento-6695d3ca45bc2.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-new-era-vento-6695d3ca45bc2.webp",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "白格拉帕"
+        },
+        {
+          "count": "22.5",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "蜂蜜混合物（用水替换为洋甘菊）*"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "洋甘菊利口酒"
+        },
+        {
+          "count": "几",
+          "unit": "滴",
+          "ingredient": "蛋清（可选）"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中。加冰用力摇匀。",
+        "滤入装满冰块的冰镇小号坦布勒杯中。",
+        "注意：\n*如果需要，蜂蜜混合物中的水可以用洋甘菊浸泡液代替。"
+      ],
+      "decorated": [
+        "用柠檬皮和白葡萄装饰。"
+      ],
+      "receptacle": "小号坦布勒杯"
+    }
+  },
+  {
+    "id": "264",
+    "link": "https://iba-world.com/iba-cocktail/vesper/",
+    "title": "薇丝朋",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-vesper-6695cdd43284b.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-vesper-6695cdd43284b.webp",
+      "video": "https://www.youtube.com/watch?v=aqG4EssJ1uw",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "伏特加"
+        },
+        {
+          "count": "7.5",
+          "unit": "毫升",
+          "ingredient": "丽叶白"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入装满冰块的摇酒壶中。",
+        "摇匀并滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用柠檬皮装饰。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "229",
+    "link": "https://iba-world.com/iba-cocktail/vieux-carre/",
+    "title": "老广场",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-vieux-carre-6694913015248.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-vieux-carre-6694913015248.webp",
+      "video": "https://www.youtube.com/watch?v=xt0VCxOKims",
+      "ingredients": [
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "黑麦威士忌"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "干邑"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "甜味美思"
+        },
+        {
+          "count": "1",
+          "unit": "吧勺",
+          "ingredient": "廊酒"
+        },
+        {
+          "count": "2",
+          "unit": "滴",
+          "ingredient": "裴乔氏苦精"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入加冰的调酒杯中。",
+        "充分搅拌。滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "用橙皮和马拉斯奇诺樱桃装饰。"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "230",
+    "link": "https://iba-world.com/iba-cocktail/whiskey-sour/",
+    "title": "威士忌酸",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-whiskey-sour-66949132e6ae9.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-whiskey-sour-66949132e6ae9.webp",
+      "video": "https://www.youtube.com/watch?v=TAtL-m4iQw0",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "波本威士忌"
+        },
+        {
+          "count": "25",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "糖浆"
+        },
+        {
+          "count": "几",
+          "unit": "滴",
+          "ingredient": "蛋清（可选）"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入装满冰块的摇酒壶中。充分摇匀。",
+        "滤入高脚杯中。如果“加冰”饮用，则将原料",
+        "滤入装满冰块的老式酒杯中。",
+        "注意：\n如果使用蛋清，请更用力地摇晃以释放并融合蛋清中的泡沫。"
+      ],
+      "decorated": [
+        "用半片橙子和马拉斯奇诺樱桃装饰，也可选用橙皮。"
+      ],
+      "receptacle": "高脚杯或老式酒杯"
+    }
+  },
+  {
+    "id": "231",
+    "link": "https://iba-world.com/iba-cocktail/white-lady/",
+    "title": "白色佳人",
+    "category": "难忘经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-white-lady-6694913318105.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-the-unforgettables-white-lady-6694913318105.webp",
+      "video": "https://www.youtube.com/watch?v=tpSNeD45HTY",
+      "ingredients": [
+        {
+          "count": "40",
+          "unit": "毫升",
+          "ingredient": "金酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "君度"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "鲜榨柠檬汁"
+        }
+      ],
+      "preparation": [
+        "将所有原料倒入摇酒壶中，加冰摇匀，滤入冰镇的鸡尾酒杯中。"
+      ],
+      "decorated": [
+        "无"
+      ],
+      "receptacle": "鸡尾酒杯"
+    }
+  },
+  {
+    "id": "265",
+    "link": "https://iba-world.com/iba-cocktail/zombie/",
+    "title": "僵尸",
+    "category": "当代经典",
+    "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-zombie-6695cdd6cef05.webp",
+    "detail": {
+      "img": "https://iba-world.com/wp-content/uploads/2024/07/iba-cocktail-contemporary-classics-zombie-6695cdd6cef05.webp",
+      "video": "https://www.youtube.com/watch?v=ApUJ3ZYijJc",
+      "ingredients": [
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "牙买加黑朗姆酒"
+        },
+        {
+          "count": "45",
+          "unit": "毫升",
+          "ingredient": "波多黎各金朗姆酒"
+        },
+        {
+          "count": "30",
+          "unit": "毫升",
+          "ingredient": "德梅拉拉朗姆酒"
+        },
+        {
+          "count": "20",
+          "unit": "毫升",
+          "ingredient": "鲜榨青柠汁"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "法勒南姆"
+        },
+        {
+          "count": "15",
+          "unit": "毫升",
+          "ingredient": "唐的混合物*"
+        },
+        {
+          "count": "1",
+          "unit": "茶匙",
+          "ingredient": "红石榴糖浆"
+        },
+        {
+          "count": "1",
+          "unit": "滴",
+          "ingredient": "安高天娜苦精"
+        },
+        {
+          "count": "6",
+          "unit": "滴",
+          "ingredient": "潘诺"
+        }
+      ],
+      "preparation": [
+        "将所有原料与170克碎冰一起加入电动搅拌机中。",
+        "用脉冲按钮搅拌几秒钟。倒入高脚坦布勒杯中。",
+        "注意：\n*唐的混合物：2份新鲜黄葡萄柚汁和1份肉桂糖浆"
+      ],
+      "decorated": [
+        "用薄荷叶装饰。"
+      ],
+      "receptacle": "高脚坦布勒杯"
+    }
   }
 ]

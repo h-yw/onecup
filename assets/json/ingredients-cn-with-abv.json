@@ -1,0 +1,572 @@
+{
+  "1": {
+    "ingredient": "金酒",
+    "category": "烈酒",
+    "taste": "草本",
+    "abv": 40.0
+  },
+  "2": {
+    "ingredient": "伏特加",
+    "category": "烈酒",
+    "taste": "中性",
+    "abv": 40.0
+  },
+  "3": {
+    "ingredient": "龙舌兰酒",
+    "category": "烈酒",
+    "taste": "植物",
+    "abv": 40.0
+  },
+  "4": {
+    "ingredient": "淡色朗姆酒",
+    "category": "烈酒",
+    "taste": "甜",
+    "abv": 40.0
+  },
+  "5": {
+    "ingredient": "干邑白兰地",
+    "category": "烈酒",
+    "taste": "果味",
+    "abv": 40.0
+  },
+  "6": {
+    "ingredient": "威士忌",
+    "category": "烈酒",
+    "taste": "烟熏",
+    "abv": 40.0
+  },
+  "7": {
+    "ingredient": "青柠汁",
+    "category": "果汁",
+    "taste": "酸",
+    "abv": 0
+  },
+  "8": {
+    "ingredient": "柠檬汁",
+    "category": "果汁",
+    "taste": "酸",
+    "abv": 0
+  },
+  "9": {
+    "ingredient": "橙汁",
+    "category": "果汁",
+    "taste": "甜",
+    "abv": 0
+  },
+  "10": {
+    "ingredient": "菠萝汁",
+    "category": "果汁",
+    "taste": "甜",
+    "abv": 0
+  },
+  "11": {
+    "ingredient": "蔓越莓汁",
+    "category": "果汁",
+    "taste": "酸",
+    "abv": 0
+  },
+  "12": {
+    "ingredient": "西柚汁",
+    "category": "果汁",
+    "taste": "酸",
+    "abv": 0
+  },
+  "13": {
+    "ingredient": "简单糖浆",
+    "category": "糖浆",
+    "taste": "甜",
+    "abv": 0
+  },
+  "14": {
+    "ingredient": "君度",
+    "category": "利口酒",
+    "taste": "柑橘",
+    "abv": 40.0
+  },
+  "15": {
+    "ingredient": "干味美思",
+    "category": "强化葡萄酒",
+    "taste": "草本",
+    "abv": 18.0
+  },
+  "16": {
+    "ingredient": "甜味美思",
+    "category": "强化葡萄酒",
+    "taste": "草本",
+    "abv": 15.0
+  },
+  "17": {
+    "ingredient": "安高天娜苦精",
+    "category": "苦精",
+    "taste": "苦",
+    "abv": 44.7
+  },
+  "18": {
+    "ingredient": "苏打水",
+    "category": "混合饮料",
+    "taste": "中性",
+    "abv": 0
+  },
+  "19": {
+    "ingredient": "姜汁啤酒",
+    "category": "混合饮料",
+    "taste": "辛辣",
+    "abv": 0
+  },
+  "20": {
+    "ingredient": "可乐",
+    "category": "混合饮料",
+    "taste": "甜",
+    "abv": 0
+  },
+  "21": {
+    "ingredient": "红石榴糖浆",
+    "category": "糖浆",
+    "taste": "甜",
+    "abv": 0
+  },
+  "22": {
+    "ingredient": "橙皮苦精",
+    "category": "苦精",
+    "taste": "柑橘",
+    "abv": 28.0
+  },
+  "23": {
+    "ingredient": "黑朗姆酒",
+    "category": "烈酒",
+    "taste": "甜",
+    "abv": 40.0
+  },
+  "24": {
+    "ingredient": "杏仁糖浆",
+    "category": "糖浆",
+    "taste": "坚果",
+    "abv": 0
+  },
+  "25": {
+    "ingredient": "金巴利",
+    "category": "利口酒",
+    "taste": "苦",
+    "abv": 25.0
+  },
+  "26": {
+    "ingredient": "黑刺李金酒",
+    "category": "利口酒",
+    "taste": "果味",
+    "abv": 25.0
+  },
+  "27": {
+    "ingredient": "樱桃白兰地",
+    "category": "利口酒",
+    "taste": "果味",
+    "abv": 24.0
+  },
+  "28": {
+    "ingredient": "廊酒",
+    "category": "利口酒",
+    "taste": "草本",
+    "abv": 40.0
+  },
+  "29": {
+    "ingredient": "白可可利口酒",
+    "category": "利口酒",
+    "taste": "甜",
+    "abv": 24.0
+  },
+  "30": {
+    "ingredient": "苏格兰威士忌",
+    "category": "烈酒",
+    "taste": "烟熏",
+    "abv": 40.0
+  },
+  "31": {
+    "ingredient": "柑曼怡",
+    "category": "利口酒",
+    "taste": "柑橘",
+    "abv": 40.0
+  },
+  "32": {
+    "ingredient": "蛋清",
+    "category": "其他",
+    "taste": "中性",
+    "abv": 0
+  },
+  "33": {
+    "ingredient": "奶油",
+    "category": "其他",
+    "taste": "甜",
+    "abv": 0
+  },
+  "34": {
+    "ingredient": "牛奶",
+    "category": "其他",
+    "taste": "甜",
+    "abv": 0
+  },
+  "35": {
+    "ingredient": "龙舌兰花蜜",
+    "category": "糖浆",
+    "taste": "甜",
+    "abv": 0
+  },
+  "36": {
+    "ingredient": "黑加仑利口酒",
+    "category": "利口酒",
+    "taste": "果味",
+    "abv": 15.0
+  },
+  "37": {
+    "ingredient": "香波利口酒",
+    "category": "利口酒",
+    "taste": "果味",
+    "abv": 16.5
+  },
+  "38": {
+    "ingredient": "加利安诺",
+    "category": "利口酒",
+    "taste": "草本",
+    "abv": 42.3
+  },
+  "39": {
+    "ingredient": "蜂蜜糖浆",
+    "category": "糖浆",
+    "taste": "甜",
+    "abv": 0
+  },
+  "40": {
+    "ingredient": "咖啡利口酒",
+    "category": "利口酒",
+    "taste": "咖啡",
+    "abv": 20.0
+  },
+  "41": {
+    "ingredient": "绿薄荷利口酒",
+    "category": "利口酒",
+    "taste": "草本",
+    "abv": 24.0
+  },
+  "42": {
+    "ingredient": "波本威士忌",
+    "category": "烈酒",
+    "taste": "甜",
+    "abv": 45.0
+  },
+  "43": {
+    "ingredient": "起泡酒",
+    "category": "葡萄酒",
+    "taste": "干",
+    "abv": 12.0
+  },
+  "44": {
+    "ingredient": "桃子利口酒",
+    "category": "利口酒",
+    "taste": "果味",
+    "abv": 17.0
+  },
+  "45": {
+    "ingredient": "阿佩罗",
+    "category": "利口酒",
+    "taste": "苦",
+    "abv": 11.0
+  },
+  "46": {
+    "ingredient": "丽叶白",
+    "category": "强化葡萄酒",
+    "taste": "草本",
+    "abv": 17.0
+  },
+  "47": {
+    "ingredient": "查特酒",
+    "category": "利口酒",
+    "taste": "草本",
+    "abv": 55.0
+  },
+  "48": {
+    "ingredient": "黑麦威士忌",
+    "category": "烈酒",
+    "taste": "辛辣",
+    "abv": 45.0
+  },
+  "49": {
+    "ingredient": "汤力水",
+    "category": "混合饮料",
+    "taste": "苦",
+    "abv": 0
+  },
+  "50": {
+    "ingredient": "杏仁利口酒",
+    "category": "利口酒",
+    "taste": "坚果",
+    "abv": 28.0
+  },
+  "51": {
+    "ingredient": "金巴利苦酒",
+    "category": "利口酒",
+    "taste": "苦",
+    "abv": 25.0
+  },
+  "52": {
+    "ingredient": "甜红味美思",
+    "category": "强化葡萄酒",
+    "taste": "草本",
+    "abv": 15.0
+  },
+  "53": {
+    "ingredient": "可可利口酒（棕色）",
+    "category": "利口酒",
+    "taste": "甜",
+    "abv": 25.0
+  },
+  "54": {
+    "ingredient": "鲜奶油",
+    "category": "其他",
+    "taste": "甜",
+    "abv": 0
+  },
+  "55": {
+    "ingredient": "杏子白兰地",
+    "category": "利口酒",
+    "taste": "果味",
+    "abv": 24.0
+  },
+  "56": {
+    "ingredient": "苹果白兰地",
+    "category": "烈酒",
+    "taste": "果味",
+    "abv": 40.0
+  },
+  "57": {
+    "ingredient": "奢华樱桃利口酒",
+    "category": "利口酒",
+    "taste": "果味",
+    "abv": 32.0
+  },
+  "58": {
+    "ingredient": "紫罗兰利口酒",
+    "category": "利口酒",
+    "taste": "花香",
+    "abv": 20.0
+  },
+  "59": {
+    "ingredient": "普罗塞克葡萄酒",
+    "category": "葡萄酒",
+    "taste": "干",
+    "abv": 11.0
+  },
+  "60": {
+    "ingredient": "白桃果泥",
+    "category": "其他",
+    "taste": "果味",
+    "abv": 0
+  },
+  "61": {
+    "ingredient": "番茄汁",
+    "category": "果汁",
+    "taste": "咸鲜",
+    "abv": 0
+  },
+  "62": {
+    "ingredient": "伍斯特沙司",
+    "category": "调味品",
+    "taste": "咸鲜",
+    "abv": 0
+  },
+  "63": {
+    "ingredient": "塔巴斯科辣酱",
+    "category": "调味品",
+    "taste": "辛辣",
+    "abv": 0
+  },
+  "64": {
+    "ingredient": "黑莓利口酒",
+    "category": "利口酒",
+    "taste": "果味",
+    "abv": 17.0
+  },
+  "65": {
+    "ingredient": "白兰地",
+    "category": "烈酒",
+    "taste": "果味",
+    "abv": 40.0
+  },
+  "66": {
+    "ingredient": "库拉索",
+    "category": "利口酒",
+    "taste": "柑橘",
+    "abv": 30.0
+  },
+  "67": {
+    "ingredient": "卡沙萨",
+    "category": "烈酒",
+    "taste": "植物",
+    "abv": 40.0
+  },
+  "68": {
+    "ingredient": "老汤姆金酒",
+    "category": "烈酒",
+    "taste": "草本",
+    "abv": 40.0
+  },
+  "69": {
+    "ingredient": "绿色查特酒",
+    "category": "利口酒",
+    "taste": "草本",
+    "abv": 55.0
+  },
+  "70": {
+    "ingredient": "法勒南姆",
+    "category": "利口酒",
+    "taste": "辛辣",
+    "abv": 11.0
+  },
+  "71": {
+    "ingredient": "苦艾酒",
+    "category": "烈酒",
+    "taste": "茴香",
+    "abv": 68.0
+  },
+  "72": {
+    "ingredient": "覆盆子糖浆",
+    "category": "糖浆",
+    "taste": "果味",
+    "abv": 0
+  },
+  "73": {
+    "ingredient": "柠檬伏特加",
+    "category": "烈酒",
+    "taste": "柑橘",
+    "abv": 40.0
+  },
+  "74": {
+    "ingredient": "百香果糖浆",
+    "category": "糖浆",
+    "taste": "果味",
+    "abv": 0
+  },
+  "75": {
+    "ingredient": "浓缩咖啡",
+    "category": "其他",
+    "taste": "咖啡",
+    "abv": 0
+  },
+  "76": {
+    "ingredient": "飞乃独家",
+    "category": "利口酒",
+    "taste": "苦",
+    "abv": 39.0
+  },
+  "77": {
+    "ingredient": "覆盆子利口酒",
+    "category": "利口酒",
+    "taste": "果味",
+    "abv": 16.5
+  },
+  "78": {
+    "ingredient": "菲奈特",
+    "category": "利口酒",
+    "taste": "苦",
+    "abv": 40.0
+  },
+  "79": {
+    "ingredient": "姜汁汽水",
+    "category": "混合饮料",
+    "taste": "辛辣",
+    "abv": 0
+  },
+  "80": {
+    "ingredient": "榛子利口酒",
+    "category": "利口酒",
+    "taste": "坚果",
+    "abv": 20.0
+  },
+  "81": {
+    "ingredient": "梅斯卡尔",
+    "category": "烈酒",
+    "taste": "烟熏",
+    "abv": 45.0
+  },
+  "82": {
+    "ingredient": "爱尔兰威士忌",
+    "category": "烈酒",
+    "taste": "顺滑",
+    "abv": 40.0
+  },
+  "83": {
+    "ingredient": "皮斯科",
+    "category": "烈酒",
+    "taste": "果味",
+    "abv": 40.0
+  },
+  "84": {
+    "ingredient": "仙山露红味美思",
+    "category": "强化葡萄酒",
+    "taste": "草本",
+    "abv": 15.0
+  },
+  "85": {
+    "ingredient": "西娜尔",
+    "category": "利口酒",
+    "taste": "苦",
+    "abv": 16.5
+  },
+  "86": {
+    "ingredient": "杜林标",
+    "category": "利口酒",
+    "taste": "草本",
+    "abv": 35.0
+  },
+  "87": {
+    "ingredient": "裴乔氏苦精",
+    "category": "苦精",
+    "taste": "苦",
+    "abv": 35.0
+  },
+  "88": {
+    "ingredient": "多香果利口酒",
+    "category": "利口酒",
+    "taste": "辛辣",
+    "abv": 18.0
+  },
+  "89": {
+    "ingredient": "阿蒙蒂亚雪利酒",
+    "category": "强化葡萄酒",
+    "taste": "坚果",
+    "abv": 17.0
+  },
+  "90": {
+    "ingredient": "帕罗科尔塔多雪利酒",
+    "category": "强化葡萄酒",
+    "taste": "复杂",
+    "abv": 18.0
+  },
+  "91": {
+    "ingredient": "接骨木花利口酒",
+    "category": "利口酒",
+    "taste": "花香",
+    "abv": 20.0
+  },
+  "92": {
+    "ingredient": "白格拉帕",
+    "category": "烈酒",
+    "taste": "草本",
+    "abv": 40.0
+  },
+  "93": {
+    "ingredient": "洋甘菊利口酒",
+    "category": "利口酒",
+    "taste": "花香",
+    "abv": 32.0
+  },
+  "94": {
+    "ingredient": "黄色查特酒",
+    "category": "利口酒",
+    "taste": "草本",
+    "abv": 40.0
+  },
+  "95": {
+    "ingredient": "诺尼诺阿玛罗",
+    "category": "利口酒",
+    "taste": "苦",
+    "abv": 35.0
+  }
+}
