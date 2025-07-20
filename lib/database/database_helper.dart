@@ -104,11 +104,10 @@ class DatabaseHelper {
       CREATE TABLE Recipe_Ingredients (
           recipe_id INTEGER NOT NULL,
           ingredient_id INTEGER NOT NULL,
-          display_name TEXT NOT NULL, 
           amount TEXT,
           unit TEXT,
           is_optional BOOLEAN DEFAULT 0,
-          PRIMARY KEY (recipe_id, display_name),
+          PRIMARY KEY (recipe_id, ingredient_id),
           FOREIGN KEY (recipe_id) REFERENCES Recipes (recipe_id),
           FOREIGN KEY (ingredient_id) REFERENCES Ingredients (ingredient_id)
       );
@@ -224,21 +223,20 @@ class DatabaseHelper {
   Future<void> _populateDataFromAsset(Database db) async {
     await db.transaction((txn) async {
       final cocktailsResponse = await rootBundle.loadString('assets/json/cocktails-cn.json');
+      // [核心升级] 确保加载包含ABV数据的新JSON文件
       final ingredientsCnResponse = await rootBundle.loadString('assets/json/ingredients-cn-with-abv.json');
       final glassesCnResponse = await rootBundle.loadString('assets/json/glasses-cn.json');
 
       final List<dynamic> cocktailsData = json.decode(cocktailsResponse);
       final Map<String, dynamic> ingredientsCnData = json.decode(ingredientsCnResponse);
       final Map<String, dynamic> glassesCnData = json.decode(glassesCnResponse);
-      final tasteSet = <String>{};
+
       final categoryMap = <String, int>{};
+      final ingredientMap = <String, int>{};
+      final ingredientToTasteMap = <int, String?>{};
+      final tasteSet = <String>{};
       final glassMap = <String, int>{};
       final tagMap = <String, int>{};
-
-      // 1. 创建一个从任何名称（标准名或别名）到ID的全局映射
-      final nameToIdMap = <String, int>{};
-      // 创建一个从 ID 到 taste 的映射，用于后续添加标签
-      final idToTasteMap = <int, String?>{};
 
       final categorySet = ingredientsCnData.values.map((v) => v['category'] ?? '未分类').toSet();
       for (var catName in categorySet) {
@@ -251,33 +249,26 @@ class DatabaseHelper {
         }
       }
 
-      // 2. 填充全局映射 (nameToIdMap) 和 taste 映射 (idToTasteMap)
-      var ingredientEntries = ingredientsCnData.entries.toList();
-      for (var entry in ingredientEntries) {
+      for (var entry in ingredientsCnData.entries) {
         final String ingredientName = entry.value['ingredient'];
         final String categoryName = entry.value['category'] ?? '未分类';
         final String? taste = entry.value['taste'];
+        // [核心升级] 读取ABV值
         final num? abv = entry.value['abv'];
-        final List<dynamic> aliases = entry.value['aliases'] ?? [];
-
         if (taste != null) tasteSet.add(taste);
 
-        // 检查核心配料是否已存在
-        var result = await txn.query('Ingredients', where: 'name = ?', whereArgs: [ingredientName]);
-        int ingredientId;
+        final result = await txn.query('Ingredients', where: 'name = ?', whereArgs: [ingredientName]);
         if (result.isEmpty) {
           final categoryId = categoryMap[categoryName];
-          ingredientId = await txn.insert('Ingredients', {'name': ingredientName, 'category_id': categoryId, 'abv': abv});
+          // [核心升级] 插入时包含ABV
+          final id = await txn.insert('Ingredients', {'name': ingredientName, 'category_id': categoryId, 'abv': abv});
+          ingredientMap[ingredientName] = id;
+          ingredientToTasteMap[id] = taste;
         } else {
-          ingredientId = result.first['ingredient_id'] as int;
+          final id = result.first['ingredient_id'] as int;
+          ingredientMap[ingredientName] = id;
+          ingredientToTasteMap[id] = taste;
         }
-
-        // 将标准名和所有别名（全部转为小写）都映射到这个ID
-        nameToIdMap[ingredientName.toLowerCase()] = ingredientId;
-        for (var alias in aliases) {
-          nameToIdMap[alias.toString().toLowerCase()] = ingredientId;
-        }
-        idToTasteMap[ingredientId] = taste;
       }
 
       for (var entry in glassesCnData.values) {
@@ -322,23 +313,24 @@ class DatabaseHelper {
         for (var ingredientData in detail['ingredients']) {
           final String rawIngredientName = ingredientData['ingredient'];
 
-          final ingredientId = nameToIdMap[rawIngredientName.toLowerCase()];
+          String? matchedKey = ingredientMap.keys.firstWhere(
+                (k) => rawIngredientName.toLowerCase().contains(k.toLowerCase()),
+            orElse: () => '',
+          );
 
-          if (ingredientId != null) {
-            // ↓↓↓ 核心变更 3：在插入时增加 display_name 字段 ↓↓↓
-            await txn.insert('Recipe_Ingredients', {
-              'recipe_id': recipeId,
-              'ingredient_id': ingredientId,
-              'display_name': rawIngredientName, // 存储原始名称
-              'amount': ingredientData['count']?.toString(),
-              'unit': ingredientData['unit'],
-            }, conflictAlgorithm: ConflictAlgorithm.replace);
-            // ↑↑↑ 核心变更 3：在插入时增加 display_name 字段 ↑↑↑
+          if (matchedKey.isNotEmpty) {
+            final ingredientId = ingredientMap[matchedKey];
+            if (ingredientId != null) {
+              await txn.insert('Recipe_Ingredients', {
+                'recipe_id': recipeId,
+                'ingredient_id': ingredientId,
+                'amount': ingredientData['count']?.toString(),
+                'unit': ingredientData['unit'],
+              }, conflictAlgorithm: ConflictAlgorithm.replace);
 
-            final taste = idToTasteMap[ingredientId];
-            if (taste != null) recipeTags.add(taste);
-          } else {
-            print('Warning: Could not match ingredient: "$rawIngredientName" for recipe "${cocktail['title']}"');
+              final taste = ingredientToTasteMap[ingredientId];
+              if (taste != null) recipeTags.add(taste);
+            }
           }
         }
 
@@ -486,13 +478,15 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getIngredientsForRecipe(int recipeId) async {
     final db = await database;
-    // 直接从 Recipe_Ingredients 读取 display_name，无需 join Ingredients 表
-    return await db.query(
-      'Recipe_Ingredients',
-      columns: ['display_name as name', 'amount', 'unit'], // 将 display_name 作为 name 返回
-      where: 'recipe_id = ?',
-      whereArgs: [recipeId],
-    );
+    return await db.rawQuery('''
+      SELECT
+        i.name,
+        ri.amount,
+        ri.unit
+      FROM Recipe_Ingredients ri
+      JOIN Ingredients i ON ri.ingredient_id = i.ingredient_id
+      WHERE ri.recipe_id = ?
+    ''', [recipeId]);
   }
 
   Future<List<Map<String, dynamic>>> getPurchaseRecommendations() async {

@@ -706,8 +706,7 @@
         {
           "count": "几",
           "unit": "滴",
-          "ingredient": "柑曼怡",
-          "is_optional": 1
+          "ingredient": "柑曼怡（可选）"
         },
         {
           "count": "1",
@@ -722,7 +721,7 @@
       "decorated": [
         "用橙皮和马拉斯奇诺樱桃装饰。"
       ],
-      "receptacle": "大香槟杯"
+      "receptacle": "大的香槟杯"
     }
   },
   {
@@ -849,7 +848,7 @@
       "decorated": [
         "用柠檬卷装饰。"
       ],
-      "receptacle": "大鸡尾酒杯"
+      "receptacle": "大的鸡尾酒杯"
     }
   },
   {
@@ -1319,7 +1318,7 @@
       "decorated": [
         "用柠檬片装饰，可选柠檬皮。"
       ],
-      "receptacle": "细长高脚杯"
+      "receptacle": "细长的高脚杯"
     }
   },
   {
@@ -1468,7 +1467,7 @@
       "decorated": [
         "无"
       ],
-      "receptacle": "大鸡尾酒杯"
+      "receptacle": "大的鸡尾酒杯"
     }
   },
   {
@@ -1494,8 +1493,7 @@
         {
           "count": "一",
           "unit": "滴",
-          "ingredient": "安高天娜苦精",
-          "is_optional": 1
+          "ingredient": "安高天娜苦精（可选）"
         }
       ],
       "preparation": [
@@ -1618,8 +1616,7 @@
         {
           "count": "几",
           "unit": "滴",
-          "ingredient": "蛋清",
-          "is_optional": 1
+          "ingredient": "蛋清（可选）"
         }
       ],
       "preparation": [
@@ -2884,7 +2881,7 @@
       "decorated": [
         "无"
       ],
-      "receptacle": "大高脚杯"
+      "receptacle": "大的高脚杯"
     }
   },
   {
@@ -2930,7 +2927,7 @@
       "decorated": [
         "用百香果壳和糖装饰。"
       ],
-      "receptacle": "大鸡尾酒杯"
+      "receptacle": "大的鸡尾酒杯"
     }
   },
   {
@@ -2966,7 +2963,7 @@
       "decorated": [
         "用橙皮装饰。"
       ],
-      "receptacle": "小号坦布勒杯或典型陶土杯"
+      "receptacle": "小号坦布勒杯或典型的陶土杯"
     }
   },
   {
@@ -3032,8 +3029,7 @@
         {
           "count": "2",
           "unit": "滴",
-          "ingredient": "安高天娜",
-          "is_optional": 1
+          "ingredient": "安高天娜（可选）"
         }
       ],
       "preparation": [
@@ -3516,15 +3512,14 @@
           "ingredient": "单糖浆"
         },
         {
-          "count": "5-6",
-          "unit": "片",
-          "ingredient": "薄荷叶"
+          "count": "5",
+          "unit": "/",
+          "ingredient": "6片 薄荷叶"
         },
         {
           "count": "几",
           "unit": "滴",
-          "ingredient": "蛋清",
-          "is_optional": 1
+          "ingredient": "蛋清（可选）"
         }
       ],
       "preparation": [
@@ -3988,8 +3983,7 @@
         {
           "count": "几",
           "unit": "滴",
-          "ingredient": "蛋清",
-          "is_optional": 1
+          "ingredient": "蛋清（可选）"
         }
       ],
       "preparation": [
@@ -4113,8 +4107,7 @@
         {
           "count": "几",
           "unit": "滴",
-          "ingredient": "蛋清",
-          "is_optional": 1
+          "ingredient": "蛋清（可选）"
         }
       ],
       "preparation": [
