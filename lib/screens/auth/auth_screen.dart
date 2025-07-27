@@ -64,6 +64,7 @@ class _AuthScreenState extends State<AuthScreen> {
         }
       }
     } on AuthException catch (e) {
+      print("登陆失败：$e");
       if (mounted) {
         if (e.message.contains('Email not confirmed')) {
           showTopBanner(

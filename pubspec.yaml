@@ -47,6 +47,12 @@ dependencies:
   riverpod_annotation: ^2.6.1
   image_picker: ^1.1.2
   image_cropper: ^9.1.0
+  package_info_plus: ^8.3.0
+  share_plus: ^11.0.0
+  qr_flutter: ^4.1.0
+  palette_generator: ^0.3.3+3
+  app_links: ^3.4.1 # Using the recommended replacement
+  flutter_cache_manager: ^3.4.1
 
 dev_dependencies:
   flutter_test:

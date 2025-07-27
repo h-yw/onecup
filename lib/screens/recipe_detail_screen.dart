@@ -1,15 +1,24 @@
 // lib/screens/recipe_detail_screen.dart
-
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:onecup/common/login_prompt_dialog.dart';
 import 'package:onecup/common/show_top_banner.dart';
 import 'package:onecup/database/supabase_service.dart';
 import 'package:onecup/models/receip.dart';
+import 'package:onecup/screens/batch_calculator_screen.dart';
 import 'package:onecup/screens/edit_note_screen.dart';
+import 'package:onecup/widgets/recipe_share_card.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../models/recipe_ingredient.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final Recipe recipe;
@@ -30,12 +39,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   bool _isFavorited = false;
   bool _isUserCreated = false;
   bool _hasNote = false;
-  // 收藏状态最终是否变
   bool _didFavoriteChange = false;
-  // 存储进入页面时的收藏状态
   bool _initialIsFavorited = false;
   bool _isToggleFavoriteInProgress = false;
   bool _isAddingToShoppingList = false;
+  bool _isSharing = false;
+  Map<String, dynamic>? _shareableRecipeData;
+
+  final GlobalKey _shareBoundaryKey = GlobalKey();
+  bool _canShare = false;
 
   @override
   void initState() {
@@ -47,10 +59,18 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
   void _loadAllAsyncData() {
     if (!mounted) return;
-    if(widget.recipe.id==null)   return;
+    if (widget.recipe.id == null) return;
     setState(() {
       if (!_isUserCreated) {
-        _ingredientsFuture = _dbHelper.getIngredientsForRecipe(widget.recipe.id!);
+        _ingredientsFuture =
+            _dbHelper.getIngredientsForRecipe(widget.recipe.id!)
+              ..then((ingredients) {
+                if (mounted && ingredients.isNotEmpty) {
+                  setState(() {
+                    _canShare = true;
+                  });
+                }
+              });
         _tagsFuture = _dbHelper.getRecipeTags(widget.recipe.id!);
         _abvFuture = _dbHelper.getRecipeABV(widget.recipe.id!);
       }
@@ -63,7 +83,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
   void _checkIfFavorited() async {
     if (_dbHelper.currentUser == null) return;
-    if(widget.recipe.id==null)   return;
+    if (widget.recipe.id == null) return;
     final isFav = await _dbHelper.isRecipeFavorite(widget.recipe.id!);
     if (mounted) {
       setState(() {
@@ -74,12 +94,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
   void _loadNoteStatus() async {
     if (_dbHelper.currentUser == null) return;
-    if(widget.recipe.id==null)   return;
+    if (widget.recipe.id == null) return;
     _noteFuture = _dbHelper.getRecipeNote(widget.recipe.id!);
     final noteContent = await _noteFuture;
     if (mounted) {
       setState(() {
-        _hasNote = noteContent != null && noteContent.isNotEmpty && noteContent != '[]';
+        _hasNote =
+            noteContent != null &&
+            noteContent.isNotEmpty &&
+            noteContent != '[]';
       });
     }
   }
@@ -92,13 +115,14 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       });
     }
   }
+
   // 统一的乐观更新逻辑
   void _toggleFavorite() async {
     if (_dbHelper.currentUser == null) {
       showLoginPromptDialog(context);
       return;
     }
-    if (_isToggleFavoriteInProgress)  return;
+    if (_isToggleFavoriteInProgress) return;
     setState(() {
       _isToggleFavoriteInProgress = true;
     });
@@ -111,7 +135,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     });
     // 在后台执行数据库操作
     try {
-      if(widget.recipe.id==null){
+      if (widget.recipe.id == null) {
         return;
       }
       if (currentFavoritedStateBeforeToggle) {
@@ -127,7 +151,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     } catch (e) {
       if (mounted) {
         showTopBanner(context, '操作失败，请重试', isError: true);
-        if (e is PostgrestException && e.code == '23505' && !currentFavoritedStateBeforeToggle) {
+        if (e is PostgrestException &&
+            e.code == '23505' &&
+            !currentFavoritedStateBeforeToggle) {
           // 尝试添加时遇到重复键，说明已存在
           setState(() {
             _isFavorited = true; // 同步为已收藏
@@ -140,7 +166,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           });
         }
       }
-    }finally{
+    } finally {
       if (mounted) {
         setState(() {
           _isToggleFavoriteInProgress = false;
@@ -161,7 +187,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       _isAddingToShoppingList = true;
     });
     try {
-      if(widget.recipe.id==null){
+      if (widget.recipe.id == null) {
         return;
       }
       await _dbHelper.addRecipeIngredientsToShoppingList(widget.recipe.id!);
@@ -191,7 +217,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       return;
     }
     final currentNote = await _noteFuture;
-    if(widget.recipe.id==null){
+    if (widget.recipe.id == null) {
       return;
     }
     final result = await Navigator.push<bool>(
@@ -210,93 +236,226 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     }
   }
 
+  Future<void> _shareRecipeAsImage() async {
+    if (_isSharing) return;
+
+    setState(() {
+      _isSharing = true;
+    });
+
+    try {
+      List<Map<String, dynamic>> ingredientsList;
+
+      // 关键修复：根据配方类型，使用不同的方式获取配料
+      if (_isUserCreated) {
+        final ingredientsString = _parseUserIngredients(
+          widget.recipe.instructions,
+        );
+        // 将解析出的字符串转换为分享卡片期望的 List<Map> 格式
+        ingredientsList = ingredientsString
+            .split('\n')
+            .where((line) => line.trim().isNotEmpty)
+            .map((line) => {'name': line.trim(), 'amount': '', 'unit': ''})
+            .toList();
+      } else {
+        // 对于标准配方，等待异步加载
+        ingredientsList = await _ingredientsFuture;
+      }
+
+      final recipeMap = widget.recipe.toMap();
+      recipeMap['ingredients'] = ingredientsList;
+      setState(() {
+        _shareableRecipeData = recipeMap;
+      });
+
+      // 等待UI渲染完成，并给调色板生成器留出时间
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      // 执行截图
+      RenderRepaintBoundary boundary =
+          _shareBoundaryKey.currentContext!.findRenderObject()
+              as RenderRepaintBoundary;
+      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+      ByteData? byteData = await image.toByteData(
+        format: ui.ImageByteFormat.png,
+      );
+      if (byteData == null) throw Exception("无法生成图片数据");
+      Uint8List pngBytes = byteData.buffer.asUint8List();
+
+      final tempDir = await getTemporaryDirectory();
+      final file = await File(
+        '${tempDir.path}/recipe_${widget.recipe.id}.png',
+      ).create();
+      await file.writeAsBytes(pngBytes);
+
+      await Share.shareXFiles(
+        [XFile(file.path)],
+        text: '看看这个很棒的鸡尾酒配方: ${widget.recipe.name}!',
+        subject: '来自 OneCup App 的配方分享',
+      );
+    } catch (e) {
+      if (mounted) {
+        showTopBanner(context, '分享失败: $e', isError: true);
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSharing = false;
+          _shareableRecipeData = null;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return PopScope(
       canPop: !_isAddingToShoppingList,
-      onPopInvokedWithResult: (didPop,result){
-        if(didPop) return;
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
         Navigator.pop(context, _didFavoriteChange);
       },
       child: Scaffold(
-        body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 280.0,
-            pinned: true,
-            stretch: true,
-            backgroundColor: theme.scaffoldBackgroundColor,
-            elevation: 0,
-            scrolledUnderElevation: 0.8,
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarBrightness: Brightness.dark,
-              statusBarIconBrightness: Brightness.dark,
-            ),
-            leading: BackButton(color: theme.appBarTheme.iconTheme?.color,onPressed: (){
-              if (!_isAddingToShoppingList) {
-                Navigator.pop(context, _didFavoriteChange);
-              }
-            },),
-            title: Text(widget.recipe.name, style: theme.appBarTheme.titleTextStyle),
-            actions: [
-              IconButton(
-                icon: Icon(_hasNote ? Icons.speaker_notes : Icons.notes_outlined),
-                tooltip: _hasNote ? '查看/编辑笔记' : '添加笔记',
-                onPressed: _navigateToEditNote,
-              ),
-              IconButton(
-                icon: Icon(
-                  _isFavorited ? Icons.favorite : Icons.favorite_border,
-                  color: _isFavorited ? theme.colorScheme.secondary : theme.appBarTheme.iconTheme?.color,
+        body: Stack(
+          children: [
+            CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  expandedHeight: 280.0,
+                  pinned: true,
+                  stretch: true,
+                  backgroundColor: theme.scaffoldBackgroundColor,
+                  elevation: 0,
+                  scrolledUnderElevation: 0.8,
+                  systemOverlayStyle: const SystemUiOverlayStyle(
+                    statusBarBrightness: Brightness.dark,
+                    statusBarIconBrightness: Brightness.dark,
+                  ),
+                  leading: BackButton(
+                    color: theme.appBarTheme.iconTheme?.color,
+                    onPressed: () {
+                      if (!_isAddingToShoppingList) {
+                        Navigator.pop(context, _didFavoriteChange);
+                      }
+                    },
+                  ),
+                  title: Text(
+                    widget.recipe.name,
+                    style: theme.appBarTheme.titleTextStyle,
+                  ),
+                  actions: [
+                    if (_canShare)
+                      _isSharing
+                          ? const Padding(
+                              padding: EdgeInsets.all(14.0),
+                              child: SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.5,
+                                ),
+                              ),
+                            )
+                          : IconButton(
+                              icon: const Icon(Icons.share_outlined),
+                              tooltip: '分享配方',
+                              onPressed: _shareRecipeAsImage,
+                            ),
+                    IconButton(
+                      icon: Icon(
+                        _hasNote ? Icons.speaker_notes : Icons.notes_outlined,
+                      ),
+                      tooltip: _hasNote ? '查看/编辑笔记' : '添加笔记',
+                      onPressed: _navigateToEditNote,
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        _isFavorited ? Icons.favorite : Icons.favorite_border,
+                        color: _isFavorited
+                            ? theme.colorScheme.secondary
+                            : theme.appBarTheme.iconTheme?.color,
+                      ),
+                      onPressed: _toggleFavorite,
+                    ),
+                    if (_canShare)
+                      IconButton(
+                        icon: const Icon(Icons.calculate_outlined),
+                        tooltip: '批量制作',
+                        onPressed: () async {
+                          final ingredientsList = await _ingredientsFuture;
+                          final Map<String,dynamic> map = Map.from(widget.recipe.toMap());
+                          map['ingredients'] = ingredientsList;
+                          var recipe =Recipe.fromMap(map);
+                          print("map====>$map");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  BatchCalculatorScreen(recipe: recipe),
+                            ),
+                          );
+                        },
+                      ),
+                    const SizedBox(width: 8),
+                  ],
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: _buildHeaderImage(),
+                    stretchModes: const [
+                      StretchMode.zoomBackground,
+                      StretchMode.blurBackground,
+                    ],
+                  ),
                 ),
-                onPressed: _toggleFavorite,
-              ),
-              const SizedBox(width: 8),
-            ],
-            flexibleSpace: FlexibleSpaceBar(
-              background: _buildHeaderImage(),
-              stretchModes: const [
-                StretchMode.zoomBackground,
-                StretchMode.blurBackground,
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 40.0),
+                  sliver: SliverList(
+                    delegate: SliverChildListDelegate([
+                      _buildInfoCard(theme),
+                      const SizedBox(height: 24),
+
+                      if (!_isUserCreated) ...[
+                        _buildFlavorTagsSection(theme),
+                        const SizedBox(height: 24),
+                      ],
+
+                      _buildMakingProcessCard(theme),
+                      const SizedBox(height: 24),
+
+                      if (widget.recipe.description != null &&
+                          widget.recipe.description!.isNotEmpty) ...[
+                        _buildSectionHeader(theme, title: '关于 & 装饰'),
+                        const SizedBox(height: 12),
+                        Text(
+                          widget.recipe.description!,
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                        const SizedBox(height: 24),
+                      ],
+
+                      if (!_isUserCreated) ...[
+                        const SizedBox(height: 16),
+                        _buildSourceFooter(theme),
+                      ],
+                    ]),
+                  ),
+                ),
               ],
             ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 40.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  _buildInfoCard(theme),
-                  const SizedBox(height: 24),
-
-                  if (!_isUserCreated) ...[
-                    _buildFlavorTagsSection(theme),
-                    const SizedBox(height: 24),
-                  ],
-
-                  _buildMakingProcessCard(theme),
-                  const SizedBox(height: 24),
-
-                  if (widget.recipe.description != null && widget.recipe.description!.isNotEmpty) ...[
-                    _buildSectionHeader(theme, title: '关于 & 装饰'),
-                    const SizedBox(height: 12),
-                    Text(widget.recipe.description!, style: theme.textTheme.bodyLarge),
-                    const SizedBox(height: 24),
-                  ],
-
-                  if (!_isUserCreated) ...[
-                    const SizedBox(height: 16),
-                    _buildSourceFooter(theme),
-                  ],
-                ],
+            // 这个 RepaintBoundary 用于截图，它在屏幕外渲染
+            if (_isSharing && _shareableRecipeData != null)
+              Positioned(
+                top: -10000, // 移出屏幕外
+                left: 0,
+                child: RepaintBoundary(
+                  key: _shareBoundaryKey,
+                  child: RecipeShareCard(recipe: _shareableRecipeData!),
+                ),
               ),
-            ),
-          )
-        ],
+          ],
+        ),
       ),
-      )
     );
   }
 
@@ -317,86 +476,129 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
   Widget _buildStandardProcess(ThemeData theme) {
     return FutureBuilder<List<Map<String, dynamic>>>(
-        future: _ingredientsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) { // 添加错误处理
-            return Center(child: Text('加载配料失败: ${snapshot.error}'));
-          }
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Text('暂无配方信息。');
-          }
+      future: _ingredientsFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          // 添加错误处理
+          return Center(child: Text('加载配料失败: ${snapshot.error}'));
+        }
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Text('暂无配方信息。');
+        }
 
-          final ingredients = snapshot.data!;
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildInternalSectionHeader(theme, icon: Icons.format_list_bulleted_rounded, title: '配料清单'),
-              const SizedBox(height: 12),
-              ...ingredients.map((ing) => _buildIngredientRow(theme, ing)),
-              const SizedBox(height: 16),
-              Center(
-                child:TextButton.icon(
-                  onPressed:_isAddingToShoppingList ? null : _addAllIngredientsToShoppingList,
-                  icon:  _isAddingToShoppingList
-                      ? SizedBox( // 使用 Container 来约束加载指示器的大小
-                    width: 18, // 与原始图标大小相似
-                    height: 18,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2.0, // 可以调整线条粗细
-                      valueColor: AlwaysStoppedAnimation<Color>(theme.primaryColor), // 与主题颜色一致
-                    ),
-                  )
-                      : const Icon(Icons.add_shopping_cart_outlined, size: 18),
-                  label: const Text('全部加入购物清单'),
-                  style: TextButton.styleFrom(
-                    disabledForegroundColor:Colors.grey.withValues(alpha: 0.5) ,
-                      foregroundColor: theme.primaryColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10)),
+        final ingredients = snapshot.data!;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildInternalSectionHeader(
+              theme,
+              icon: Icons.format_list_bulleted_rounded,
+              title: '配料清单',
+            ),
+            const SizedBox(height: 12),
+            ...ingredients.map((ing) => _buildIngredientRow(theme, ing)),
+            const SizedBox(height: 16),
+            Center(
+              child: TextButton.icon(
+                onPressed: _isAddingToShoppingList
+                    ? null
+                    : _addAllIngredientsToShoppingList,
+                icon: _isAddingToShoppingList
+                    ? SizedBox(
+                        // 使用 Container 来约束加载指示器的大小
+                        width: 18, // 与原始图标大小相似
+                        height: 18,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.0, // 可以调整线条粗细
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            theme.primaryColor,
+                          ), // 与主题颜色一致
+                        ),
+                      )
+                    : const Icon(Icons.add_shopping_cart_outlined, size: 18),
+                label: const Text('全部加入购物清单'),
+                style: TextButton.styleFrom(
+                  disabledForegroundColor: Colors.grey.withValues(alpha: 0.5),
+                  foregroundColor: theme.primaryColor,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                 ),
               ),
-              const Divider(height: 32),
+            ),
+            const Divider(height: 32),
 
-              _buildInternalSectionHeader(theme, icon: Icons.receipt_long_rounded, title: '调制步骤'),
-              const SizedBox(height: 12),
-              Text(
-                widget.recipe.instructions ?? '暂无详细步骤。',
-                style: theme.textTheme.bodyLarge?.copyWith(height: 1.6, color: theme.textTheme.bodyMedium?.color),
+            _buildInternalSectionHeader(
+              theme,
+              icon: Icons.receipt_long_rounded,
+              title: '调制步骤',
+            ),
+            const SizedBox(height: 12),
+            Text(
+              widget.recipe.instructions ?? '暂无详细步骤。',
+              style: theme.textTheme.bodyLarge?.copyWith(
+                height: 1.6,
+                color: theme.textTheme.bodyMedium?.color,
               ),
-            ],
-          );
-        });
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget _buildUserCreatedProcess(ThemeData theme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildInternalSectionHeader(theme, icon: Icons.format_list_bulleted_rounded, title: '配料清单'),
+        _buildInternalSectionHeader(
+          theme,
+          icon: Icons.format_list_bulleted_rounded,
+          title: '配料清单',
+        ),
         const SizedBox(height: 12),
         Text(
           _parseUserIngredients(widget.recipe.instructions),
-          style: theme.textTheme.bodyLarge?.copyWith(height: 1.6, color: theme.textTheme.bodyMedium?.color),
+          style: theme.textTheme.bodyLarge?.copyWith(
+            height: 1.6,
+            color: theme.textTheme.bodyMedium?.color,
+          ),
         ),
         const Divider(height: 32),
-        _buildInternalSectionHeader(theme, icon: Icons.receipt_long_rounded, title: '调制步骤'),
+        _buildInternalSectionHeader(
+          theme,
+          icon: Icons.receipt_long_rounded,
+          title: '调制步骤',
+        ),
         const SizedBox(height: 12),
         Text(
           _parseUserInstructions(widget.recipe.instructions),
-          style: theme.textTheme.bodyLarge?.copyWith(height: 1.6, color: theme.textTheme.bodyMedium?.color),
+          style: theme.textTheme.bodyLarge?.copyWith(
+            height: 1.6,
+            color: theme.textTheme.bodyMedium?.color,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildInternalSectionHeader(ThemeData theme, {required IconData icon, required String title}) {
+  Widget _buildInternalSectionHeader(
+    ThemeData theme, {
+    required IconData icon,
+    required String title,
+  }) {
     return Row(
       children: [
         Icon(icon, size: 20, color: theme.primaryColor),
         const SizedBox(width: 8),
-        Text(title, style: theme.textTheme.headlineSmall?.copyWith(fontSize: 18)),
+        Text(
+          title,
+          style: theme.textTheme.headlineSmall?.copyWith(fontSize: 18),
+        ),
       ],
     );
   }
@@ -406,12 +608,18 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-          Icon(Icons.circle, size: 8, color: theme.primaryColor.withOpacity(0.5)),
+          Icon(
+            Icons.circle,
+            size: 8,
+            color: theme.primaryColor.withOpacity(0.5),
+          ),
           const SizedBox(width: 16),
           Expanded(
             child: Text(
               '${ing['name']} - ${ing['amount']} ${ing['unit'] ?? ''}'.trim(),
-              style: theme.textTheme.bodyLarge?.copyWith(color: theme.textTheme.bodyMedium?.color),
+              style: theme.textTheme.bodyLarge?.copyWith(
+                color: theme.textTheme.bodyMedium?.color,
+              ),
             ),
           ),
         ],
@@ -430,8 +638,18 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildMetadataItem(theme, Icons.category_outlined, '分类', widget.recipe.category ?? '经典'),
-          _buildMetadataItem(theme, Icons.local_bar_outlined, '杯具', widget.recipe.glass ?? '鸡尾酒杯'),
+          _buildMetadataItem(
+            theme,
+            Icons.category_outlined,
+            '分类',
+            widget.recipe.category ?? '经典',
+          ),
+          _buildMetadataItem(
+            theme,
+            Icons.local_bar_outlined,
+            '杯具',
+            widget.recipe.glass ?? '鸡尾酒杯',
+          ),
           if (!_isUserCreated)
             FutureBuilder<double?>(
               future: _abvFuture,
@@ -439,7 +657,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 if (!snapshot.hasData || snapshot.data == null) {
                   return const Expanded(child: SizedBox.shrink());
                 }
-                return _buildMetadataItem(theme, Icons.whatshot_outlined, '酒精度', '${snapshot.data!.toStringAsFixed(1)}%');
+                return _buildMetadataItem(
+                  theme,
+                  Icons.whatshot_outlined,
+                  '酒精度',
+                  '${snapshot.data!.toStringAsFixed(1)}%',
+                );
               },
             ),
         ],
@@ -470,13 +693,24 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     );
   }
 
-  Widget _buildMetadataItem(ThemeData theme, IconData icon, String label, String value) {
+  Widget _buildMetadataItem(
+    ThemeData theme,
+    IconData icon,
+    String label,
+    String value,
+  ) {
     return Expanded(
       child: Column(
         children: [
           Icon(icon, color: theme.primaryColor, size: 24),
           const SizedBox(height: 8),
-          Text(value, style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+          Text(
+            value,
+            style: theme.textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: 4),
           Text(label, style: theme.textTheme.bodySmall),
         ],
@@ -484,7 +718,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     );
   }
 
-  Widget _buildSectionHeader(ThemeData theme, {required String title, Widget? action}) {
+  Widget _buildSectionHeader(
+    ThemeData theme, {
+    required String title,
+    Widget? action,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -504,10 +742,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         decoration: BoxDecoration(
           image: isUrl
               ? DecorationImage(
-            image: NetworkImage(imagePath!),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.darken),
-          )
+                  image: NetworkImage(imagePath!),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.3),
+                    BlendMode.darken,
+                  ),
+                )
               : null,
           color: isUrl ? null : Colors.grey[200],
         ),
@@ -521,7 +762,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   String _parseUserIngredients(String? rawInstructions) {
     if (rawInstructions == null) return '暂无配料信息。';
     try {
-      return rawInstructions.split('---INSTRUCTIONS---')[0].replaceFirst('---INGREDIENTS---', '').trim();
+      return rawInstructions
+          .split('---INSTRUCTIONS---')[0]
+          .replaceFirst('---INGREDIENTS---', '')
+          .trim();
     } catch (e) {
       return '暂无配料信息。';
     }
@@ -540,18 +784,30 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     return FutureBuilder<List<String>>(
       future: _tagsFuture,
       builder: (context, snapshot) {
-        if (!snapshot.hasData || snapshot.data!.isEmpty) return Text('暂无', style: theme.textTheme.bodyMedium);
+        if (!snapshot.hasData || snapshot.data!.isEmpty)
+          return Text('暂无', style: theme.textTheme.bodyMedium);
         return Wrap(
           spacing: 8.0,
           runSpacing: 8.0,
-          children: snapshot.data!.map((tag) => Chip(
-            label: Text(tag),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            labelStyle: TextStyle(fontSize: 13, color: theme.textTheme.bodyLarge?.color, fontWeight: FontWeight.w500),
-            side: BorderSide.none,
-            backgroundColor: theme.primaryColor.withOpacity(0.08),
-          )).toList(),
+          children: snapshot.data!
+              .map(
+                (tag) => Chip(
+                  label: Text(tag),
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  labelStyle: TextStyle(
+                    fontSize: 13,
+                    color: theme.textTheme.bodyLarge?.color,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  side: BorderSide.none,
+                  backgroundColor: theme.primaryColor.withOpacity(0.08),
+                ),
+              )
+              .toList(),
         );
       },
     );

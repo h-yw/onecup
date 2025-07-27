@@ -600,7 +600,7 @@ class SupabaseService {
   /// 计算配方的估算酒精度 (ABV)
   Future<double?> getRecipeABV(int recipeId) async {
     try {
-      // [修复] 手动 JOIN，不再使用资源嵌入
+      // 手动 JOIN，不再使用资源嵌入
       // 1. 获取配方的所有配料信息（amount, unit, ingredient_id）
       final recipeIngredients = await _client
           .from('onecup_recipe_ingredients')
@@ -861,6 +861,20 @@ class SupabaseService {
     } catch(e) {
       if (kDebugMode) print('获取带笔记的配方失败: $e');
       return [];
+    }
+  }
+
+  Future<Recipe?> getRecipeById(int recipeId) async {
+    try {
+      final response = await _client
+          .from('v_recipes_with_details')
+          .select()
+          .eq('id', recipeId)
+          .single();
+      return Recipe.fromMap(response);
+    } catch (e) {
+      print('Error fetching recipe by id: $e');
+      return null;
     }
   }
 }

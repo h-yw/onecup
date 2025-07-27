@@ -14,6 +14,7 @@ class Recipe {
   final List<String>? notes;
   final String? videoUrl;
   final String? userId;
+  final List<Map<String,dynamic>>? ingredients;
 
   Recipe({
     this.id,
@@ -26,6 +27,7 @@ class Recipe {
     this.notes,
     this.videoUrl,
     this.userId,
+    this.ingredients
   });
 
   /// [已优化] 构造函数：用于解析来自Supabase标准查询的嵌套数据。
@@ -50,7 +52,7 @@ class Recipe {
     );
   }
 
-  /// [已优化] 构造函数：用于解析扁平化的 Map 数据。
+  /// 构造函数：用于解析扁平化的 Map 数据。
   ///
   /// 适用于数据库函数 (RPC) 或我们新创建的视图 (v_recipes_with_details) 的返回结果。
   factory Recipe.fromMap(Map<String, dynamic> map) {
@@ -66,11 +68,13 @@ class Recipe {
       notes: map['notes'] != null ? List<String>.from(map['notes']) : null,
       videoUrl: map['video_url'],
       userId: map['user_id'],
+        ingredients:map['ingredients']
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'name': name,
       'description': description,
       'instructions': instructions,
@@ -78,6 +82,8 @@ class Recipe {
       'notes': notes,
       'video_url': videoUrl,
       'user_id': userId,
+      'category':category,
+      'ingredients':ingredients
     };
   }
 
