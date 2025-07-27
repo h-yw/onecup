@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:onecup/database/database_helper.dart';
 import 'package:onecup/database/supabase_service.dart';
 import 'package:onecup/models/receip.dart';
 import 'package:onecup/screens/recipe_detail_screen.dart';
@@ -69,11 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _navigateToDetail(Recipe recipe) async {
-    await Navigator.push(
+    final bool? shouldRefresh = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => RecipeDetailScreen(recipe: recipe)),
     );
-    if (mounted) {
+    if (shouldRefresh==true && mounted) {
       setState(() {
         _initializeFutures();
       });

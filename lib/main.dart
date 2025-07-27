@@ -1,5 +1,6 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 // [核心改造] 不再需要 AuthGate
 // import 'package:onecup/screens/auth/auth_gate.dart';
 import 'package:onecup/screens/home_screen.dart';
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       // [核心改造] 应用的 home 现在直接是 MainTabsScreen
       home: const MainTabsScreen(),
+      localizationsDelegates: [
+        FlutterQuillLocalizations.delegate
+      ],
       debugShowCheckedModeBanner: false,
     );
   }

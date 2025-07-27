@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 /// Recipe 模型类，用于表示一个鸡尾酒配方。
 class Recipe {
-  final int id;
+  final int? id;
   final String name;
   final String? description;
   final String? instructions;
@@ -16,7 +16,7 @@ class Recipe {
   final String? userId;
 
   Recipe({
-    required this.id,
+    this.id,
     required this.name,
     this.description,
     this.instructions,

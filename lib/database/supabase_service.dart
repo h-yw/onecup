@@ -1,5 +1,7 @@
 // lib/services/supabase_service.dart
 
+import 'dart:io';
+
 import 'package:flutter/foundation.dart'; // 用于 kDebugMode
 import 'package:onecup/models/receip.dart'; // 确保 Recipe 模型的路径正确
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -49,6 +51,63 @@ class SupabaseService {
 
   // 获取当前登录用户的 ID
   String? get _currentUserId => _client.auth.currentUser?.id;
+
+  // ---------------用户信息-------------------
+  /// 更新用户元数据 (例如昵称、头像URL)
+  ///
+  /// @param data 一个包含要更新的元数据键值对的 Map。
+  ///             例如: {'nickname': '新的昵称', 'avatar_url': '新的头像URL'}
+  Future<UserResponse> updateUserMetadata(Map<String, dynamic> data) async {
+    final response = await _client.auth.updateUser(
+      UserAttributes(data: data),
+    );
+    // 更新后，Supabase.instance.client.auth.currentUser 可能不会立即刷新，
+    // 但 authStateChanges stream 应该会发出新的 User 对象。
+    // 手动刷新本地 currentUser (可选，但有时有帮助)
+    // await _client.auth.refreshSession(); // 或者 signOut 然后重新 signIn 以强制刷新，但不推荐
+    return response;
+  }
+
+  /// 上传头像文件到 Supabase Storage 并返回公开 URL
+  ///
+  /// @param filePath 本地图片文件的路径
+  /// @param userId 用于构建存储路径，确保每个用户的文件路径唯一
+  /// @returns 上传成功后的公开 URL，失败则抛出异常
+  Future<String> uploadAvatar(String filePath, String userId) async {
+    final file = File(filePath);
+    final fileExtension = filePath.split('.').last.toLowerCase();
+    // 使用时间戳确保文件名唯一，防止覆盖同名文件（如果用户快速更换头像）
+    final fileName = '$userId/avatar_${DateTime.now().millisecondsSinceEpoch}.$fileExtension';
+    final bucketName = 'onecup'; //
+
+    try {
+     await _client.storage.from(bucketName).upload(
+        fileName,
+        file,
+        fileOptions: FileOptions(cacheControl: '3600', upsert: true), // upsert: true 会覆盖同名文件
+      );
+
+
+      // 获取公开 URL
+      final publicUrlResponse = _client.storage.from(bucketName).getPublicUrl(fileName);
+      return publicUrlResponse;
+    } catch (e) {
+      if (kDebugMode) {
+        print('SupabaseService: Error uploading avatar: $e');
+      }
+      throw Exception('头像上传失败: $e');
+    }
+  }
+
+  /// 获取用户昵称，如果存在的话
+  String? getUserNickname(User? user) {
+    return user?.userMetadata?['nickname'] as String?;
+  }
+
+  /// 获取用户头像 URL，如果存在的话
+  String? getAvatarUrl(User? user) {
+    return user?.userMetadata?['avatar_url'] as String?;
+  }
 
 
   /// [核心优化] 从新的v_recipes_with_details视图获取数据，避免客户端JOIN
@@ -295,12 +354,39 @@ class SupabaseService {
     }
   }
 
-  Future<void> addToShoppingList(String name) async {
+  Future<void> addToShoppingList(String name,int ingredientId) async {
     final userId = _currentUserId;
-    if (userId == null) return;
-    await _client
-        .from('onecup_shopping_list')
-        .insert({'name': name, 'checked': false, 'user_id': userId});
+    if (userId == null) {
+      if (kDebugMode) {
+        print('用户未登录，无法添加到购物清单。');
+      }
+      return;
+    }
+    try {
+      await _client.rpc(
+        'add_to_shopping_list_if_not_exists', // 数据库中创建的函数名
+        params: {
+          'p_user_id': userId,         // 匹配函数参数 p_user_id
+          'p_ingredient_id': ingredientId, // 匹配函数参数 p_ingredient_id
+          'p_name': name,            // 匹配函数参数 p_name
+        },
+      );
+      if (kDebugMode) {
+        print('配料 "$name" (ID: $ingredientId) upsert 操作尝试完成。');
+      }
+
+    } catch (e) {
+      if (kDebugMode) {
+        print('添加到购物清单时捕获到异常 for "$name": $e');
+      }
+      // 根据具体错误类型决定是否重新抛出或如何处理
+      if (e is PostgrestException) {
+        // 你可以在这里处理特定的 PostgrestException，比如 RLS 错误等
+        // 但对于 "violates not-null constraint" 这样的错误，通常是数据准备问题
+        throw Exception('添加到购物清单时数据库操作失败: ${e.message}');
+      }
+      throw Exception('添加到购物清单时发生未知错误。');
+    }
   }
 
   Future<void> updateShoppingListItem(int id, bool isChecked) async {
@@ -327,14 +413,34 @@ class SupabaseService {
   }
 
   Future<void> addRecipeIngredientsToShoppingList(int recipeId) async {
+    final userId = _currentUserId; // 获取当前用户ID，以便传递或在需要时检查
+    if (userId == null) {
+      if (kDebugMode) print('用户未登录，无法将配料添加到购物清单。');
+      // 可以考虑在这里显示登录提示或直接返回
+      return;
+    }
     final ingredients = await getIngredientsForRecipe(recipeId);
+    if (ingredients.isEmpty) {
+      if (kDebugMode) print('没有配料可以添加到购物清单 for recipe $recipeId');
+      return;
+    }
     for (var ingredient in ingredients) {
-      await addToShoppingList(ingredient['name']);
+      final name = ingredient['name'];
+      final ingredientId= ingredient['ingredient_id'];
+      try {
+        // 调用修改后的 addToShoppingList
+        await addToShoppingList(name, ingredientId);
+      } catch (e) {
+        // 在循环中捕获单个添加失败的错误，避免中断整个过程
+        if (kDebugMode) {
+          print('将配料 "$name" (ID: $ingredientId) 添加到购物清单失败: $e');
+        }
+      }
     }
   }
 
   // --- 收藏夹 (Favorites) ---
-// [核心修复] 清理了此方法，移除了不必要的print语句
+// 清理了此方法，移除了不必要的print语句
   Future<void> addRecipeToFavorites(int recipeId) async {
     final userId = _currentUserId;
     if (userId == null) return;
@@ -347,11 +453,21 @@ class SupabaseService {
 
   Future<void> removeRecipeFromFavorites(int recipeId) async {
     final userId = _currentUserId;
-    if (userId == null) return;
-    await _client
-        .from('onecup_user_favorites')
-        .delete()
-        .match({'user_id': userId, 'recipe_id': recipeId});
+    if (userId == null) {
+      if (kDebugMode) print('用户未登录，无法取消收藏。');
+      return;
+    }
+    try {
+      await _client
+          .from('onecup_user_favorites')
+          .delete()
+          .match({'user_id': userId, 'recipe_id': recipeId});
+      if (kDebugMode) print('食谱 $recipeId 已从用户 $userId 的收藏中移除 (如果存在)。');
+    } catch (e) {
+      if (kDebugMode) print('取消收藏食谱 $recipeId 时出错: $e');
+      // 可以考虑重新抛出异常，让调用者处理
+      throw Exception(e);
+    }
   }
 
   Future<bool> isRecipeFavorite(int recipeId) async {
@@ -369,57 +485,90 @@ class SupabaseService {
 
   // --- 笔记 (Notes) ---
 
+  /// 获取用户对特定食谱的笔记。
+  /// 用于 EditNoteScreen 初始化时加载现有笔记。
   Future<String?> getRecipeNote(int recipeId) async {
     final userId = _currentUserId;
-    if (userId == null) return null;
+    if (userId == null) {
+      if (kDebugMode) print('用户未登录，无法获取笔记。');
+      return null;
+    }
+    try {
+      final response = await _client
+          .from('onecup_user_recipe_notes')
+          .select('notes') // 选择包含笔记内容的列
+          .match({'user_id': userId, 'recipe_id': recipeId})
+          .maybeSingle(); // 一个用户对一个食谱最多一条笔记
 
-    final response = await _client
-        .from('onecup_user_recipe_notes')
-        .select('notes')
-        .match({'user_id': userId, 'recipe_id': recipeId})
-        .maybeSingle();
-
-    return response?['notes'];
+      if (response != null && response['notes'] != null) {
+        return response['notes'] as String;
+      }
+      return null;
+    } catch (e) {
+      if (kDebugMode) {
+        print('获取笔记时出错 for recipe $recipeId: $e');
+      }
+      return null; // 出错时返回null，让 EditNoteScreen 按新笔记处理
+    }
   }
 
-  Future<void> saveRecipeNote(int recipeId, String notes) async {
+  /// 保存或更新用户对特定食谱的笔记。
+  Future<void> saveRecipeNote(int recipeId, String notesJson) async {
     final userId = _currentUserId;
-    if (userId == null) return;
-
-    await _client
-        .from('onecup_user_recipe_notes')
-        .upsert({'user_id': userId, 'recipe_id': recipeId, 'notes': notes});
+    if (userId == null) {
+      throw Exception('用户未登录，无法保存笔记。');
+    }
+    try {
+      await _client.from('onecup_user_recipe_notes').upsert({
+        'user_id': userId,
+        'recipe_id': recipeId,
+        'notes': notesJson, // 假设存储笔记内容的列名为 'notes'
+      },  onConflict: 'user_id,recipe_id'); // 冲突解决依赖于 (user_id, recipe_id) 的唯一性
+      if (kDebugMode) {
+        print('笔记已为 recipe $recipeId 和 user $userId 保存/更新。');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('保存/更新笔记时出错 for recipe $recipeId: $e');
+      }
+      throw Exception('保存笔记失败: $e'); // 重新抛出，让调用者处理UI提示
+    }
   }
 
   Future<void> deleteRecipeNote(int recipeId) async {
     final userId = _currentUserId;
-    if (userId == null) return;
-
-    await _client
-        .from('onecup_user_recipe_notes')
-        .delete()
-        .match({'user_id': userId, 'recipe_id': recipeId});
+    if (userId == null) {
+      throw Exception('用户未登录，无法删除笔记。');
+    }
+    try {
+      await _client
+          .from('onecup_user_recipe_notes')
+          .delete()
+          .match({'user_id': userId, 'recipe_id': recipeId});
+      if (kDebugMode) {
+        print('笔记已为 recipe $recipeId 和 user $userId 删除。');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('删除笔记时出错 for recipe $recipeId: $e');
+      }
+      throw Exception('删除笔记失败: $e'); // 重新抛出
+    }
   }
-
-  // --- 辅助与其它功能 (Helpers & Others) ---
 
   /// 获取单个配方的详细配料列表
   Future<List<Map<String, dynamic>>> getIngredientsForRecipe(int recipeId) async {
     try {
-      return await _client
+      final response =  await _client
           .from('onecup_recipe_ingredients')
-          .select('name:display_name, amount, unit')
+          .select('name:display_name, amount, unit,ingredient_id:id')
           .eq('recipe_id', recipeId);
+      return List<Map<String, dynamic>>.from(response);
     } catch (e) {
       if (kDebugMode) print('获取配方配料失败: $e');
       return [];
     }
   }
-
-  /// 获取配方的所有标签 (基于配料口味)
-  // lib/services/supabase_service.dart
-
-// ... 其他代码 ...
 
   /// 获取配方的所有标签 (基于配料口味)
   Future<List<String>> getRecipeTags(int recipeId) async {
@@ -526,7 +675,7 @@ class SupabaseService {
       return [];
     }
   }
-  /// [核心重构] 添加一个由用户自定义的新配方，严格遵循数据库结构。
+  /// 添加一个由用户自定义的新配方，严格遵循数据库结构。
   ///
   /// 调用一个数据库事务函数 (RPC: add_recipe_with_ingredients) 来确保所有
   /// 操作（插入配方、插入配料、关联杯具）要么全部成功，要么全部失败。
@@ -573,7 +722,7 @@ class SupabaseService {
         'p_name': recipe.name,
         'p_description': recipe.description,
         'p_instructions': recipe.instructions,
-        'p_image_url': recipe.imageUrl,
+        'p_image': recipe.imageUrl,
         'p_category_id': categoryId,
         'p_glass_id': glassId,
         'p_user_id': userId,

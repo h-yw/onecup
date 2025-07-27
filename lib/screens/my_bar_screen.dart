@@ -333,7 +333,7 @@ class _MyBarScreenState extends State<MyBarScreen> with TickerProviderStateMixin
                 _loadAllData();
               },
               onAddToList: () {
-                _dbHelper.addToShoppingList(missingIngredient);
+                // _dbHelper.addToShoppingList(missingIngredient);
                 showTopBanner(context, '“$missingIngredient”已添加到购物清单！');
               },
             );

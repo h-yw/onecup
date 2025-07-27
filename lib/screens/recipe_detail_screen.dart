@@ -1,6 +1,7 @@
 // lib/screens/recipe_detail_screen.dart
 
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:onecup/common/login_prompt_dialog.dart';
@@ -8,6 +9,7 @@ import 'package:onecup/common/show_top_banner.dart';
 import 'package:onecup/database/supabase_service.dart';
 import 'package:onecup/models/receip.dart';
 import 'package:onecup/screens/edit_note_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final Recipe recipe;
@@ -28,21 +30,29 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   bool _isFavorited = false;
   bool _isUserCreated = false;
   bool _hasNote = false;
+  // 收藏状态最终是否变
+  bool _didFavoriteChange = false;
+  // 存储进入页面时的收藏状态
+  bool _initialIsFavorited = false;
+  bool _isToggleFavoriteInProgress = false;
+  bool _isAddingToShoppingList = false;
 
   @override
   void initState() {
     super.initState();
     _isUserCreated = widget.recipe.userId != null;
     _loadAllAsyncData();
+    _fetchInitialFavoriteStatus();
   }
 
   void _loadAllAsyncData() {
     if (!mounted) return;
+    if(widget.recipe.id==null)   return;
     setState(() {
       if (!_isUserCreated) {
-        _ingredientsFuture = _dbHelper.getIngredientsForRecipe(widget.recipe.id);
-        _tagsFuture = _dbHelper.getRecipeTags(widget.recipe.id);
-        _abvFuture = _dbHelper.getRecipeABV(widget.recipe.id);
+        _ingredientsFuture = _dbHelper.getIngredientsForRecipe(widget.recipe.id!);
+        _tagsFuture = _dbHelper.getRecipeTags(widget.recipe.id!);
+        _abvFuture = _dbHelper.getRecipeABV(widget.recipe.id!);
       }
       if (_dbHelper.currentUser != null) {
         _checkIfFavorited();
@@ -53,7 +63,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
   void _checkIfFavorited() async {
     if (_dbHelper.currentUser == null) return;
-    final isFav = await _dbHelper.isRecipeFavorite(widget.recipe.id);
+    if(widget.recipe.id==null)   return;
+    final isFav = await _dbHelper.isRecipeFavorite(widget.recipe.id!);
     if (mounted) {
       setState(() {
         _isFavorited = isFav;
@@ -63,7 +74,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
   void _loadNoteStatus() async {
     if (_dbHelper.currentUser == null) return;
-    _noteFuture = _dbHelper.getRecipeNote(widget.recipe.id);
+    if(widget.recipe.id==null)   return;
+    _noteFuture = _dbHelper.getRecipeNote(widget.recipe.id!);
     final noteContent = await _noteFuture;
     if (mounted) {
       setState(() {
@@ -72,51 +84,104 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     }
   }
 
-  // [核心修复] 统一的乐观更新逻辑
+  void _fetchInitialFavoriteStatus() async {
+    if (mounted) {
+      setState(() {
+        _initialIsFavorited = _isFavorited; // 在 _isFavorited 初始化后记录初始状态
+        _didFavoriteChange = false; // 初始时，当然没有变化
+      });
+    }
+  }
+  // 统一的乐观更新逻辑
   void _toggleFavorite() async {
     if (_dbHelper.currentUser == null) {
       showLoginPromptDialog(context);
       return;
     }
-
-    // 1. 立即更新UI，提供即时反馈
-    final originalIsFavorited = _isFavorited;
+    if (_isToggleFavoriteInProgress)  return;
     setState(() {
-      _isFavorited = !originalIsFavorited;
+      _isToggleFavoriteInProgress = true;
     });
-
-    // 2. 在后台执行数据库操作
+    // 当前的 _isFavorited 值
+    final currentFavoritedStateBeforeToggle = _isFavorited;
+    // 乐观更新
+    setState(() {
+      _isFavorited = !currentFavoritedStateBeforeToggle;
+      // _didFavoriteChange 在操作完成后根据 _initialIsFavorited 更新
+    });
+    // 在后台执行数据库操作
     try {
-      if (originalIsFavorited) {
+      if(widget.recipe.id==null){
+        return;
+      }
+      if (currentFavoritedStateBeforeToggle) {
         // 如果之前是已收藏，则执行移除操作
-        await _dbHelper.removeRecipeFromFavorites(widget.recipe.id);
-        // [UI 优化] 为成功操作提供一个可选的、非阻塞的提示
+        await _dbHelper.removeRecipeFromFavorites(widget.recipe.id!);
+        // 为成功操作提供一个可选的、非阻塞的提示
         if (mounted) showTopBanner(context, '已取消收藏');
       } else {
         // 如果之前是未收藏，则执行添加操作
-        await _dbHelper.addRecipeToFavorites(widget.recipe.id);
+        await _dbHelper.addRecipeToFavorites(widget.recipe.id!);
         if (mounted) showTopBanner(context, '已添加到收藏');
       }
     } catch (e) {
-      // 3. 如果数据库操作失败，则恢复UI状态并提示用户
       if (mounted) {
         showTopBanner(context, '操作失败，请重试', isError: true);
+        if (e is PostgrestException && e.code == '23505' && !currentFavoritedStateBeforeToggle) {
+          // 尝试添加时遇到重复键，说明已存在
+          setState(() {
+            _isFavorited = true; // 同步为已收藏
+          });
+          showTopBanner(context, '已在您的收藏中');
+        } else {
+          // 其他错误，回滚到操作前的状态
+          setState(() {
+            _isFavorited = currentFavoritedStateBeforeToggle;
+          });
+        }
+      }
+    }finally{
+      if (mounted) {
         setState(() {
-          _isFavorited = originalIsFavorited; // 恢复到原始状态
+          _isToggleFavoriteInProgress = false;
+          // 关键：在所有操作完成后，根据初始状态决定 _didFavoriteChange
+          _didFavoriteChange = (_isFavorited != _initialIsFavorited);
         });
       }
     }
   }
-
 
   void _addAllIngredientsToShoppingList() async {
     if (_dbHelper.currentUser == null) {
       showLoginPromptDialog(context);
       return;
     }
-    await _dbHelper.addRecipeIngredientsToShoppingList(widget.recipe.id);
-    if (mounted) {
-      showTopBanner(context,'“${widget.recipe.name}”的全部配料已添加到购物清单！');
+    if (_isAddingToShoppingList) return;
+    setState(() {
+      _isAddingToShoppingList = true;
+    });
+    try {
+      if(widget.recipe.id==null){
+        return;
+      }
+      await _dbHelper.addRecipeIngredientsToShoppingList(widget.recipe.id!);
+      if (mounted) {
+        showTopBanner(context, '“${widget.recipe.name}”的全部配料已添加到购物清单！');
+      }
+    } catch (e) {
+      // 可以在这里处理特定的错误，或者显示一个通用的错误提示
+      if (mounted) {
+        showTopBanner(context, '添加到购物清单失败，请稍后重试。', isError: true);
+        if (kDebugMode) {
+          print('添加到购物清单时发生错误: $e');
+        }
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isAddingToShoppingList = false;
+        });
+      }
     }
   }
 
@@ -126,11 +191,14 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       return;
     }
     final currentNote = await _noteFuture;
+    if(widget.recipe.id==null){
+      return;
+    }
     final result = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
         builder: (context) => EditNoteScreen(
-          recipeId: widget.recipe.id,
+          recipeId: widget.recipe.id!,
           recipeName: widget.recipe.name,
           initialNote: currentNote,
         ),
@@ -146,8 +214,14 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      body: CustomScrollView(
+    return PopScope(
+      canPop: !_isAddingToShoppingList,
+      onPopInvokedWithResult: (didPop,result){
+        if(didPop) return;
+        Navigator.pop(context, _didFavoriteChange);
+      },
+      child: Scaffold(
+        body: CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: 280.0,
@@ -160,7 +234,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               statusBarBrightness: Brightness.dark,
               statusBarIconBrightness: Brightness.dark,
             ),
-            leading: BackButton(color: theme.appBarTheme.iconTheme?.color),
+            leading: BackButton(color: theme.appBarTheme.iconTheme?.color,onPressed: (){
+              if (!_isAddingToShoppingList) {
+                Navigator.pop(context, _didFavoriteChange);
+              }
+            },),
             title: Text(widget.recipe.name, style: theme.appBarTheme.titleTextStyle),
             actions: [
               IconButton(
@@ -218,6 +296,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           )
         ],
       ),
+      )
     );
   }
 
@@ -243,6 +322,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
+          if (snapshot.hasError) { // 添加错误处理
+            return Center(child: Text('加载配料失败: ${snapshot.error}'));
+          }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Text('暂无配方信息。');
           }
@@ -256,11 +338,21 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               ...ingredients.map((ing) => _buildIngredientRow(theme, ing)),
               const SizedBox(height: 16),
               Center(
-                child: TextButton.icon(
-                  onPressed: _addAllIngredientsToShoppingList,
-                  icon: const Icon(Icons.add_shopping_cart_outlined, size: 18),
+                child:TextButton.icon(
+                  onPressed:_isAddingToShoppingList ? null : _addAllIngredientsToShoppingList,
+                  icon:  _isAddingToShoppingList
+                      ? SizedBox( // 使用 Container 来约束加载指示器的大小
+                    width: 18, // 与原始图标大小相似
+                    height: 18,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2.0, // 可以调整线条粗细
+                      valueColor: AlwaysStoppedAnimation<Color>(theme.primaryColor), // 与主题颜色一致
+                    ),
+                  )
+                      : const Icon(Icons.add_shopping_cart_outlined, size: 18),
                   label: const Text('全部加入购物清单'),
                   style: TextButton.styleFrom(
+                    disabledForegroundColor:Colors.grey.withValues(alpha: 0.5) ,
                       foregroundColor: theme.primaryColor,
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10)),
                 ),

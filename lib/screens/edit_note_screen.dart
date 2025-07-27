@@ -1,6 +1,7 @@
 // lib/screens/edit_note_screen.dart
 
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:onecup/common/show_top_banner.dart';
@@ -80,6 +81,9 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
       }
     } catch (e) {
       if (mounted) {
+        if (kDebugMode) {
+          print('笔记修改失败====$e');
+        }
         showTopBanner(context, '保存失败: $e', isError: true);
       }
     } finally {

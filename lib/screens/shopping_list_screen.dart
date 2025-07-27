@@ -32,7 +32,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     _loadInitialData();
   }
 
-  // [最终修复] dispose 方法现在为空，因为我们不再管理这里的 controller 和 focusNode。
+  // dispose 方法现在为空，因为我们不再管理这里的 controller 和 focusNode。
   @override
   void dispose() {
     super.dispose();
@@ -72,10 +72,10 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     }
   }
 
-  // [最终修复] _addItem 方法现在只接收文本本身，因为它会从 Autocomplete 的控制器中获取
+  // _addItem 方法现在只接收文本本身，因为它会从 Autocomplete 的控制器中获取
   Future<void> _addItem(String text, {required TextEditingController controller, required FocusNode focusNode}) async {
     if (text.trim().isNotEmpty) {
-      await _dbHelper.addToShoppingList(text.trim());
+      // await _dbHelper.addToShoppingList(text.trim());
       // 操作完成后清空控制器并让输入框失去焦点
       controller.clear();
       focusNode.unfocus();
