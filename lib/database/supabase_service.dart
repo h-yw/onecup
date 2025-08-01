@@ -559,11 +559,31 @@ class SupabaseService {
   /// 获取单个配方的详细配料列表
   Future<List<Map<String, dynamic>>> getIngredientsForRecipe(int recipeId) async {
     try {
-      final response =  await _client
+      final recipeIngredientsResponse =  await _client
           .from('onecup_recipe_ingredients')
-          .select('name:display_name, amount, unit,ingredient_id:id')
+          .select('name:display_name, amount, unit,ingredient_id')
           .eq('recipe_id', recipeId);
-      return List<Map<String, dynamic>>.from(response);
+
+      if (recipeIngredientsResponse.isEmpty) return [];
+      final ingredientIds = recipeIngredientsResponse.map((row) => row['ingredient_id'] as int).toSet().toList();
+      if(ingredientIds.isEmpty) return [];
+
+      final abvResponse = await _client
+          .from('onecup_ingredients')
+          .select('id, abv')
+          .inFilter('id', ingredientIds);
+      final abvMap = { for (var item in abvResponse) item['id']: item['abv'] };
+
+      final list = recipeIngredientsResponse.map((ingredient) {
+        final ingredientId = ingredient['ingredient_id'];
+        return {
+          'name': ingredient['name'], // 使用 'name' 作为别名，方便下游使用
+          'amount': ingredient['amount'],
+          'unit': ingredient['unit'],
+          'abv': abvMap[ingredientId] ?? 0.0, // 合并ABV，如果不存在则默认为0.0
+        };
+      }).toList();
+      return list;
     } catch (e) {
       if (kDebugMode) print('获取配方配料失败: $e');
       return [];
@@ -606,6 +626,7 @@ class SupabaseService {
           .from('onecup_recipe_ingredients')
           .select('amount, unit, ingredient_id')
           .eq('recipe_id', recipeId);
+      print(" recipeIngredients====> $recipeIngredients");
       if (recipeIngredients.isEmpty) return null;
 
       final ingredientIds = recipeIngredients.map((row) => row['ingredient_id'] as int).toList();
@@ -615,6 +636,7 @@ class SupabaseService {
           .from('onecup_ingredients')
           .select('id, abv')
           .inFilter('id', ingredientIds);
+      print("abv====>$ingredientIds,$abvResponse");
       final abvMap = {for (var item in abvResponse) item['id']: item['abv']};
 
       // 3. 开始计算，逻辑与之前相同

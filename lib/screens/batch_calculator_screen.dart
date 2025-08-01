@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:onecup/models/batch_ingredient.dart';
@@ -23,21 +25,56 @@ class _BatchCalculatorScreenState extends State<BatchCalculatorScreen>
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  // 智能用量解析函数
+  /// 将配方中的各种用量描述（数字、"少量"、"dash"等）统一解析为毫升(ml)
+  double _parseVolume(String? amountStr, String? unit) {
+    if (amountStr == null || amountStr.isEmpty) return 0.0;
+
+    final unitLower = unit?.toLowerCase() ?? '';
+    double amount = double.tryParse(amountStr.replaceAll(',', '.')) ?? 0;
+
+    // 优先处理描述性词语
+    if (amountStr.contains('少量') || amountStr.contains('少许')) {
+      return 5.0; // 假设“少量/少许”约等于 5ml
+    }
+    if (amountStr.contains('滴')) {
+      return 0.8; // 假设“1滴”约等于 0.8ml (1 dash)
+    }
+
+    // 处理单位转换
+    if (unitLower == 'oz' || unitLower == '盎司') {
+      amount *= 30; // 1 oz ≈ 30 ml
+    } else if (unitLower.contains('dash')) {
+      amount *= 0.8; // 1 dash ≈ 0.8 ml
+    } else if (unitLower.contains('tsp') || unitLower.contains('茶匙')) {
+      amount *= 5; // 1 tsp ≈ 5 ml
+    } else if (unitLower.contains('bar spoon') || unitLower.contains('吧勺')) {
+      amount *= 5; // 1 bar spoon ≈ 5 ml
+    }
+    // 'ml' 单位不需要转换，直接返回 amount
+    return amount;
+  }
+
   @override
   void initState() {
     super.initState();
-    if ( widget.recipe?.ingredients != null) {
-      // Assuming your Recipe model has a list of ingredients with name, volume, and abv.
-      // You might need to adjust this based on your actual Recipe model structure.
+    if ( widget.recipe?.ingredients != null && widget.recipe!.ingredients!.isNotEmpty) {
       _ingredients = widget.recipe!.ingredients!.map((ingredient) {
+        // [核心修改] 使用新的解析函数来处理用量
+        final double volume = _parseVolume(
+          ingredient['amount']?.toString(),
+          ingredient['unit']?.toString(),
+        );
+        // 安全地将酒精度（abv）从 num? 转换为 double，并提供默认值
+        final double abv = (ingredient['abv'] as num?)?.toDouble() ?? 0.0;
+
         return BatchIngredient(
-          name: ingredient['name'],
-          volume: ingredient['volume'], // or amount
-          abv: ingredient['abv'], // or a default value if not available
+          name: ingredient['name'] ?? '未知配料', // 使用 'name' 别名
+          volume: volume,
+          abv: abv,
         );
       }).toList();
     } else {
-      // If no recipe is passed, start with two empty ingredient inputs
       _ingredients = [BatchIngredient(), BatchIngredient()];
     }
     _controller = AnimationController(
@@ -226,6 +263,7 @@ class _BatchCalculatorScreenState extends State<BatchCalculatorScreen>
             ),
             const SizedBox(height: 16),
             TextFormField(
+              initialValue: _ingredients[index].name,
               decoration: const InputDecoration(labelText: '成分名称 (例如: 金酒)'),
               validator: (value) =>
                   (value == null || value.isEmpty) ? '请输入名称' : null,
@@ -236,6 +274,9 @@ class _BatchCalculatorScreenState extends State<BatchCalculatorScreen>
               children: [
                 Expanded(
                   child: TextFormField(
+            initialValue: _ingredients[index].volume == 0.0
+            ? ''
+                    : _ingredients[index].volume.toString(),
                     decoration: const InputDecoration(labelText: '体积 (ml)'),
                     keyboardType: TextInputType.number,
                     validator: (value) =>
@@ -247,6 +288,9 @@ class _BatchCalculatorScreenState extends State<BatchCalculatorScreen>
                 const SizedBox(width: 16),
                 Expanded(
                   child: TextFormField(
+                    initialValue: _ingredients[index].abv == 0.0
+                        ? '0'
+                        : _ingredients[index].abv.toString(),
                     decoration: const InputDecoration(labelText: 'ABV (%)'),
                     keyboardType: TextInputType.number,
                     validator: (value) =>
