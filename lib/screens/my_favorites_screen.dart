@@ -1,61 +1,43 @@
 // lib/screens/my_favorites_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:onecup/database/database_helper.dart';
-import 'package:onecup/database/supabase_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'; // 1. 导入 riverpod
 import 'package:onecup/models/receip.dart';
+import 'package:onecup/providers/cocktail_providers.dart'; // 2. 导入 providers
 import 'package:onecup/screens/recipe_detail_screen.dart';
-import 'package:onecup/widgets/cocktail-card.dart';
+import 'package:onecup/widgets/cocktail_card.dart';
 
-class MyFavoritesScreen extends StatefulWidget {
+// 3. 将 StatefulWidget 修改为 ConsumerWidget
+class MyFavoritesScreen extends ConsumerWidget {
   const MyFavoritesScreen({super.key});
 
-  @override
-  State<MyFavoritesScreen> createState() => _MyFavoritesScreenState();
-}
-
-class _MyFavoritesScreenState extends State<MyFavoritesScreen> {
-  final SupabaseService _dbHelper = SupabaseService();
-  late Future<List<Recipe>> _favoritesFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadFavorites();
-  }
-
-  void _loadFavorites() {
-    setState(() {
-      _favoritesFuture = _dbHelper.getFavoriteRecipes();
-    });
-  }
-
-  void _navigateToDetail(Recipe recipe) async {
-    await Navigator.push(
+  // 导航逻辑现在是普通方法，不再需要 _loadFavorites
+  void _navigateToDetail(BuildContext context, WidgetRef ref, Recipe recipe) async {
+    final result = await Navigator.push<bool>(
       context,
       MaterialPageRoute(builder: (context) => RecipeDetailScreen(recipe: recipe)),
     );
-    if (mounted) {
-      _loadFavorites();
+    // 如果详情页返回了 true (表示收藏状态有变)，则刷新 provider
+    if (result == true && context.mounted) {
+      ref.invalidate(favoriteRecipesProvider);
+      ref.invalidate(favoritesCountProvider); // 同时刷新数量
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  // 4. build 方法新增 WidgetRef 参数
+  Widget build(BuildContext context, WidgetRef ref) {
+    // 5. 使用 ref.watch 监听 provider
+    final favoritesAsyncValue = ref.watch(favoriteRecipesProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('我的收藏'),
       ),
-      body: FutureBuilder<List<Recipe>>(
-        future: _favoritesFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('加载收藏列表失败: ${snapshot.error}'));
-          }
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+      // 6. 使用 provider 的 when 方法来处理不同状态
+      body: favoritesAsyncValue.when(
+        data: (favorites) {
+          if (favorites.isEmpty) {
             return const Center(
               child: Padding(
                 padding: EdgeInsets.all(24.0),
@@ -67,21 +49,20 @@ class _MyFavoritesScreenState extends State<MyFavoritesScreen> {
               ),
             );
           }
-
-          final favorites = snapshot.data!;
           return ListView.builder(
             itemCount: favorites.length,
             itemBuilder: (context, index) {
               final recipe = favorites[index];
               return CocktailCard(
                 recipe: recipe,
-                onTap: () => _navigateToDetail(recipe),
+                onTap: () => _navigateToDetail(context, ref, recipe), // 传递 context 和 ref
               );
             },
           );
         },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('加载收藏列表失败: $err')),
       ),
-      // [核心升级] 移除此处的 FloatingActionButton
     );
   }
 }

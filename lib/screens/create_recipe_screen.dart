@@ -1,21 +1,23 @@
 // lib/screens/create_recipe_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:onecup/database/supabase_service.dart';
 import 'package:onecup/models/receip.dart';
 import 'package:onecup/models/recipe_ingredient.dart';
 import 'package:onecup/widgets/searchable_selection_dialog.dart';
 import '../common/show_top_banner.dart';
+import '../providers/cocktail_providers.dart';
 import '../widgets/glass_selection_dialog.dart';
 
-class CreateRecipeScreen extends StatefulWidget {
+class CreateRecipeScreen extends ConsumerStatefulWidget {
   const CreateRecipeScreen({super.key});
 
   @override
-  State<CreateRecipeScreen> createState() => _CreateRecipeScreenState();
+  ConsumerState<CreateRecipeScreen> createState() => _CreateRecipeScreenState();
 }
 
-class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
+class _CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -45,9 +47,9 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
 
   Future<void> _loadAutocompleteData() async {
     try {
-      final ingredientsData = await _supabaseService
-          .getIngredientsForBarManagement();
-      final glassesData = await _supabaseService.getAllGlasswareNames();
+      final cocktailRepository = ref.read(cocktailRepositoryProvider);
+      final ingredientsData = await cocktailRepository.getIngredientsForBarManagement();
+      final glassesData = await cocktailRepository.getAllGlasswareNames();
       if (mounted) {
         setState(() {
           _allIngredientNames = ingredientsData
@@ -182,7 +184,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
         final name = controller.nameKey.currentState?.value as String;
         final quantityStr = controller.quantityController.text.trim();
         final unit = controller.unitController.text.trim();
-        if (name == null || name.isEmpty) {
+        if (name.isEmpty) {
           if (mounted) showTopBanner(context, '部分配料名称缺失，请检查', isError: true);
           return;
         }
@@ -232,10 +234,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
     );
 
     try {
-      final newRecipeId = await _supabaseService.addCustomRecipe(
-        newRecipe,
-        ingredients,
-      );
+      await ref.read(cocktailRepositoryProvider).addCustomRecipe(newRecipe, ingredients);
       if (mounted) {
         showTopBanner(context, '配方已成功保存！');
         Navigator.pop(context, true);
@@ -712,11 +711,7 @@ class _IngredientController {
 
   }
 
-  void _handleNameChange() {
-    if (nameKey.currentState?.value?.isNotEmpty == true) {
-      onNameChangedForAutAdd?.call();
-    }
-  }
+  
 
   void dispose() {
     quantityController.dispose();

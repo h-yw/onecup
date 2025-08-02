@@ -20,35 +20,33 @@ class ProfileStatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16.0),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
-          decoration: BoxDecoration(
-            color: theme.cardColor.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                count,
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  color: theme.primaryColor,
-                  fontSize: 24,
-                ),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16.0),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        decoration: BoxDecoration(
+          color: theme.cardColor.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              count,
+              style: theme.textTheme.headlineSmall?.copyWith(
+                color: theme.primaryColor,
+                fontSize: 24,
               ),
-              const SizedBox(height: 8),
-              Text(
-                label,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  fontSize: 14,
-                ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontSize: 14,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

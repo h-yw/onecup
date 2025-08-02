@@ -2,21 +2,20 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:onecup/common/show_top_banner.dart';
-import 'package:onecup/database/supabase_service.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:onecup/providers/auth_provider.dart';
 
-class EditProfileScreen extends StatefulWidget {
+class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
 
   @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+  ConsumerState<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
-  final SupabaseService _supabaseService = SupabaseService();
+class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   final ImagePicker _picker = ImagePicker();
   File? _selectedAvatarFile;
   bool _isUploadingAvatar = false;
@@ -25,7 +24,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String? _currentAvatarUrl;
   String? _initialNickname;
 
-
   @override
   void initState() {
     super.initState();
@@ -33,11 +31,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void _loadCurrentUserProfile() {
-    final currentUser = _supabaseService.currentUser;
+    final currentUser = ref.read(currentUserProvider);
     if (currentUser != null) {
-      _initialNickname = _supabaseService.getUserNickname(currentUser) ?? currentUser.email?.split('@').first ?? '';
+      final authRepository = ref.read(authRepositoryProvider);
+      _initialNickname = authRepository.getUserNickname(currentUser) ?? currentUser.email?.split('@').first ?? '';
       _nicknameController.text = _initialNickname!;
-      _currentAvatarUrl = _supabaseService.getAvatarUrl(currentUser);
+      _currentAvatarUrl = authRepository.getAvatarUrl(currentUser);
     }
   }
 
@@ -51,51 +50,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final theme = Theme.of(context);
     return await ImageCropper().cropImage(
       sourcePath: filePath,
-      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-      uiSettings: [ // 配置裁剪界面的 UI
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+      uiSettings: [
         AndroidUiSettings(
           toolbarTitle: '裁剪头像',
           toolbarColor: theme.appBarTheme.backgroundColor,
           toolbarWidgetColor: theme.appBarTheme.titleTextStyle?.color,
-          initAspectRatio: CropAspectRatioPreset.square, // 默认方形
-          lockAspectRatio: true, // 锁定比例
+          initAspectRatio: CropAspectRatioPreset.square,
+          lockAspectRatio: true,
           backgroundColor: Colors.white,
           activeControlsWidgetColor: theme.colorScheme.secondary,
           cropStyle: CropStyle.circle,
-          dimmedLayerColor:Colors.black.withValues(alpha: 0.5),
+          dimmedLayerColor: Colors.black.withOpacity(0.5),
         ),
         IOSUiSettings(
           title: '裁剪头像',
-          aspectRatioLockEnabled: true, // 锁定比例
-          resetAspectRatioEnabled: false, // 是否显示重置比例按钮
-          minimumAspectRatio: 1.0, // 最小比例 (方形)
-          aspectRatioPickerButtonHidden: true, // 隐藏比例选择器，如果只想要方形
+          aspectRatioLockEnabled: true,
+          resetAspectRatioEnabled: false,
+          minimumAspectRatio: 1.0,
+          aspectRatioPickerButtonHidden: true,
           doneButtonTitle: '完成',
           cancelButtonTitle: '取消',
         ),
-        // WebUiSettings 也可以配置，如果你的应用支持 Web
-        // WebUiSettings(
-        //   context: context,
-        //   presentStyle: CropperPresentStyle.dialog,
-        //   boundary: const CroppieBoundary(
-        //     width: 520,
-        //     height: 520,
-        //   ),
-        //   viewPort: const CroppieViewPort(
-        //       width: 480, height: 480, type: 'circle'), // 可以是 'square' 或 'circle'
-        //   enableExif: true,
-        //   enableZoom: true,
-        //   showZoomer: true,
-        // ),
       ],
-      // compressQuality:100, // 图片压缩质量 (0-100)
-      // maxWidth: 500,       // 最大宽度
-      // maxHeight: 500,      // 最大高度
     );
   }
 
   Future<void> _pickAndUploadAvatar() async {
-    final currentUser = _supabaseService.currentUser;
+    final currentUser = ref.read(currentUserProvider);
     if (currentUser == null) {
       showTopBanner(context, '用户未登录', isError: true);
       return;
@@ -113,15 +95,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     });
 
     try {
-      final newAvatarUrl = await _supabaseService.uploadAvatar(croppedImage.path, currentUser.id);
-      final response = await _supabaseService.updateUserMetadata({'avatar_url': newAvatarUrl});
+      final authRepository = ref.read(authRepositoryProvider);
+      final newAvatarUrl = await authRepository.uploadAvatar(croppedImage.path, currentUser.id);
+      final response = await authRepository.updateUserMetadata({'avatar_url': newAvatarUrl});
 
       if (response.user != null) {
         if (mounted) {
           showTopBanner(context, '头像更新成功！');
-          setState(() { // 更新当前页面显示的头像
+          setState(() {
             _currentAvatarUrl = newAvatarUrl;
-            _selectedAvatarFile = null; // 清除本地预览，因为现在会用新的 _currentAvatarUrl
+            _selectedAvatarFile = null;
           });
         }
       } else {
@@ -129,14 +112,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       }
     } catch (e) {
       if (mounted) {
-        String errorMessage = '头像处理失败';
-        if (e is Exception) {
-          errorMessage += ': ${e.toString().replaceFirst("Exception: ", "")}';
-        } else {
-          errorMessage += ': $e';
-        }
-        showTopBanner(context, errorMessage, isError: true, );
-        if (kDebugMode) print("avatar upload/update error ====>${e.toString()}");
+        showTopBanner(context, '头像处理失败: $e', isError: true);
       }
     } finally {
       if (mounted) setState(() => _isUploadingAvatar = false);
@@ -144,7 +120,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> _updateNickname() async {
-    final currentUser = _supabaseService.currentUser;
+    final currentUser = ref.read(currentUserProvider);
     if (currentUser == null) {
       showTopBanner(context, '用户未登录', isError: true);
       return;
@@ -162,12 +138,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() => _isUpdatingNickname = true);
 
     try {
-      final response = await _supabaseService.updateUserMetadata({'nickname': newNickname});
+      final authRepository = ref.read(authRepositoryProvider);
+      final response = await authRepository.updateUserMetadata({'nickname': newNickname});
       if (response.user != null) {
         if (mounted) {
           showTopBanner(context, '昵称更新成功！');
           setState(() {
-            _initialNickname = newNickname; // 更新初始昵称以用于下次比较
+            _initialNickname = newNickname;
           });
         }
       } else {
@@ -180,16 +157,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final currentUser = _supabaseService.currentUser;
+    final currentUser = ref.watch(currentUserProvider);
 
     if (currentUser == null) {
-      // 理论上，如果 EditProfileScreen 是从 SettingsScreen 导航过来的，
-      // SettingsScreen 应该已经检查了 currentUser != null。
-      // 但作为保险，可以显示一个提示或返回。
       return Scaffold(
         appBar: AppBar(title: const Text('编辑个人资料')),
         body: const Center(child: Text('用户未登录或数据加载失败。')),
@@ -201,7 +174,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       avatarDisplay = CircleAvatar(
         radius: 50,
         backgroundImage: FileImage(_selectedAvatarFile!),
-        child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white,),
+        child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
       );
     } else if (_selectedAvatarFile != null) {
       avatarDisplay = CircleAvatar(radius: 50, backgroundImage: FileImage(_selectedAvatarFile!));
@@ -214,7 +187,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: Icon(Icons.person, size: 50, color: theme.primaryColor),
       );
     }
-
 
     return Scaffold(
       appBar: AppBar(
@@ -231,7 +203,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 alignment: Alignment.bottomRight,
                 children: [
                   avatarDisplay,
-                  Material( // 用于水波纹效果
+                  Material(
                     color: theme.colorScheme.secondary,
                     shape: const CircleBorder(),
                     clipBehavior: Clip.antiAlias,

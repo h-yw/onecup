@@ -1,27 +1,22 @@
 // lib/screens/add_ingredient_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:onecup/database/database_helper.dart';
-import 'package:onecup/database/supabase_service.dart';
-import 'package:onecup/search/ingredient_search_delegate.dart'; // [新] 导入我们的搜索页面
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:onecup/providers/cocktail_providers.dart';
+import 'package:onecup/search/ingredient_search_delegate.dart';
 
-class AddIngredientScreen extends StatefulWidget {
+class AddIngredientScreen extends ConsumerStatefulWidget {
   const AddIngredientScreen({super.key});
 
   @override
-  State<AddIngredientScreen> createState() => _AddIngredientScreenState();
+  ConsumerState<AddIngredientScreen> createState() => _AddIngredientScreenState();
 }
 
-class _AddIngredientScreenState extends State<AddIngredientScreen> {
-  final SupabaseService _dbHelper = SupabaseService();
+class _AddIngredientScreenState extends ConsumerState<AddIngredientScreen> {
   List<Map<String, dynamic>> _allIngredients = [];
   Map<String, List<Map<String, dynamic>>> _groupedIngredients = {};
 
   bool _isLoading = true;
-  // [核心改造] 不再需要搜索控制器和状态
-  // final TextEditingController _searchController = TextEditingController();
-  // bool _isSearching = false;
-  // final FocusNode _searchFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -31,15 +26,12 @@ class _AddIngredientScreenState extends State<AddIngredientScreen> {
 
   @override
   void dispose() {
-    // _searchController.dispose();
-    // _searchFocusNode.dispose();
     super.dispose();
   }
 
   Future<void> _loadIngredients() async {
-    // 为了确保搜索页能拿到最新数据，我们在这里加载所有配料
     if (!mounted) return;
-    final data = await _dbHelper.getIngredientsForBarManagement();
+    final data = await ref.read(cocktailRepositoryProvider).getIngredientsForBarManagement();
     if (mounted) {
       setState(() {
         _allIngredients = data;
@@ -48,9 +40,6 @@ class _AddIngredientScreenState extends State<AddIngredientScreen> {
       });
     }
   }
-
-  // [核心改造] 过滤逻辑已移至搜索页面，此方法不再需要
-  // void _filterIngredients(String query) { ... }
 
   void _groupIngredients(List<Map<String, dynamic>> ingredients) {
     final groups = <String, List<Map<String, dynamic>>>{};
@@ -63,19 +52,17 @@ class _AddIngredientScreenState extends State<AddIngredientScreen> {
     _groupedIngredients = {for (var k in sortedKeys) k: groups[k]!};
   }
 
-  // [核心改造] 这个方法现在也会被搜索页面回调
   void _toggleIngredient(Map<String, dynamic> ingredient) async {
+    final cocktailRepository = ref.read(cocktailRepositoryProvider);
     bool isInInventory = ingredient['in_inventory'];
     if (isInInventory) {
-      await _dbHelper.removeIngredientFromInventory(ingredient['id']);
+      await cocktailRepository.removeIngredientFromInventory(ingredient['id']);
     } else {
-      await _dbHelper.addIngredientToInventory(ingredient['id']);
+      await cocktailRepository.addIngredientToInventory(ingredient['id']);
     }
-    // 异步更新UI，不阻塞操作
     _updateLocalIngredientState(ingredient['id'], !isInInventory);
   }
 
-  // [新] 用于在不重新加载整个列表的情况下，更新单个标签的状态
   void _updateLocalIngredientState(int id, bool newInventoryState) {
     if(!mounted) return;
     setState(() {
@@ -87,7 +74,6 @@ class _AddIngredientScreenState extends State<AddIngredientScreen> {
     });
   }
 
-  // [新] 打开搜索页面的方法
   void _showSearch() async {
     final bool? hasChanged = await showSearch<bool>(
       context: context,
@@ -96,7 +82,6 @@ class _AddIngredientScreenState extends State<AddIngredientScreen> {
         onToggle: _toggleIngredient,
       ),
     );
-    // 如果搜索页面返回true（表示有数据更新），则重新加载以确保同步
     if (hasChanged == true && mounted) {
       _loadIngredients();
     }
@@ -111,7 +96,6 @@ class _AddIngredientScreenState extends State<AddIngredientScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('管理我的酒柜'),
-          // [核心改造] actions现在只有一个搜索图标
           actions: [
             IconButton(
               icon: const Icon(Icons.search),
@@ -126,7 +110,6 @@ class _AddIngredientScreenState extends State<AddIngredientScreen> {
             tabs: _groupedIngredients.keys.map((category) => Tab(text: category)).toList(),
           ),
         ),
-        // [核心改造] body不再需要处理搜索逻辑
         body: TabBarView(
           children: _groupedIngredients.values.map((ingredients) {
             return SingleChildScrollView(
@@ -146,7 +129,6 @@ class _AddIngredientScreenState extends State<AddIngredientScreen> {
     );
   }
 
-  // _buildIngredientChip 方法保持不变
   Widget _buildIngredientChip(BuildContext context, Map<String, dynamic> ingredient) {
     final theme = Theme.of(context);
     final bool isInInventory = ingredient['in_inventory'];

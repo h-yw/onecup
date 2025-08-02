@@ -1,62 +1,37 @@
 // lib/screens/my_notes_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:onecup/database/database_helper.dart';
-import 'package:onecup/database/supabase_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:onecup/models/receip.dart';
+import 'package:onecup/providers/cocktail_providers.dart';
 import 'package:onecup/screens/recipe_detail_screen.dart';
-import 'package:onecup/widgets/cocktail-card.dart';
+import 'package:onecup/widgets/cocktail_card.dart';
 
-class MyNotesScreen extends StatefulWidget {
+// 3. 修改为 ConsumerWidget
+class MyNotesScreen extends ConsumerWidget {
   const MyNotesScreen({super.key});
 
-  @override
-  State<MyNotesScreen> createState() => _MyNotesScreenState();
-}
-
-class _MyNotesScreenState extends State<MyNotesScreen> {
-  final SupabaseService _dbHelper = SupabaseService();
-  late Future<List<Recipe>> _notesFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadRecipesWithNotes();
-  }
-
-  void _loadRecipesWithNotes() {
-    setState(() {
-      _notesFuture = _dbHelper.getRecipesWithNotes();
-    });
-  }
-
-  void _navigateToDetail(Recipe recipe) async {
+  void _navigateToDetail(BuildContext context, WidgetRef ref, Recipe recipe) async {
     await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => RecipeDetailScreen(recipe: recipe)),
     );
     // 从详情页返回后，刷新列表以同步可能发生的笔记变更
-    if (mounted) {
-      _loadRecipesWithNotes();
-    }
+    ref.invalidate(recipesWithNotesProvider);
+    ref.invalidate(notesCountProvider);
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notesAsyncValue = ref.watch(recipesWithNotesProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('我的笔记'),
       ),
-      body: FutureBuilder<List<Recipe>>(
-        future: _notesFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('加载笔记列表失败: ${snapshot.error}'));
-          }
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+      body: notesAsyncValue.when(
+        data: (recipesWithNotes) {
+          if (recipesWithNotes.isEmpty) {
             return const Center(
               child: Padding(
                 padding: EdgeInsets.all(24.0),
@@ -68,19 +43,19 @@ class _MyNotesScreenState extends State<MyNotesScreen> {
               ),
             );
           }
-
-          final recipesWithNotes = snapshot.data!;
           return ListView.builder(
             itemCount: recipesWithNotes.length,
             itemBuilder: (context, index) {
               final recipe = recipesWithNotes[index];
               return CocktailCard(
                 recipe: recipe,
-                onTap: () => _navigateToDetail(recipe),
+                onTap: () => _navigateToDetail(context, ref, recipe),
               );
             },
           );
         },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('加载笔记列表失败: $err')),
       ),
     );
   }

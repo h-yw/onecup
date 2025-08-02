@@ -1,74 +1,49 @@
 // lib/screens/my_creations_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:onecup/database/database_helper.dart';
-import 'package:onecup/database/supabase_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'; // 1. 导入
 import 'package:onecup/models/receip.dart';
+import 'package:onecup/providers/cocktail_providers.dart'; // 2. 导入
 import 'package:onecup/screens/create_recipe_screen.dart';
 import 'package:onecup/screens/recipe_detail_screen.dart';
-import 'package:onecup/widgets/cocktail-card.dart';
+import 'package:onecup/widgets/cocktail_card.dart';
 
-class MyCreationsScreen extends StatefulWidget {
+// 3. 修改为 ConsumerWidget
+class MyCreationsScreen extends ConsumerWidget {
   const MyCreationsScreen({super.key});
 
-  @override
-  State<MyCreationsScreen> createState() => _MyCreationsScreenState();
-}
-
-class _MyCreationsScreenState extends State<MyCreationsScreen> {
-  final SupabaseService _dbHelper = SupabaseService();
-  late Future<List<Recipe>> _creationsFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadCreations();
-  }
-
-  void _loadCreations() {
-    setState(() {
-      _creationsFuture = _dbHelper.getUserCreatedRecipes();
-    });
-  }
-
-  void _navigateToDetail(Recipe recipe) async {
-    // 用户创建的配方也可以查看详情
+  void _navigateToDetail(BuildContext context, WidgetRef ref, Recipe recipe) async {
     await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => RecipeDetailScreen(recipe: recipe)),
     );
-    if (mounted) {
-      _loadCreations();
-    }
+    // 从详情页返回后，刷新列表以同步任何可能的更改
+    ref.invalidate(userCreatedRecipesProvider);
+    ref.invalidate(creationsCountProvider);
   }
 
-  void _navigateToCreateRecipe() async {
+  void _navigateToCreateRecipe(BuildContext context, WidgetRef ref) async {
     final result = await Navigator.push<bool>(
       context,
       MaterialPageRoute(builder: (context) => const CreateRecipeScreen()),
     );
-    // 如果创建成功，则刷新列表
-    if (result == true && mounted) {
-      _loadCreations();
+    if (result == true) {
+      ref.invalidate(userCreatedRecipesProvider);
+      ref.invalidate(creationsCountProvider);
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final creationsAsyncValue = ref.watch(userCreatedRecipesProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('我的创作'),
       ),
-      body: FutureBuilder<List<Recipe>>(
-        future: _creationsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('加载失败: ${snapshot.error}'));
-          }
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+      body: creationsAsyncValue.when(
+        data: (creations) {
+          if (creations.isEmpty) {
             return const Center(
               child: Padding(
                 padding: EdgeInsets.all(24.0),
@@ -80,23 +55,22 @@ class _MyCreationsScreenState extends State<MyCreationsScreen> {
               ),
             );
           }
-
-          final creations = snapshot.data!;
           return ListView.builder(
             itemCount: creations.length,
             itemBuilder: (context, index) {
               final recipe = creations[index];
               return CocktailCard(
                 recipe: recipe,
-                onTap: () => _navigateToDetail(recipe),
+                onTap: () => _navigateToDetail(context, ref, recipe),
               );
             },
           );
         },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('加载失败: $err')),
       ),
-      // 将创建按钮（FAB）放在这里
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: _navigateToCreateRecipe,
+        onPressed: () => _navigateToCreateRecipe(context, ref),
         icon: const Icon(Icons.add),
         label: const Text('创建新配方'),
       ),

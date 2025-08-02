@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 scripts/migration.dart
+
+# Env files
+.env

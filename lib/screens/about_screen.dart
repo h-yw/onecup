@@ -47,7 +47,7 @@ class _AboutScreenState extends State<AboutScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               // 你可以放一个 App Logo
-              FlutterLogo(size: 80,textColor: theme.primaryColor), // 替换为你的 App Logo
+              Image.asset('assets/logo/logo-white-512x512.png',width: 80,height:80,),
               const SizedBox(height: 24),
               Text(
                 'OneCup',
@@ -59,14 +59,15 @@ class _AboutScreenState extends State<AboutScreen> {
                 style: theme.textTheme.bodyMedium,
               ),
               const SizedBox(height: 24),
-              const Text(
+              Text(
                 '一款帮助您探索和调制美味鸡尾酒的应用。',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
+
+                style: theme.textTheme.bodyLarge,
               ),
               const SizedBox(height: 32),
               Text(
-                '© ${DateTime.now().year} Your Company Name', // 替换为你的公司或开发者名称
+                '© ${DateTime.now().year} Mr.Hou', // 替换为你的公司或开发者名称
                 style: theme.textTheme.bodySmall,
               ),
               // 你还可以添加链接到隐私政策、服务条款等

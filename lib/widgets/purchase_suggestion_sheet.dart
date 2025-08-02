@@ -1,35 +1,33 @@
+
 // lib/widgets/purchase_suggestion_sheet.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:onecup/common/show_top_banner.dart';
-import 'package:onecup/database/database_helper.dart';
+import 'package:onecup/models/purchase_recommendation.dart';
+import 'package:onecup/providers/cocktail_providers.dart';
 
-class PurchaseSuggestionSheet extends StatelessWidget {
-  final Future<List<Map<String, dynamic>>> recommendationsFuture;
+class PurchaseSuggestionSheet extends ConsumerWidget {
+  // 1. Update the type to be type-safe
+  final Future<List<PurchaseRecommendation>> recommendationsFuture;
 
   const PurchaseSuggestionSheet({super.key, required this.recommendationsFuture});
 
-  DatabaseHelper get _dbHelper => DatabaseHelper();
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    // [核心修复] 使用一个固定的、安全的最大高度，确保面板不会过高。
-    // 我们取屏幕高度的60%和600像素中的较小值。
     final double maxHeight = MediaQuery.of(context).size.height * 0.6;
     const double safeMaxHeight = 600.0;
 
     return Container(
-      // [核心修复] 给整个面板设置一个最大高度约束
       constraints: BoxConstraints(
         maxHeight: maxHeight < safeMaxHeight ? maxHeight : safeMaxHeight,
       ),
       padding: EdgeInsets.fromLTRB(16, 16, 16, MediaQuery.of(context).padding.bottom + 16),
       child: Column(
-        mainAxisSize: MainAxisSize.min, // 依然让Column包裹内容
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 标题部分 (保持不变)
           Row(
             children: [
               Icon(Icons.auto_awesome, color: theme.primaryColor),
@@ -47,9 +45,9 @@ class PurchaseSuggestionSheet extends StatelessWidget {
               style: theme.textTheme.bodyMedium,
             ),
           ),
-          // [核心修复] 将 FutureBuilder 包裹在 Expanded 中，让列表占用剩余空间并滚动
           Expanded(
-            child: FutureBuilder<List<Map<String, dynamic>>>(
+            // 2. Update the FutureBuilder's generic type
+            child: FutureBuilder<List<PurchaseRecommendation>>(
               future: recommendationsFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -75,14 +73,14 @@ class PurchaseSuggestionSheet extends StatelessWidget {
                 }
                 final recommendations = snapshot.data!;
 
-                // ListView 不再需要 shrinkWrap 和 physics，因为它现在有了确定的高度
                 return ListView.separated(
                   itemCount: recommendations.length,
                   separatorBuilder: (context, index) => const SizedBox(height: 8),
                   itemBuilder: (context, index) {
-                    final item = recommendations[index];
-                    final String name = item['name'];
-                    final int unlocks = item['unlocks'];
+                    // 3. Access data via properties, not string keys
+                    final recommendation = recommendations[index];
+                    final String name = recommendation.ingredientName;
+                    final int unlocks = recommendation.unlockableRecipesCount;
 
                     return ListTile(
                       shape: RoundedRectangleBorder(
@@ -114,7 +112,8 @@ class PurchaseSuggestionSheet extends StatelessWidget {
                         color: theme.primaryColor,
                         tooltip: '加入购物清单',
                         onPressed: () {
-                          _dbHelper.addToShoppingList(name);
+                          final cocktailRepo = ref.read(cocktailRepositoryProvider);
+                          cocktailRepo.addIngredientToShoppingList(recommendation.ingredientId, name);
                           showTopBanner(context, '“$name”已添加到购物清单！');
                         },
                       ),

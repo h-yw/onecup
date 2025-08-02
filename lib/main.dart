@@ -2,37 +2,48 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:onecup/database/supabase_service.dart';
-import 'package:onecup/models/receip.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:onecup/screens/my_bar_screen.dart';
 import 'package:onecup/screens/profile_screen.dart';
 import 'package:onecup/screens/recipe_detail_screen.dart';
 import 'package:onecup/screens/auth/auth_gate.dart';
 import 'package:onecup/screens/home_screen.dart';
 import 'package:onecup/screens/shopping_list_screen.dart';
-import 'package:onecup/theme/app_theme.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:app_links/app_links.dart'; // Using app_links
+import 'package:app_links/app_links.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:onecup/providers/theme_provider.dart'; // 导入主题提供者
+import 'package:onecup/repositories/cocktail_repository.dart';
+import 'package:onecup/repositories/supabase_repository.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
+final cocktailRepositoryProvider = Provider<CocktailRepository>((ref) {
+  return SupabaseRepository(Supabase.instance.client);
+});
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await dotenv.load(fileName: ".env"); // 加载 .env 文件
   await Supabase.initialize(
-    url: 'https://hwclphuicumabcijhtve.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3Y2xwaHVpY3VtYWJjaWpodHZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI5NzM3NjUsImV4cCI6MjA2ODU0OTc2NX0.VsajfU3TA52CJ4r8mwAKZUm5rr89CdKTEVAHYdeGzw4',
+    url: dotenv.env['SUPABASE_URL']!, // 从 .env 读取
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!, // 从 .env 读取
   );
-  runApp(const MyApp());
+  FlutterNativeSplash.remove();
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends ConsumerState<MyApp> {
   late AppLinks _appLinks;
   StreamSubscription<Uri>? _linkSubscription;
 
@@ -51,12 +62,10 @@ class _MyAppState extends State<MyApp> {
   Future<void> initDeepLinks() async {
     _appLinks = AppLinks();
 
-    // Handle links when the app is already running
     _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
       _navigateToRecipe(uri);
     });
 
-    // Handle the link that opened the app
     final initialUri = await _appLinks.getInitialAppLink();
     if (initialUri != null) {
       _navigateToRecipe(initialUri);
@@ -68,8 +77,8 @@ class _MyAppState extends State<MyApp> {
       final recipeId = int.tryParse(uri.pathSegments.first);
       if (recipeId != null) {
         try {
-          final supabaseService = SupabaseService();
-          final recipe = await supabaseService.getRecipeById(recipeId);
+          final cocktailRepository = ref.read(cocktailRepositoryProvider);
+          final recipe = await cocktailRepository.getRecipeById(recipeId);
           if (recipe != null && navigatorKey.currentState != null) {
             navigatorKey.currentState!.push(
               MaterialPageRoute(
@@ -86,10 +95,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(themeProvider); // 直接监听主题模式的变化
+    final ThemeData currentThemeData = ref.read(themeProvider.notifier).currentTheme; // 根据当前主题模式获取 ThemeData
+
     return MaterialApp(
       title: 'OneCup',
-      theme: AppTheme.lightTheme,
-      themeMode: ThemeMode.system,
+      theme: currentThemeData, // 使用获取到的 ThemeData
       home: const AuthGate(),
       localizationsDelegates: [
         FlutterQuillLocalizations.delegate
@@ -108,7 +119,7 @@ class MainTabsScreen extends StatefulWidget {
 }
 
 class _MainTabsScreenState extends State<MainTabsScreen> {
-  int _selectedIndex = 0;
+  
 
   static const List<Widget> _pages = <Widget>[
     HomeScreen(),

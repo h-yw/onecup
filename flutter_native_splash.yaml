@@ -1,0 +1,12 @@
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/logo/logo-white-512x512.png
+  # dark_mode_image: assets/logo/logo-dark.png # 如果有深色模式的图片，可以取消注释
+  # dark_mode_color: "#000000" # 如果有深色模式的背景色，可以取消注释
+  android: true
+
+  # android_gravity: center # 图像在 Android 上的对齐方式
+  # ios_content_mode: center # 图像在 iOS 上的对齐方式
+
+  # android_fullscreen: true # Android 全屏模式
+  # ios_content_mode: scaleAspectFit # iOS 内容模式

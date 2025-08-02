@@ -53,6 +53,9 @@ dependencies:
   palette_generator: ^0.3.3+3
   app_links: ^3.4.1 # Using the recommended replacement
   flutter_cache_manager: ^3.4.1
+  flutter_dotenv: ^5.2.1
+  dotted_border: ^3.1.0
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +71,11 @@ dev_dependencies:
   build_runner: ^2.5.4
   custom_lint: ^0.7.6
   riverpod_lint: ^2.6.5
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.6
+  
+
+flutter_launcher_icons:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -89,6 +97,8 @@ flutter:
     - assets/json/ingredients-cn.json
     - assets/json/glasses-cn.json
     - assets/json/ingredients-cn-with-abv.json # [核心] 添加这一行
+    - assets/logo/logo-white-512x512.png
+    - .env # 添加这一行
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

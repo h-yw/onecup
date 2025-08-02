@@ -1,44 +1,36 @@
 // lib/screens/recipe_detail_screen.dart
-import 'dart:convert';
+
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:onecup/common/login_prompt_dialog.dart';
 import 'package:onecup/common/show_top_banner.dart';
-import 'package:onecup/database/supabase_service.dart';
 import 'package:onecup/models/receip.dart';
+import 'package:onecup/providers/auth_provider.dart';
+import 'package:onecup/providers/cocktail_providers.dart';
 import 'package:onecup/screens/batch_calculator_screen.dart';
 import 'package:onecup/screens/edit_note_screen.dart';
 import 'package:onecup/widgets/recipe_share_card.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase/supabase.dart';
 
-import '../models/recipe_ingredient.dart';
-
-class RecipeDetailScreen extends StatefulWidget {
+class RecipeDetailScreen extends ConsumerStatefulWidget {
   final Recipe recipe;
 
   const RecipeDetailScreen({Key? key, required this.recipe}) : super(key: key);
 
   @override
-  State<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
+  ConsumerState<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
 }
 
-class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
-  final SupabaseService _dbHelper = SupabaseService();
-  late Future<List<Map<String, dynamic>>> _ingredientsFuture;
-  late Future<List<String>> _tagsFuture;
-  late Future<double?> _abvFuture;
-  late Future<String?> _noteFuture;
-
+class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
   bool _isFavorited = false;
   bool _isUserCreated = false;
-  bool _hasNote = false;
   bool _didFavoriteChange = false;
   bool _initialIsFavorited = false;
   bool _isToggleFavoriteInProgress = false;
@@ -53,38 +45,57 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   void initState() {
     super.initState();
     _isUserCreated = widget.recipe.userId != null;
-    _loadAllAsyncData();
-    _fetchInitialFavoriteStatus();
+    // 初始加载收藏状态和笔记状态
+    if (widget.recipe.id != null) {
+      _checkIfFavorited();
+      _updateCanShareStatus(); // 新增：更新分享状态
+    }
   }
 
-  void _loadAllAsyncData() {
-    if (!mounted) return;
-    if (widget.recipe.id == null) return;
-    setState(() {
-      if (!_isUserCreated) {
-        _ingredientsFuture =
-            _dbHelper.getIngredientsForRecipe(widget.recipe.id!)
-              ..then((ingredients) {
-                if (mounted && ingredients.isNotEmpty) {
-                  setState(() {
-                    _canShare = true;
-                  });
-                }
-              });
-        _tagsFuture = _dbHelper.getRecipeTags(widget.recipe.id!);
-        _abvFuture = _dbHelper.getRecipeABV(widget.recipe.id!);
-      }
-      if (_dbHelper.currentUser != null) {
-        _checkIfFavorited();
-        _loadNoteStatus();
-      }
-    });
+  void _updateCanShareStatus() {
+    debugPrint('[_updateCanShareStatus] Called for recipe ID: ${widget.recipe.id}');
+    if (widget.recipe.id == null) {
+      debugPrint('[_updateCanShareStatus] recipe.id is null, returning.');
+      return;
+    }
+
+    if (_isUserCreated) {
+      final newCanShare = widget.recipe.instructions != null && widget.recipe.instructions!.isNotEmpty;
+      debugPrint('[_updateCanShareStatus] User created recipe. _canShare will be: $newCanShare');
+      setState(() {
+        _canShare = newCanShare;
+      });
+    } else {
+      // For non-user-created recipes, determine initial _canShare based on ingredients
+      final initialIngredientsAsyncValue = ref.read(recipeIngredientsProvider(widget.recipe.id!));
+      debugPrint('[_updateCanShareStatus] Non-user created recipe. Initial ingredients async value: $initialIngredientsAsyncValue');
+
+      // Set initial _canShare state
+      final initialCanShare = initialIngredientsAsyncValue.hasValue && initialIngredientsAsyncValue.value != null && initialIngredientsAsyncValue.value!.isNotEmpty;
+      debugPrint('[_updateCanShareStatus] Initial _canShare based on ingredients: $initialCanShare');
+      setState(() {
+        _canShare = initialCanShare;
+      });
+
+      // Listen for subsequent changes
+      ref.listenManual(recipeIngredientsProvider(widget.recipe.id!), (previous, next) {
+        debugPrint('[_updateCanShareStatus] Listener triggered for recipeIngredientsProvider. Previous: $previous, Next: $next');
+        final newCanShare = next.hasValue && next.value != null && next.value!.isNotEmpty;
+        debugPrint('[_updateCanShareStatus] Listener calculated newCanShare: $newCanShare. Current _canShare: $_canShare');
+        if (_canShare != newCanShare) { // Only update if the state actually changes
+          setState(() {
+            _canShare = newCanShare;
+            debugPrint('[_updateCanShareStatus] _canShare updated to: $_canShare');
+          });
+        }
+      });
+    }
   }
 
   void _checkIfFavorited() async {
-    if (_dbHelper.currentUser == null) return;
+    if (ref.read(currentUserProvider) == null) return;
     if (widget.recipe.id == null) return;
-    final isFav = await _dbHelper.isRecipeFavorite(widget.recipe.id!);
+    final isFav = await ref.read(cocktailRepositoryProvider).isRecipeFavorite(widget.recipe.id!);
     if (mounted) {
       setState(() {
         _isFavorited = isFav;
@@ -92,33 +103,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     }
   }
 
-  void _loadNoteStatus() async {
-    if (_dbHelper.currentUser == null) return;
-    if (widget.recipe.id == null) return;
-    _noteFuture = _dbHelper.getRecipeNote(widget.recipe.id!);
-    final noteContent = await _noteFuture;
-    if (mounted) {
-      setState(() {
-        _hasNote =
-            noteContent != null &&
-            noteContent.isNotEmpty &&
-            noteContent != '[]';
-      });
-    }
-  }
-
-  void _fetchInitialFavoriteStatus() async {
-    if (mounted) {
-      setState(() {
-        _initialIsFavorited = _isFavorited; // 在 _isFavorited 初始化后记录初始状态
-        _didFavoriteChange = false; // 初始时，当然没有变化
-      });
-    }
-  }
-
-  // 统一的乐观更新逻辑
   void _toggleFavorite() async {
-    if (_dbHelper.currentUser == null) {
+    if (ref.read(currentUserProvider) == null) {
       showLoginPromptDialog(context);
       return;
     }
@@ -126,51 +112,46 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     setState(() {
       _isToggleFavoriteInProgress = true;
     });
-    // 当前的 _isFavorited 值
     final currentFavoritedStateBeforeToggle = _isFavorited;
-    // 乐观更新
     setState(() {
       _isFavorited = !currentFavoritedStateBeforeToggle;
-      // _didFavoriteChange 在操作完成后根据 _initialIsFavorited 更新
     });
-    // 在后台执行数据库操作
     try {
       if (widget.recipe.id == null) {
         return;
       }
+      final cocktailRepository = ref.read(cocktailRepositoryProvider);
       if (currentFavoritedStateBeforeToggle) {
-        // 如果之前是已收藏，则执行移除操作
-        await _dbHelper.removeRecipeFromFavorites(widget.recipe.id!);
-        // 为成功操作提供一个可选的、非阻塞的提示
+        await cocktailRepository.removeRecipeFromFavorites(widget.recipe.id!);
         if (mounted) showTopBanner(context, '已取消收藏');
       } else {
-        // 如果之前是未收藏，则执行添加操作
-        await _dbHelper.addRecipeToFavorites(widget.recipe.id!);
+        await cocktailRepository.addRecipeToFavorites(widget.recipe.id!);
         if (mounted) showTopBanner(context, '已添加到收藏');
       }
+      // 收藏状态改变后，刷新推荐列表
+      ref.invalidate(flavorBasedRecommendationsProvider);
+      // 新增：让收藏列表和收藏数量的 Provider 失效，以通知其他页面刷新
+      ref.invalidate(favoriteRecipesProvider);
+      ref.invalidate(favoritesCountProvider);
     } catch (e) {
       if (mounted) {
         showTopBanner(context, '操作失败，请重试', isError: true);
         if (e is PostgrestException &&
             e.code == '23505' &&
             !currentFavoritedStateBeforeToggle) {
-          // 尝试添加时遇到重复键，说明已存在
           setState(() {
-            _isFavorited = true; // 同步为已收藏
+            _isFavorited = true;
           });
           showTopBanner(context, '已在您的收藏中');
         } else {
-          // 其他错误，回滚到操作前的状态
           setState(() {
             _isFavorited = currentFavoritedStateBeforeToggle;
           });
         }
       }
-    } finally {
-      if (mounted) {
+    } finally {      if (mounted) {
         setState(() {
           _isToggleFavoriteInProgress = false;
-          // 关键：在所有操作完成后，根据初始状态决定 _didFavoriteChange
           _didFavoriteChange = (_isFavorited != _initialIsFavorited);
         });
       }
@@ -178,7 +159,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   }
 
   void _addAllIngredientsToShoppingList() async {
-    if (_dbHelper.currentUser == null) {
+    if (ref.read(currentUserProvider) == null) {
       showLoginPromptDialog(context);
       return;
     }
@@ -190,12 +171,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       if (widget.recipe.id == null) {
         return;
       }
-      await _dbHelper.addRecipeIngredientsToShoppingList(widget.recipe.id!);
+      await ref.read(cocktailRepositoryProvider).addRecipeIngredientsToShoppingList(widget.recipe.id!);
       if (mounted) {
         showTopBanner(context, '“${widget.recipe.name}”的全部配料已添加到购物清单！');
+        ref.invalidate(shoppingListProvider); // 刷新购物清单
       }
     } catch (e) {
-      // 可以在这里处理特定的错误，或者显示一个通用的错误提示
       if (mounted) {
         showTopBanner(context, '添加到购物清单失败，请稍后重试。', isError: true);
         if (kDebugMode) {
@@ -212,11 +193,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   }
 
   void _navigateToEditNote() async {
-    if (_dbHelper.currentUser == null) {
+    if (ref.read(currentUserProvider) == null) {
       showLoginPromptDialog(context);
       return;
     }
-    final currentNote = await _noteFuture;
+    final currentNoteAsyncValue = ref.read(recipeNoteProvider(widget.recipe.id!));
+    final currentNote = currentNoteAsyncValue.value;
     if (widget.recipe.id == null) {
       return;
     }
@@ -232,7 +214,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     );
 
     if (result == true && mounted) {
-      _loadNoteStatus();
+      ref.invalidate(recipeNoteProvider(widget.recipe.id!)); // 刷新笔记状态
+      ref.invalidate(notesCountProvider); // 刷新笔记总数
+      ref.invalidate(recipesWithNotesProvider); // 刷新带笔记的食谱列表
     }
   }
 
@@ -246,20 +230,18 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     try {
       List<Map<String, dynamic>> ingredientsList;
 
-      // 关键修复：根据配方类型，使用不同的方式获取配料
       if (_isUserCreated) {
         final ingredientsString = _parseUserIngredients(
           widget.recipe.instructions,
         );
-        // 将解析出的字符串转换为分享卡片期望的 List<Map> 格式
         ingredientsList = ingredientsString
             .split('\n')
             .where((line) => line.trim().isNotEmpty)
             .map((line) => {'name': line.trim(), 'amount': '', 'unit': ''})
             .toList();
       } else {
-        // 对于标准配方，等待异步加载
-        ingredientsList = await _ingredientsFuture;
+        final ingredientsAsyncValue = ref.read(recipeIngredientsProvider(widget.recipe.id!));
+        ingredientsList = ingredientsAsyncValue.value ?? [];
       }
 
       final recipeMap = widget.recipe.toMap();
@@ -268,10 +250,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         _shareableRecipeData = recipeMap;
       });
 
-      // 等待UI渲染完成，并给调色板生成器留出时间
       await Future.delayed(const Duration(milliseconds: 500));
 
-      // 执行截图
       RenderRepaintBoundary boundary =
           _shareBoundaryKey.currentContext!.findRenderObject()
               as RenderRepaintBoundary;
@@ -363,13 +343,21 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                               tooltip: '分享配方',
                               onPressed: _shareRecipeAsImage,
                             ),
-                    IconButton(
-                      icon: Icon(
-                        _hasNote ? Icons.speaker_notes : Icons.notes_outlined,
-                      ),
-                      tooltip: _hasNote ? '查看/编辑笔记' : '添加笔记',
-                      onPressed: _navigateToEditNote,
-                    ),
+                    Consumer(builder: (context, ref, child) {
+                      final noteAsync = ref.watch(recipeNoteProvider(widget.recipe.id!));
+                      final hasNote = noteAsync.when(
+                        data: (note) => note != null && note.isNotEmpty && note != '[]',
+                        loading: () => false,
+                        error: (_, __) => false,
+                      );
+                      return IconButton(
+                        icon: Icon(
+                          hasNote ? Icons.speaker_notes : Icons.notes_outlined,
+                        ),
+                        tooltip: hasNote ? '查看/编辑笔记' : '添加笔记',
+                        onPressed: _navigateToEditNote,
+                      );
+                    }),
                     IconButton(
                       icon: Icon(
                         _isFavorited ? Icons.favorite : Icons.favorite_border,
@@ -384,11 +372,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                         icon: const Icon(Icons.calculate_outlined),
                         tooltip: '批量制作',
                         onPressed: () async {
-                          final ingredientsList = await _ingredientsFuture;
+                          final ingredientsAsyncValue = ref.read(recipeIngredientsProvider(widget.recipe.id!));
+                          final ingredientsList = ingredientsAsyncValue.value;
                           final Map<String,dynamic> map = Map.from(widget.recipe.toMap());
                           map['ingredients'] = ingredientsList;
                           var recipe =Recipe.fromMap(map);
-                          print("map====>$map");
+                          debugPrint("map====>$map");
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -443,10 +432,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 ),
               ],
             ),
-            // 这个 RepaintBoundary 用于截图，它在屏幕外渲染
             if (_isSharing && _shareableRecipeData != null)
               Positioned(
-                top: -10000, // 移出屏幕外
+                top: -10000,
                 left: 0,
                 child: RepaintBoundary(
                   key: _shareBoundaryKey,
@@ -459,7 +447,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     );
   }
 
-  // ... 其他所有 _build... 辅助方法保持不变 ...
   Widget _buildMakingProcessCard(ThemeData theme) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -475,21 +462,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   }
 
   Widget _buildStandardProcess(ThemeData theme) {
-    return FutureBuilder<List<Map<String, dynamic>>>(
-      future: _ingredientsFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (snapshot.hasError) {
-          // 添加错误处理
-          return Center(child: Text('加载配料失败: ${snapshot.error}'));
-        }
-        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+    final ingredientsAsyncValue = ref.watch(recipeIngredientsProvider(widget.recipe.id!));
+    return ingredientsAsyncValue.when(
+      data: (ingredients) {
+        if (ingredients.isEmpty) {
           return const Text('暂无配方信息。');
         }
-
-        final ingredients = snapshot.data!;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -508,20 +486,19 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     : _addAllIngredientsToShoppingList,
                 icon: _isAddingToShoppingList
                     ? SizedBox(
-                        // 使用 Container 来约束加载指示器的大小
-                        width: 18, // 与原始图标大小相似
+                        width: 18,
                         height: 18,
                         child: CircularProgressIndicator(
-                          strokeWidth: 2.0, // 可以调整线条粗细
+                          strokeWidth: 2.0,
                           valueColor: AlwaysStoppedAnimation<Color>(
                             theme.primaryColor,
-                          ), // 与主题颜色一致
+                          ),
                         ),
                       )
                     : const Icon(Icons.add_shopping_cart_outlined, size: 18),
                 label: const Text('全部加入购物清单'),
                 style: TextButton.styleFrom(
-                  disabledForegroundColor: Colors.grey.withValues(alpha: 0.5),
+                  disabledForegroundColor: Colors.grey.withOpacity(0.5),
                   foregroundColor: theme.primaryColor,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -548,6 +525,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           ],
         );
       },
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stackTrace) => Center(child: Text('加载配料失败: $error')),
     );
   }
 
@@ -651,20 +630,24 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
             widget.recipe.glass ?? '鸡尾酒杯',
           ),
           if (!_isUserCreated)
-            FutureBuilder<double?>(
-              future: _abvFuture,
-              builder: (context, snapshot) {
-                if (!snapshot.hasData || snapshot.data == null) {
-                  return const Expanded(child: SizedBox.shrink());
-                }
-                return _buildMetadataItem(
-                  theme,
-                  Icons.whatshot_outlined,
-                  '酒精度',
-                  '${snapshot.data!.toStringAsFixed(1)}%',
-                );
-              },
-            ),
+            Consumer(builder: (context, watch, child) {
+              final abvAsyncValue = watch.watch(recipeAbvProvider(widget.recipe.id!));
+              return abvAsyncValue.when(
+                data: (abv) {
+                  if (abv == null) {
+                    return const Expanded(child: SizedBox.shrink());
+                  }
+                  return _buildMetadataItem(
+                    theme,
+                    Icons.whatshot_outlined,
+                    '酒精度',
+                    '${abv.toStringAsFixed(1)}%',
+                  );
+                },
+                loading: () => const Expanded(child: Center(child: SizedBox(width: 24, height: 24, child: CircularProgressIndicator(strokeWidth: 2)))),
+                error: (error, stackTrace) => const Expanded(child: SizedBox.shrink()),
+              );
+            }),
         ],
       ),
     );
@@ -781,15 +764,14 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   }
 
   Widget _buildTagsList(ThemeData theme) {
-    return FutureBuilder<List<String>>(
-      future: _tagsFuture,
-      builder: (context, snapshot) {
-        if (!snapshot.hasData || snapshot.data!.isEmpty)
-          return Text('暂无', style: theme.textTheme.bodyMedium);
+    final tagsAsyncValue = ref.watch(recipeTagsProvider(widget.recipe.id!));
+    return tagsAsyncValue.when(
+      data: (tags) {
+        if (tags.isEmpty) return Text('暂无', style: theme.textTheme.bodyMedium);
         return Wrap(
           spacing: 8.0,
           runSpacing: 8.0,
-          children: snapshot.data!
+          children: tags
               .map(
                 (tag) => Chip(
                   label: Text(tag),
@@ -810,6 +792,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               .toList(),
         );
       },
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stackTrace) => Text('加载标签失败: $error', style: theme.textTheme.bodyMedium),
     );
   }
 }

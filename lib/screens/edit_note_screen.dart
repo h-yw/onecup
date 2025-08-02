@@ -3,11 +3,13 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:onecup/common/show_top_banner.dart';
 import 'package:onecup/database/supabase_service.dart';
+import 'package:onecup/providers/cocktail_providers.dart';
 
-class EditNoteScreen extends StatefulWidget {
+class EditNoteScreen extends ConsumerStatefulWidget {
   final int recipeId;
   final String recipeName;
   final String? initialNote;
@@ -20,10 +22,10 @@ class EditNoteScreen extends StatefulWidget {
   });
 
   @override
-  State<EditNoteScreen> createState() => _EditNoteScreenState();
+  ConsumerState<EditNoteScreen> createState() => _EditNoteScreenState();
 }
 
-class _EditNoteScreenState extends State<EditNoteScreen> {
+class _EditNoteScreenState extends ConsumerState<EditNoteScreen> {
   late QuillController _controller;
   final _dbHelper = SupabaseService();
   bool _isSaving = false;
@@ -66,14 +68,15 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
     final noteJson = jsonEncode(_controller.document.toDelta().toJson());
 
     try {
+      final cocktailRepository = ref.read(cocktailRepositoryProvider);
       if (_controller.document.isEmpty()) {
-        await _dbHelper.deleteRecipeNote(widget.recipeId);
+        await cocktailRepository.deleteRecipeNote(widget.recipeId);
         if (mounted) {
           showTopBanner(context, '笔记已删除');
           Navigator.pop(context, true);
         }
       } else {
-        await _dbHelper.saveRecipeNote(widget.recipeId, noteJson);
+        await cocktailRepository.saveRecipeNote(widget.recipeId, noteJson);
         if (mounted) {
           showTopBanner(context, '笔记已保存');
           Navigator.pop(context, true);

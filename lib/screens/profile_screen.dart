@@ -1,59 +1,46 @@
-// lib/screens/profile_screen.dart
-
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:ui';
-import 'package:onecup/common/show_top_banner.dart';
-import 'package:onecup/database/supabase_service.dart';
-import 'package:onecup/screens/abv_calculator_screen.dart';
-import 'package:onecup/screens/auth/auth_screen.dart';
-import 'package:onecup/screens/batch_calculator_screen.dart';
-import 'package:onecup/screens/my_creations_screen.dart';
-import 'package:onecup/screens/my_favorites_screen.dart';
-import 'package:onecup/screens/my_notes_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:onecup/screens/settings_screen.dart';
-import 'package:onecup/widgets/profile_stat_card.dart';
-import 'package:onecup/screens/create_recipe_screen.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:onecup/screens/syrup_calculator_screen.dart';
+import 'package:supabase/supabase.dart';
 
-class ProfileScreen extends StatefulWidget {
+import '../common/show_top_banner.dart';
+import '../providers/auth_provider.dart';
+import '../providers/cocktail_providers.dart';
+import '../widgets/app_error_widget.dart';
+import '../widgets/app_loading_indicator.dart';
+import '../widgets/common_list_tile.dart';
+import '../widgets/profile_animated_header.dart';
+import '../widgets/profile_stat_card.dart';
+import 'abv_calculator_screen.dart';
+import 'auth/auth_screen.dart';
+import 'batch_calculator_screen.dart';
+import 'my_creations_screen.dart';
+import 'my_favorites_screen.dart';
+import 'my_notes_screen.dart';
+
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authStateChangesProvider);
 
-class _ProfileScreenState extends State<ProfileScreen> {
-  final SupabaseService _dbHelper = SupabaseService();
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // 使用 StreamBuilder 监听登录状态
-    return StreamBuilder<AuthState>(
-      stream: _dbHelper.authStateChanges,
-      builder: (context, snapshot) {
-        final session = snapshot.data?.session;
-        final user = session?.user;
+    return authState.when(
+      data: (state) {
+        final user = state.session?.user;
         if (user != null) {
-          // 如果已登录，显示完整的个人资料页面
-          return _buildLoggedInProfile(context, user);
+          return _buildLoggedInProfile(context, ref, user);
         } else {
-          // 如果是游客，显示游客专用的登录提示页面
           return _buildGuestProfile(context);
         }
       },
+      loading: () => const Scaffold(body: AppLoadingIndicator()),
+      error: (err, stack) => Scaffold(body: AppErrorWidget(error: err, stackTrace: stack)),
     );
   }
 
-  // --- 游客视图 ---
   Widget _buildGuestProfile(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
@@ -98,33 +85,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  // --- 登录用户视图 (大部分是您之前的代码) ---
-  Widget _buildLoggedInProfile(BuildContext context, User user) {
-    // 将状态加载逻辑移到这里，确保只在登录后执行
-    final Future<int> favoritesCountFuture = _dbHelper.getFavoritesCount();
-    final Future<int> creationsCountFuture = _dbHelper.getCreationsCount();
-    final Future<int> notesCountFuture = _dbHelper.getNotesCount();
-
-    // 在 State 中重新加载统计数据
-    void reloadStats() {
-      setState(() {
-        // 这个 setState 只是为了触发 FutureBuilder 重建
-      });
-    }
-
-    // 导航并刷新的辅助函数
+  Widget _buildLoggedInProfile(BuildContext context, WidgetRef ref, User user) {
     void navigateAndReload(Widget page) async {
       await Navigator.push(context, MaterialPageRoute(builder: (context) => page));
-      reloadStats();
+      // No longer need to invalidate here, the source of truth will do it.
     }
 
-    // 登出方法
     Future<void> signOut() async {
       try {
-        await _dbHelper.signOut();
-        // 因为 StreamBuilder 在监听，UI会自动切换到游客视图
+        await ref.read(authRepositoryProvider).signOut();
       } catch (e) {
-        if (mounted) {
+        if (context.mounted) {
           showTopBanner(context, '登出失败: $e', isError: true);
         }
       }
@@ -135,9 +106,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final double collapsedHeight = kToolbarHeight;
     const double expandedHeight = 220.0 - 80;
 
-    // 从 userMetadata 获取昵称和头像 URL
-    final String? nickname = _dbHelper.getUserNickname(user);
-    final String? avatarUrl = _dbHelper.getAvatarUrl(user);
+    final authRepository = ref.read(authRepositoryProvider);
+    final String? nickname = authRepository.getUserNickname(user);
+    final String? avatarUrl = authRepository.getAvatarUrl(user);
     final String displayName = nickname ?? user.email?.split('@').first ?? '用户';
 
     return Scaffold(
@@ -152,24 +123,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               builder: (BuildContext context, BoxConstraints constraints) {
                 final double currentHeight = constraints.maxHeight;
                 final double scrollProgress = ((currentHeight - collapsedHeight - topPadding) / (expandedHeight - collapsedHeight - topPadding)).clamp(0.0, 1.0);
-                final baseExpandedStyle = theme.textTheme.headlineSmall ?? const TextStyle();
-                final baseCollapsedStyle = theme.appBarTheme.titleTextStyle ?? const TextStyle();
-                final expandedStyle = baseExpandedStyle.copyWith(inherit: false);
-                final collapsedStyle = baseCollapsedStyle.copyWith(inherit: false);
-                final userEmail = user.email ?? '已登录用户';
-                final userSignature = '祝你调酒愉快！';
-
-                return _buildAnimatedHeader(
-                  context: context, // 传递 context
-                  theme: theme,
+                
+                return ProfileAnimatedHeader(
                   scrollProgress: scrollProgress,
-                  expandedStyle: expandedStyle,
-                  collapsedStyle: collapsedStyle,
-                  user: user, // 传递整个 User 对象
+                  user: user,
                   displayName: displayName,
                   avatarUrl: avatarUrl,
                 );
-                // return _buildAnimatedHeader(theme, scrollProgress, expandedStyle, collapsedStyle, userEmail, userSignature);
               },
             ),
           ),
@@ -179,16 +139,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildStatsSection(favoritesCountFuture, creationsCountFuture, notesCountFuture, navigateAndReload),
+                  _buildStatsSection(ref, navigateAndReload),
                   const SizedBox(height: 24),
                   _buildSectionTitle(theme, '我的内容'),
-                  _buildContentManagementList(theme, navigateAndReload),
+                  _buildContentManagementList(context,theme, navigateAndReload),
                   const SizedBox(height: 24),
                   _buildSectionTitle(theme, '专业工具箱'),
-                  _buildProToolsList(),
+                  _buildProToolsList(context),
                   const SizedBox(height: 24),
                   _buildSectionTitle(theme, '应用'),
-                  _buildAppSettingsList(signOut), // 传入登出方法
+                  _buildAppSettingsList(context, signOut),
                 ],
               ),
             ),
@@ -198,254 +158,151 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  // 其他所有 _build... 辅助方法保持不变 (仅需接收所需参数)
-  Widget _buildStatsSection(
-      Future<int> favoritesFuture, Future<int> creationsFuture, Future<int> notesFuture, Function(Widget) navigateAndReload) {
+  Widget _buildStatsSection(WidgetRef ref, void Function(Widget) navigateAndReload) {
+    final favoritesCount = ref.watch(favoritesCountProvider);
+    final creationsCount = ref.watch(creationsCountProvider);
+    final notesCount = ref.watch(notesCountProvider);
+
     return Row(
       children: [
-        _buildStatFutureCard(
+        _buildStatCard(
           icon: Icons.favorite_border,
           label: '我的收藏',
-          future: favoritesFuture,
+          asyncValue: favoritesCount,
           onTap: () => navigateAndReload(const MyFavoritesScreen()),
         ),
         const SizedBox(width: 12),
-        _buildStatFutureCard(
+        _buildStatCard(
           icon: Icons.edit_note_outlined,
           label: '我的创作',
-          future: creationsFuture,
+          asyncValue: creationsCount,
           onTap: () => navigateAndReload(const MyCreationsScreen()),
         ),
         const SizedBox(width: 12),
-        _buildStatFutureCard(
+        _buildStatCard(
           icon: Icons.notes_outlined,
           label: '我的笔记',
-          future: notesFuture,
+          asyncValue: notesCount,
           onTap: () => navigateAndReload(const MyNotesScreen()),
         ),
       ],
     );
   }
 
-  Widget _buildStatFutureCard({
+  Widget _buildStatCard({
     required IconData icon,
     required String label,
-    required Future<int> future,
+    required AsyncValue<int> asyncValue,
     required VoidCallback onTap,
   }) {
-    return FutureBuilder<int>(
-      future: future,
-      builder: (context, snapshot) {
-        final count = snapshot.connectionState == ConnectionState.done && snapshot.hasData
-            ? snapshot.data!.toString()
-            : '-';
-        return ProfileStatCard(
+    return Expanded(
+      child: asyncValue.when(
+        data: (count) => ProfileStatCard(
           icon: icon,
           label: label,
-          count: count,
+          count: count.toString(),
           onTap: onTap,
-        );
-      },
+        ),
+        loading: () => ProfileStatCard(
+          icon: icon,
+          label: label,
+          count: '-',
+          onTap: onTap,
+        ),
+        error: (err, stack) => ProfileStatCard(
+          icon: icon,
+          label: label,
+          count: '!',
+          onTap: onTap,
+        ),
+      ),
     );
   }
 
-  Widget _buildContentManagementList(ThemeData theme, Function(Widget) navigateAndReload) {
+  Widget _buildContentManagementList(BuildContext context, ThemeData theme, void Function(Widget) navigateAndReload) {
     return Card(
       margin: EdgeInsets.zero,
       child: Column(
         children: [
-          _buildListTile(
+          CommonListTile(
             icon: Icons.favorite_border,
             title: '我的收藏',
             onTap: () => navigateAndReload(const MyFavoritesScreen()),
           ),
-          _buildListTile(
+          CommonListTile(
             icon: Icons.edit_note_outlined,
             title: '我的创作',
             onTap: () => navigateAndReload(const MyCreationsScreen()),
           ),
-          _buildListTile(
+          CommonListTile(
             icon: Icons.notes_outlined,
             title: '我的笔记',
             onTap: () => navigateAndReload(const MyNotesScreen()),
           ),
-          Divider(height: 1, indent: 16, endIndent: 16,color: Colors.grey[200],),
-          /*ListTile(
-            leading: Icon(Icons.add_circle_outline, color: theme.primaryColor),
-            title: Text(
-              '创建新配方',
-              style: TextStyle(fontSize: 16, color: theme.primaryColor, fontWeight: FontWeight.bold),
-            ),
-            onTap: () async {
-              await Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateRecipeScreen()));
-              setState((){});
-            },
-          ),*/
         ],
       ),
     );
   }
 
-  Widget _buildAnimatedHeader({
-    required BuildContext context, // 新增
-    required ThemeData theme,
-    required double scrollProgress,
-    required TextStyle expandedStyle,
-    required TextStyle collapsedStyle,
-    required User user, // 接收 User 对象
-    required String displayName,
-    required String? avatarUrl,
-  }) {
-    final double avatarStartSize = 80.0;
-    final double avatarEndSize = 36.0;
-    final double avatarStartTop = 40.0; // 调整起始位置
-    final double avatarEndTop = MediaQuery.of(context).padding.top + (kToolbarHeight - avatarEndSize) / 2;
-    final double avatarStartLeft = (MediaQuery.of(context).size.width - avatarStartSize) / 2;
-    final double avatarEndLeft = 16.0;
-
-    final double titleStartTop = avatarStartTop + avatarStartSize + 8;
-    final double titleEndTop = MediaQuery.of(context).padding.top;
-    final double titleStartLeft = 0; // 居中
-    final double titleEndLeft = avatarEndLeft + avatarEndSize + 12;
-
-    final double editIconOpacity = scrollProgress; // 编辑按钮只在展开时明显可见
-
-    final double currentAvatarSize = lerpDouble(avatarStartSize, avatarEndSize, 1 - scrollProgress)!;
-    final double currentAvatarTop = lerpDouble(avatarStartTop, avatarEndTop, 1 - scrollProgress)!;
-    final double currentAvatarLeft = lerpDouble(avatarStartLeft, avatarEndLeft, 1 - scrollProgress)!;
-    final double currentTitleTop = lerpDouble(titleStartTop, titleEndTop, 1 - scrollProgress)!;
-    final double currentTitleLeft = lerpDouble(titleStartLeft, titleEndLeft, 1 - scrollProgress)!;
-    final double currentTitleContainerWidth = lerpDouble(MediaQuery.of(context).size.width, MediaQuery.of(context).size.width - titleEndLeft - 16, 1 - scrollProgress)!;
-
-
-    Widget avatarWidget;
-    if (avatarUrl != null && avatarUrl.isNotEmpty) {
-      avatarWidget = CircleAvatar(
-        radius: currentAvatarSize / 2,
-        backgroundImage: NetworkImage(avatarUrl),
-        backgroundColor: theme.primaryColor.withOpacity(0.1),
-      );
-    } else {
-      avatarWidget = CircleAvatar(
-        radius: currentAvatarSize / 2,
-        backgroundColor: theme.primaryColor.withOpacity(0.1),
-        child: Icon(Icons.person_outline, size: currentAvatarSize * 0.5, color: theme.primaryColor),
-      );
-    }
-
-    return Stack(
-      children: [
-        // 头像
-        Positioned(
-          top: currentAvatarTop,
-          left: currentAvatarLeft,
-          child:  avatarWidget,
-        ),
-
-        // 用户名和编辑按钮
-        Positioned(
-          top: currentTitleTop,
-          left: currentTitleLeft,
-          width: currentTitleContainerWidth,
-          height: kToolbarHeight, // 保持与 AppBar 标题区域同高
-          child: Row(
-            mainAxisAlignment: scrollProgress > 0.5 ? MainAxisAlignment.center : MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center, // 垂直居中
-            children: [
-              Flexible( // 确保文本不会溢出
-                child: Text(
-                  displayName,
-                  style: TextStyle.lerp(expandedStyle, collapsedStyle, 1 - scrollProgress),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        // 签名 (如果需要，之前的逻辑)
-        // Positioned(
-        //   top: signatureStartTop,
-        //   left: 0,
-        //   right: 0,
-        //   child: Opacity(
-        //     opacity: signatureOpacity,
-        //     child: Text(
-        //       userSignature,
-        //       textAlign: TextAlign.center,
-        //       style: theme.textTheme.bodyMedium,
-        //     ),
-        //   ),
-        // ),
-      ],
-    );
-  }
-  Widget _buildProToolsList() {
+  Widget _buildProToolsList(BuildContext context) {
     return Card(
       margin: EdgeInsets.zero,
       child: Column(
         children: [
-          _buildListTile(
+          CommonListTile(
             icon: Icons.science_outlined,
             title: 'ABV 计算器',
             onTap: () => {
-            //   AbvCalculatorScreen
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const AbvCalculatorScreen()),
               )
             },
           ),
-          _buildListTile(
+          CommonListTile(
             icon: Icons.calculate_outlined,
             title: '批量计算器',
             onTap: () => {
-
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const BatchCalculatorScreen()),
               )
             },
           ),
-          _buildListTile(
+          CommonListTile(
             icon: Icons.water_drop_outlined,
             title: '糖浆计算器',
-            onTap: () => showTopBanner(context, '糖浆计算器正在开发中，敬请期待！'),
+            onTap: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SyrupCalculatorScreen()),
+              )
+            },
           ),
         ],
       ),
     );
   }
 
-  Widget _buildListTile({ required IconData icon, required String title, required VoidCallback onTap, Color? color}) {
-    final theme = Theme.of(context);
-    return ListTile(
-      leading: Icon(icon, color: color ?? theme.primaryColor),
-      title: Text(title, style: TextStyle(fontSize: 16, color: color)),
-      trailing: color == null ? const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey) : null,
-      onTap: onTap,
-    );
-  }
   Widget _buildSectionTitle(ThemeData theme, String title) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(
         title,
         style: theme.textTheme.bodyLarge?.copyWith(
-          color: theme.textTheme.bodySmall?.color,
+          color: theme.colorScheme.onSurface,
           fontWeight: FontWeight.bold,
         ),
       ),
     );
   }
 
-  Widget _buildAppSettingsList(VoidCallback onSignOut) {
-    final theme = Theme.of(context);
+  Widget _buildAppSettingsList(BuildContext context, VoidCallback onSignOut) {
     return Card(
       margin: EdgeInsets.zero,
       child: Column(
         children: [
-          _buildListTile(
+          CommonListTile(
             icon: Icons.settings_outlined,
             title: '设置',
             onTap: () =>
@@ -454,11 +311,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 context,
                 MaterialPageRoute(builder: (context) => const SettingsScreen()),
               ).then((_) {
-                // 当从 SettingsScreen (或其子页面如 EditProfileScreen) 返回时，
-                // authStateChanges stream 应该会处理用户数据的更新。
-                // 如果有其他需要在 ProfileScreen 上立即刷新的数据，可以在这里处理。
-                // 例如，如果 EditProfileScreen 改变了用户数据，StreamBuilder 应该会自动重建。
-                setState(() {}); // 强制重建以获取最新的 user metadata (如果 stream 不够快)
+                // No need to call setState in a stateless widget
               })
             },
           )
@@ -466,5 +319,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-
 }

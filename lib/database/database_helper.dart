@@ -1,6 +1,7 @@
 // lib/database/database_helper.dart
 
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:onecup/models/receip.dart';
 import 'package:sqflite/sqflite.dart';
@@ -213,7 +214,7 @@ class DatabaseHelper {
       LIMIT ?
     ''', [
       ...favoriteTagIds,
-      ...tasteProfile.entries.expand((e) => [e.key, e.value]).toList(),
+      ...tasteProfile.entries.expand((e) => [e.key, e.value]),
       userId,
       limit
     ]);
@@ -260,7 +261,9 @@ class DatabaseHelper {
         final num? abv = entry.value['abv'];
         final List<dynamic> aliases = entry.value['aliases'] ?? [];
 
-        if (taste != null) tasteSet.add(taste);
+        if (taste != null) {
+          tasteSet.add(taste);
+        }
 
         // 检查核心配料是否已存在
         var result = await txn.query('Ingredients', where: 'name = ?', whereArgs: [ingredientName]);
@@ -336,9 +339,11 @@ class DatabaseHelper {
             // ↑↑↑ 核心变更 3：在插入时增加 display_name 字段 ↑↑↑
 
             final taste = idToTasteMap[ingredientId];
-            if (taste != null) recipeTags.add(taste);
+            if (taste != null) {
+              recipeTags.add(taste);
+            }
           } else {
-            print('Warning: Could not match ingredient: "$rawIngredientName" for recipe "${cocktail['title']}"');
+            debugPrint('Warning: Could not match ingredient: "$rawIngredientName" for recipe "${cocktail['title']}"');
           }
         }
 
